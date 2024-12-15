@@ -101,4 +101,4 @@ Google Maps APIを使う予定です。
 ### その月の旬のパフェをトップページで告知するには、データベースに月ごとに旬のパフェの情報を登録しておき、コントローラで取得します。
 
 ## ■ 画面遷移図
-https://www.figma.com/design/l1S8dKykULTLfMqENK0VC6/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=gZk2otBEiU4lCPUw-1
+https://www.figma.com/design/l1S8dKykULTLfMqENK0VC6/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=6w952Recp4f6G5t5-1
