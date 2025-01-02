@@ -1,0 +1,40 @@
+<header>
+  <nav class='navbar navbar-expand-lg navigation navbar-light bg-light'>
+    <%= link_to '/', class: 'navbar-brand' do %>
+      <h1>パフェコレ</h1>
+    <% end %>
+    <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
+      aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+      <span class='navbar-toggler-icon'></span>
+    </button>
+
+    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+      <ul class='navbar-nav ms-auto main-nav align-items-center'>
+        <li class='nav-item'>
+          <%= link_to '口コミから探す', '#', class: 'nav-link' %>
+        </li>
+
+        <li class='nav-item'>
+          <%= link_to '店舗から探す', '#', class: 'nav-link' %>
+        </li>
+
+        <li class='nav-item'>
+          <%= link_to '商品から探す', '#', class: 'nav-link' %>
+        </li>
+
+        <li class='nav-item'>
+          <%= link_to 'ランキング', '#', class: 'nav-link' %>
+        </li>
+
+        <li class='nav-item'>
+          <%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %>
+        </li>
+
+        <li class='nav-item'>
+          <%= link_to 'ユーザー登録', new_user_registration_path, class: 'nav-link' %>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</header>
