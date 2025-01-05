@@ -4,7 +4,7 @@ class Shop < ApplicationRecord
   has_many :shop_payments
   has_many :payments, through: :shop_payments
   has_many :shop_features
-  has_many :features, through :shop_features
+  has_many :features, through: :shop_features
 
   validates :name, presence: true, length: { maximum: 100 },  uniqueness: true
   validates :postal_code, presence:true, uniqueness: true
@@ -18,7 +18,7 @@ class Shop < ApplicationRecord
 
   def generate_address
     # buildingが空の場合は除外してaddressを生成
-    self.full_address = [prefecture, city, street, building.presence].compact.join(" ")
+    self.full_address = [prefecture, city, street, other_address.presence].compact.join(" ")
   end
 
 end
