@@ -1,10 +1,11 @@
 class Shop < ApplicationRecord
-  has_many :shop_opentimes
+  has_many :shop_opentimes, dependent: :destroy
   has_many :opentimes, through: :shop_opentimes
-  has_many :shop_payments
+  has_many :shop_payments, dependent: :destroy
   has_many :payments, through: :shop_payments
-  has_many :shop_features
+  has_many :shop_features, dependent: :destroy
   has_many :features, through: :shop_features
+  accepts_nested_attributes_for :opentimes
 
   validates :name, presence: true, length: { maximum: 100 },  uniqueness: true
   validates :postal_code, presence:true, uniqueness: true
