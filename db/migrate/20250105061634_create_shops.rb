@@ -1,8 +1,8 @@
 class CreateShops < ActiveRecord::Migration[7.1]
   def change
     create_table :shops do |t|
-      t.string :name, null: false, unique: true
-      t.string :postal_code, null: false, unique: true
+      t.string :name, null: false
+      t.string :postal_code, null: false
       t.string :prefecture, null: false
       t.string :city, null: false
       t.string :street, null: false
@@ -15,5 +15,8 @@ class CreateShops < ActiveRecord::Migration[7.1]
       t.decimal :longitude
       t.timestamps
     end
+  
+    add_index :shops, :name, unique: true
+    add_index :shops, :postal_code, unique: true
   end
 end
