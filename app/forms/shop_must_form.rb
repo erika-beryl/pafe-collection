@@ -24,7 +24,8 @@ class ShopMustForm
 
   def initialize(attributes = nil, shop: Shop.new)
     @shop = shop
-    7.times { @shop.opentimes.build }
+    7.times { @shop.opentimes.build } if @shop.opentimes.empty?
+    super(attributes) if attributes
   end
 
   def save
