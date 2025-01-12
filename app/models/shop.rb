@@ -30,7 +30,7 @@ class Shop < ApplicationRecord
 
   def generate_address
     # buildingが空の場合は除外してaddressを生成
-    self.full_address = [prefecture, city, street, other_address.presence].compact.join(" ")
+    self.full_address = [prefecture_name, city, street, other_address.presence].compact.join(" ")
   end
 
 end

@@ -4,17 +4,7 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-  attribute :name, :string
-  attribute :postal_code, :string
-  attribute :prefecture_code, :integer
-  attribute :city, :string
-  attribute :street, :string
-  attribute :other_address, :string
-  attribute :tel
-  attribute :is_open, :boolean
-  attribute :weekly, :integer
-  attribute :open_time, :time
-  attribute :close_time, :time
+  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :opentimes 
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -23,22 +13,33 @@ class ShopMustForm
   validates :street, presence: true
   validates :tel, presence: true
 
-
-  def initialize(attributes = nil, shop: Shop.new)
-    @shop = shop
-    7.times { @shop.opentimes.build } if @shop.opentimes.empty?
-    super(attributes)
+  def initialize(attributes = {})
+    super
+    @opentimes ||= [] # ここで初期化しておく
   end
 
-  def save
-    return if invalid?
+  # Opentimeのenum weeklyを取得するメソッド
+  def self.weekly_options
+    Opentime.weeklies.keys.map { |day| [day.humanize, day] }
+  end
 
-    generate_address
+
+  def save
 
     ActiveRecord::Base.transaction do
-      @shop.save!
-      @shop.opentimes.each(&:save!)
+      shop = Shop.new(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
+                          city: city, street: street, other_address: other_address, tel: tel)
+      shop.full_address = generate_address(shop)
+                          
+      opentimes.each do |opentime|
+        new_opentime = Opentimes.create(is_open: opentime[:is_open], weekly: opentime[:weekly], 
+                                        open_time: opentime[:open_time], close_time: opentime[:close_time])
+        shop.opentimses << new_opentime
+      end
+
+      shop.save
     end
+
   end
 
 
@@ -52,9 +53,10 @@ class ShopMustForm
 
   private
 
-  def generate_address
+  def generate_address(shop)
     # buildingが空の場合は除外してaddressを生成
-    @shop.full_address = [prefecture_name, city, street, other_address.presence].compact.join(" ")
+    [prefecture_name, city, street, other_address.presence].compact.join(" ")
   end
+
 
 end

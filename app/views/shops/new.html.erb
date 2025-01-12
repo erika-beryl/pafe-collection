@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
       <h1>店舗登録</h1>
-      <%= form_with model: @form, url: shops_path, local: true, class: "new_shop mt-4" do |f| %>
+      <%= form_with model: @shop_form, url: shops_path, local: true, class: "new_shop mt-4" do |f| %>
         <div class="mb-3">
           <h5>必須項目</h5>
           <%= f.label :店舗名 %>
@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3">
           <%= f.label :都道府県 %>
-          <%= f.text_field :prefecture, class: "form-control" %>
+          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-select' %>
         </div>
         <div class="mb-3">
           <%= f.label :市町村 %>
@@ -30,12 +30,33 @@
         </div>
         <div class="mb-3">
           <%= f.label :電話番号 %>
-          <%= f.telephone_field :city, class: "form-control" %>
+          <%= f.telephone_field :tel, class: "form-control" %>
         </div>
 
+        </br>
+        <h5>営業している曜日にチェックと営業時間の入力をお願いします</h5>
+        </br>
+        <%= f.fields_for :opentimes do |o| %>
+          <% ShopMustForm.weekly_options.each do |week_label, week_value| %>
+            <h6><%= week_label %></h6>
+            <%= o.hidden_field :weekday, value: week_value %>
+            <div class="mb-3">
+              <%= o.label :営業してますか？ %>
+              <%= o.check_box :is_open, { class: "form-check" }, true, false %>
+            </div>
+            <div class="mb-3">
+              <%= o.label :開始時間 %>
+              <%= o.time_select :open_time, { include_blank: true, minute_step: 30, class: "form-control" } %>
+            </div>
+            <div class="mb-3">
+              <%= o.label :終了時刻 %>
+              <%= o.time_select :close_time, { include_blank: true, minute_step: 30, class: "form-control" } %>
+            </div>
+            
+            
+          <% end %>  
 
-        
-
+        <% end %>   
 
         <%= f.submit '登録', class: "btn btn-primary" %>
       <% end %>
