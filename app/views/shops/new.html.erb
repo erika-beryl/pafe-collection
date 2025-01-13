@@ -42,6 +42,7 @@
             <%= o.hidden_field :weekday, value: week_value %>
             <div class="mb-3">
               <%= o.label :営業してますか？ %>
+              <%= o.hidden_field :is_open, value: false %>
               <%= o.check_box :is_open, { class: "form-check" }, true, false %>
             </div>
             <div class="mb-3">

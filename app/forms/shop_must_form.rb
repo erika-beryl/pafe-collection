@@ -32,9 +32,9 @@ class ShopMustForm
       shop.full_address = generate_address(shop)
                           
       opentimes.each do |opentime|
-        new_opentime = Opentimes.create(is_open: opentime[:is_open], weekly: opentime[:weekly], 
+        new_opentime = Opentime.create!(is_open: opentime[:is_open], weekly: opentime[:weekly], 
                                         open_time: opentime[:open_time], close_time: opentime[:close_time])
-        shop.opentimses << new_opentime
+        shop.opentimes << new_opentime
       end
 
       shop.save

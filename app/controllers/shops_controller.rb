@@ -2,7 +2,7 @@ class ShopsController < ApplicationController
   before_action :user_signed_in?, only: %i[new create]
 
   def index
-    @shops = Shop.all
+    @shops = Shop.all.order(created_at: :desc)
   end
 
   def new
@@ -28,7 +28,7 @@ class ShopsController < ApplicationController
   private
 
   def shop_must_form_params
-    params.require(:shop_must_form).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :open_times)
+    params.require(:shop_must_form).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, opentimes: [:is_open, :weekly, :open_time, :close_time])
   end
   
 end
