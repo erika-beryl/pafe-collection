@@ -7,6 +7,7 @@ class ShopsController < ApplicationController
 
   def new
     @shop_form = ShopMustForm.new
+    
   end
 
   def create
@@ -15,10 +16,13 @@ class ShopsController < ApplicationController
     if @shop_form.valid?
       @shop_form.save
       redirect_to shops_path, flash: {notice: '登録が完了しました'}
+
     else
       flash[:alert] = "登録に失敗しました: #{@shop_form.errors.full_messages.join(", ")}"
       render :new, status: :unprocessable_entity
+
     end
+   
   end
 
   def show
@@ -28,7 +32,7 @@ class ShopsController < ApplicationController
   private
 
   def shop_must_form_params
-    params.require(:shop_must_form).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, opentimes: [:is_open, :weekly, :open_time, :close_time])
+    params.require(:shop_must_form).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel)
   end
   
 end

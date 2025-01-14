@@ -33,31 +33,7 @@
           <%= f.telephone_field :tel, class: "form-control" %>
         </div>
 
-        </br>
-        <h5>営業している曜日にチェックと営業時間の入力をお願いします</h5>
-        </br>
-        <%= f.fields_for :opentimes do |o| %>
-          <% ShopMustForm.weekly_options.each do |week_label, week_value| %>
-            <h6><%= week_label %></h6>
-            <%= o.hidden_field :weekday, value: week_value %>
-            <div class="mb-3">
-              <%= o.label :営業してますか？ %>
-              <%= o.hidden_field :is_open, value: false %>
-              <%= o.check_box :is_open, { class: "form-check" }, true, false %>
-            </div>
-            <div class="mb-3">
-              <%= o.label :開始時間 %>
-              <%= o.time_select :open_time, { include_blank: true, minute_step: 30, class: "form-control" } %>
-            </div>
-            <div class="mb-3">
-              <%= o.label :終了時刻 %>
-              <%= o.time_select :close_time, { include_blank: true, minute_step: 30, class: "form-control" } %>
-            </div>
-            
-            
-          <% end %>  
-
-        <% end %>   
+        
 
         <%= f.submit '登録', class: "btn btn-primary" %>
       <% end %>
