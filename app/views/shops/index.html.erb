@@ -1,4 +1,4 @@
-<%= link_to '店舗登録ページはこちら', '#', class: 'btn-info', role: 'button' %>
+<%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info', role: 'button' %>
 <div class="container pt-3">
   <div class="row">
     <% if @shops.present? %>
@@ -8,7 +8,7 @@
             <%= image_tag 'noimage.png', class: "card-img-left", width: "150", height: "auto" %>
             <div class="card-body">
               <h4 class="card-title">
-                <%= link_to shop.title, '#' %>
+                <%= link_to shop.name, shop_path(shop) %>
               </h4>
               <p class="card-text">
                 <%= "住所: #{shop.full_address}" %>

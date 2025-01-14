@@ -75,3 +75,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# 都道府県のgem
+gem 'jp_prefecture'
