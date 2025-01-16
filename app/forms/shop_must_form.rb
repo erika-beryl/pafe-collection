@@ -13,27 +13,24 @@ class ShopMustForm
   validates :street, presence: true
   validates :tel, presence: true
 
-  def initialize(attributes = {})
-    super
-    @opentimes ||= [] # ここで初期化しておく
-  end
+  delegate :persisted?, to: :shop
 
-  # Opentimeのenum weeklyを取得するメソッド
-  def self.weekly_options
-    Opentime.weeklies.keys.map { |day| [day.humanize, day] }
+  def initialize(attributes = nil, shop: Shop.new)
+    @shop = shop
+    attributes ||= default_attributes
+    super(attributes)
   end
 
 
   def save
+    return if invalid?
 
     ActiveRecord::Base.transaction do
-      shop = Shop.new(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
-                          city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: generate_address)
-                          
-
-      shop.save!
+      shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
+                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: generate_address)
     end
-
+    rescue ActiveRecord::RecordInvalid
+      false
   end
 
 
@@ -46,6 +43,22 @@ class ShopMustForm
   end
 
   private
+
+  attr_reader :shop
+
+  def default_attributes
+    {
+      name: shop.name,
+      postal_code: shop.postal_code,
+      prefecture_code: shop.prefecture_code,
+      city: shop.city,
+      street: shop.street,
+      other_address: shop.other_address,
+      tel: shop.tel
+      reservation: shop.reservation
+      parking: shop.parking
+    }
+  end
 
   def generate_address
     # buildingが空の場合は除外してaddressを生成
