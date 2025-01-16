@@ -4,7 +4,7 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :opentimes 
+  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -13,33 +13,32 @@ class ShopMustForm
   validates :street, presence: true
   validates :tel, presence: true
 
-  def initialize(attributes = {})
-    super
-    @opentimes ||= [] # ここで初期化しておく
+  delegate :persisted?, to: :shop
+
+  def initialize(attributes = nil, shop: Shop.new)
+    @shop = shop
+    attributes ||= default_attributes
+    super(attributes)
   end
 
-  # Opentimeのenum weeklyを取得するメソッド
-  def self.weekly_options
-    Opentime.weeklies.keys.map { |day| [day.humanize, day] }
+  # アクションのURLを適切な場所に切り替え
+  def to_model
+    shop
   end
-
 
   def save
 
+    self.reservation = reservation == "1"
+    self.parking = parking == "1"
+    return if invalid?
+    full_address = generate_address
     ActiveRecord::Base.transaction do
-      shop = Shop.new(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
-                          city: city, street: street, other_address: other_address, tel: tel)
-      shop.full_address = generate_address(shop)
-                          
-      opentimes.each do |opentime|
-        new_opentime = Opentime.create!(is_open: opentime[:is_open], weekly: opentime[:weekly], 
-                                        open_time: opentime[:open_time], close_time: opentime[:close_time])
-        shop.opentimes << new_opentime
-      end
-
-      shop.save
+      shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
+                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address)
     end
-
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error("Failed to save shop: #{e.message}")
+      false
   end
 
 
@@ -53,7 +52,23 @@ class ShopMustForm
 
   private
 
-  def generate_address(shop)
+  attr_reader :shop
+
+  def default_attributes
+    {
+      name: shop.name,
+      postal_code: shop.postal_code,
+      prefecture_code: shop.prefecture_code,
+      city: shop.city,
+      street: shop.street,
+      other_address: shop.other_address,
+      tel: shop.tel,
+      reservation: shop.reservation,
+      parking: shop.parking
+    }
+  end
+
+  def generate_address
     # buildingが空の場合は除外してaddressを生成
     [prefecture_name, city, street, other_address.presence].compact.join(" ")
   end

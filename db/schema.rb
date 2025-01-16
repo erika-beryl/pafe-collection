@@ -21,10 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_132313) do
   end
 
   create_table "opentimes", force: :cascade do |t|
-    t.boolean "is_open"
-    t.integer "weekly"
-    t.time "open_time"
-    t.time "close_time"
+    t.text "business_hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,14 +62,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_132313) do
   create_table "shops", force: :cascade do |t|
     t.string "name", null: false
     t.string "postal_code", null: false
-    t.string "prefecture", null: false
+    t.integer "prefecture_code", null: false
     t.string "city", null: false
     t.string "street", null: false
     t.string "other_address"
     t.string "full_address", null: false
     t.string "tel", null: false
-    t.boolean "reservation"
-    t.boolean "parking"
+    t.boolean "reservation", default: false, null: false
+    t.boolean "parking", default: false, null: false
     t.decimal "latitude"
     t.decimal "longitude"
     t.datetime "created_at", null: false
@@ -87,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_132313) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

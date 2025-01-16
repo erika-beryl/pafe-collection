@@ -14,16 +14,16 @@
                 <li class="list-inline-item"><%= @shop.full_address %></li>
               </ul>
               <div class='d-flex justify-content-end'>
-                <%= link_to "#", id: "button-edit-#{@shop.id}" do %>
+                <%= link_to edit_shop_path(@shop), id: "button-edit-#@shop.id}" do %>
                   <i class='bi bi-pencil-fill'></i>
                 <% end %>
-                <%= link_to "#", id: "button-delete-#{@shop.id}", class: "ms-2" do %>
+                <%= link_to shop_path(@shop), id: "button-delete-#{@shop.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
                   <i class="bi bi-trash-fill"></i>
                 <% end %>
               </div>
               </div>
             </div>
-            <p>詳細は後で</p>
+            <p>詳細はMVPの後で見れるようにします</p>
           </div>
         </article>
       </div>
