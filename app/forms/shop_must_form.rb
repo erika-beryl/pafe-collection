@@ -21,15 +21,23 @@ class ShopMustForm
     super(attributes)
   end
 
+  # アクションのURLを適切な場所に切り替え
+  def to_model
+    shop
+  end
 
   def save
-    return if invalid?
 
+    self.reservation = reservation == "1"
+    self.parking = parking == "1"
+    return if invalid?
+    full_address = generate_address
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
-                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: generate_address)
+                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address)
     end
-    rescue ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error("Failed to save shop: #{e.message}")
       false
   end
 
@@ -54,8 +62,8 @@ class ShopMustForm
       city: shop.city,
       street: shop.street,
       other_address: shop.other_address,
-      tel: shop.tel
-      reservation: shop.reservation
+      tel: shop.tel,
+      reservation: shop.reservation,
       parking: shop.parking
     }
   end
