@@ -4,7 +4,7 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :opentimes, 
+  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -28,16 +28,10 @@ class ShopMustForm
 
     ActiveRecord::Base.transaction do
       shop = Shop.new(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
-                          city: city, street: street, other_address: other_address, tel: tel)
-      shop.full_address = generate_address(shop)
+                          city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: generate_address)
                           
-      opentimes.each do |opentime|
-        new_opentime = Opentime.create!(is_open: opentime[:is_open], weekly: opentime[:weekly], 
-                                        open_time: opentime[:open_time], close_time: opentime[:close_time])
-        shop.opentimes << new_opentime
-      end
 
-      shop.save
+      shop.save!
     end
 
   end
@@ -53,7 +47,7 @@ class ShopMustForm
 
   private
 
-  def generate_address(shop)
+  def generate_address
     # buildingが空の場合は除外してaddressを生成
     [prefecture_name, city, street, other_address.presence].compact.join(" ")
   end
