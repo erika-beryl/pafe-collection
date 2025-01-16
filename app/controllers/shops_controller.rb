@@ -34,7 +34,7 @@ class ShopsController < ApplicationController
   def update
     load_shop
 
-    @form = ShopMustForm.new(shop_must_form_params, shop: @shop)
+    @form = ShopMustForm.new(shop_params, shop: @shop)
 
     if @form.save
       redirect_to @shop, notice: '店舗情報が更新されました'
@@ -45,6 +45,12 @@ class ShopsController < ApplicationController
 
   def show
     @shop = Shop.find(params[:id])
+  end
+
+  def destroy
+    @shop = Shop.find(params[:id])
+    @shop.destroy!
+    redirect_to shops_path, success: '削除に成功しました'
   end
 
 
