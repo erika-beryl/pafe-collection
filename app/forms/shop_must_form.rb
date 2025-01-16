@@ -4,7 +4,7 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :opentimes 
+  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :is_open, :weekly, :open_time, :close_time, :opentimes, 
 
   validates :name, presence: true
   validates :postal_code, presence: true

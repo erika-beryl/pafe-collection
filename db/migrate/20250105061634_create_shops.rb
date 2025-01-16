@@ -9,8 +9,8 @@ class CreateShops < ActiveRecord::Migration[7.1]
       t.string :other_address
       t.string :full_address, null: false
       t.string :tel, null:false
-      t.boolean :reservation
-      t.boolean :parking
+      t.boolean :reservation, null: false, default: false
+      t.boolean :parking, null: false, default: false
       t.decimal :latitude
       t.decimal :longitude
       t.timestamps
