@@ -27,7 +27,7 @@ class ShopMustForm
   end
 
   def save
-
+    # チェックボックスでオンの時1で送られるので、=="1"でtrueに変換してる。
     self.reservation = reservation == "1"
     self.parking = parking == "1"
     return if invalid?
