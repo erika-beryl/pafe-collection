@@ -7,3 +7,13 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+traits = %w[景色がよい ファミリー向け カウンター席有り 大食いチャレンジ有り 貸切可]
+traits.each do |trait_name|
+  Feature.find_or_create_by(trait: trait_name)
+end
+
+method_types = %w[カード可 カード不可 電子マネー可 電子マネー不可 QRコード決済可 QRコード決済不可]
+method_types.each do |method_name|
+  Payment.find_or_create_by(method_type: method_name)
+end
