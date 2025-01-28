@@ -1,5 +1,7 @@
-<%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info', role: 'button' %>
-<div class="container pt-3">
+<% if user_signed_in? %>
+  <%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info', role: 'button' %>
+<% end %>
+  <div class="container pt-3">
   <div class="row">
     <% if @shops.present? %>
       <% @shops.each do |shop| %>
