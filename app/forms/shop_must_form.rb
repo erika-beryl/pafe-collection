@@ -4,7 +4,8 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
-  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking
+  attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking,
+                :business_hours, :method_types, :traits
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -64,7 +65,10 @@ class ShopMustForm
       other_address: shop.other_address,
       tel: shop.tel,
       reservation: shop.reservation,
-      parking: shop.parking
+      parking: shop.parking,
+      business_hours: shop.opentime.business_hours,
+      traits: shop.feature.trait,
+      method_types: shop.payment.method_type
     }
   end
 
