@@ -75,7 +75,7 @@ class ShopMustForm
       parking: shop.parking,
       feature_ids: shop.feature_ids,
       payment_ids: shop.payment_ids,
-      business_hours: shop.opentime.first&.business_hours
+      business_hours: shop.opentimes.first&.business_hours
     }
   end
 

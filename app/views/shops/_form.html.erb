@@ -28,12 +28,24 @@
     <%= f.telephone_field :tel, class: "form-control" %>
   </div>
   <div class="mb-3">
+    <%= f.label :営業時間 %>
+    <%= f.text_field :business_hors, class: "form-control" %>
+  </div>
+  <div class="mb-3">
     <%= f.label :予約は可能でしょうか？ %>
     <%= f.check_box :reservation, class: "form-check-input" %>
   </div>
   <div class="mb-3">
     <%= f.label :駐車場はありますか？ %>
     <%= f.check_box :parking, class: "form-check-input" %>
+  </div>
+  <p>支払い方法</p>
+  <div class="mb-3">
+    <%= f.collection_check_boxes :payment_ids, Payment.all, :id, :method_type %>
+  </div>
+  <p>店の特徴</p>
+  <div class="mb-3">
+    <%= f.collection_check_boxes :feature_ids, Feature.all, :id, :trait %>
   </div>
   
 
