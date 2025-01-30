@@ -1,3 +1,5 @@
+
+
 class ShopMustForm
   include ActiveModel::Model
   include ActiveModel::Attributes
@@ -28,6 +30,7 @@ class ShopMustForm
   end
 
   def save
+
     # チェックボックスでオンの時1で送られるので、=="1"でtrueに変換してる。
     self.reservation = reservation == "1"
     self.parking = parking == "1"
@@ -36,11 +39,11 @@ class ShopMustForm
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
-                    feature_ids: feature_ids, payment_ids: payment_ids)
-      if shop.opentime.present?
-        shop.opentime.update!(business_hours: business_hours)
+                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
+      if shop.opentimes.present?
+        shop.opentimes.first.update!(business_hours: business_hours)
       else
-        shop.opentime.create!(business_hours: business_hours)
+        shop.opentimes.create!(business_hours: business_hours)
       end
     end
     rescue ActiveRecord::RecordInvalid => e
@@ -75,7 +78,7 @@ class ShopMustForm
       parking: shop.parking,
       feature_ids: shop.feature_ids,
       payment_ids: shop.payment_ids,
-      business_hours: shop.opentimes.first&.business_hours
+      business_hours: shop.opentimes.pluck(:business_hours).join(',')
     }
   end
 
