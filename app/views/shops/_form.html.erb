@@ -29,7 +29,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :営業時間 %>
-    <%= f.text_field :business_hours, class: "form-control" %>
+    <%= f.text_area :business_time, class: "form-control", rows: "10" %>
   </div>
   <div class="mb-3">
     <%= f.label :予約は可能でしょうか？ %>
@@ -39,13 +39,14 @@
     <%= f.label :駐車場はありますか？ %>
     <%= f.check_box :parking, class: "form-check-input" %>
   </div>
-  <p>支払い方法</p>
+  <div>支払い方法</div>
   <%= f.collection_check_boxes :payment_ids, Payment.all, :id, :method_type do |b| %>
     <div>
       <%= b.label { b.check_box + b.text } %>
     </div>
-  <% end %>  
-  <p>店の特徴</p>
+  <% end %>
+  </br>  
+  <div>店の特徴</div>
   <%= f.collection_check_boxes :feature_ids, Feature.all, :id, :trait do |b| %>
     <div>
       <%= b.label { b.check_box + b.text } %>

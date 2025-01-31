@@ -7,7 +7,7 @@ class ShopMustForm
   jp_prefecture :prefecture_code
 
   attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking,
-                :shop_business_hours, :payment_ids, :feature_ids
+                :business_time, :payment_ids, :feature_ids
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -37,10 +37,10 @@ class ShopMustForm
     return if invalid?
     full_address = generate_address
     ActiveRecord::Base.transaction do
-      opentimes = split_shop_business_hours.map { |business_hours| Opentime.find_or_create_by!(business_hours: business_hours) }
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
-                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?), opentimes: opentimes)
+                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
+      
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
@@ -61,7 +61,6 @@ class ShopMustForm
   attr_reader :shop
 
   def default_attributes
-    # 実際には一対一でも多対多のリレーションの時は複数のレコードを返す危険があるのでfist&をつけてます
     {
       name: shop.name,
       postal_code: shop.postal_code,
@@ -74,7 +73,6 @@ class ShopMustForm
       parking: shop.parking,
       feature_ids: shop.feature_ids,
       payment_ids: shop.payment_ids,
-      shop_business_hours: shop.opentimes.pluck(:business_hours).join("\n")
     }
   end
 
