@@ -21,6 +21,7 @@ class ShopMustForm
   def initialize(attributes = nil, shop: Shop.new)
     @shop = shop
     attributes ||= default_attributes
+    Rails.logger.debug "Initializing ShopMustForm with: #{attributes.inspect}"
     super(attributes)
   end
 
@@ -40,7 +41,11 @@ class ShopMustForm
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
                     feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
-      
+      if shop.business
+        shop.business.update!(business_time: business_time)
+      else
+        shop.create_business!(business_time: business_time)
+      end  
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
@@ -73,6 +78,7 @@ class ShopMustForm
       parking: shop.parking,
       feature_ids: shop.feature_ids,
       payment_ids: shop.payment_ids,
+      business_time: shop.business.present? ? shop.business.business_time : nil
     }
   end
 
