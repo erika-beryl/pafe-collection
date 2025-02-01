@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_28_111750) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_31_135317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "businesses", force: :cascade do |t|
+    t.string "business_time"
+    t.bigint "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_businesses_on_shop_id"
+  end
 
   create_table "features", force: :cascade do |t|
     t.string "trait"
@@ -91,6 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_28_111750) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "businesses", "shops"
   add_foreign_key "shop_features", "features"
   add_foreign_key "shop_features", "shops"
   add_foreign_key "shop_opentimes", "opentimes"
