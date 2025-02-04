@@ -55,8 +55,70 @@
             <td>
               <div>
                 <%= @shop.full_address %>
-              </div>  
+              </div>
+            </td>   
           </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>
+              <div>
+                <%= @shop.tel %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>営業時間</th>
+            <td>
+              <% if @shop.business.present? && @shop.business.business_time.present? %> 
+                <div>
+                  <%= simple_format(@shop.business.business_time) %>
+                </div>
+              <% else %>
+                <div>営業時間の情報はありません</div>
+              <% end %>    
+            </td>
+          </tr>
+          <tr>
+            <th>予約</th>
+            <td>
+              <% if @shop.reservation? %> 
+                <div>予約可</div>
+              <% else %>
+                <div>予約不可</div>
+              <% end %>    
+            </td>
+          </tr>
+          <tr>
+            <th>駐車場</th>
+            <td>
+              <% if @shop.parking? %> 
+                <div>駐車場有</div>
+              <% else %>
+                <div>駐車場無</div>
+              <% end %>    
+            </td>
+          </tr>
+          <tr>
+            <th>支払い方法</th>
+            <td>
+              <% if @shop.payment_ids.present? %> 
+                <div>
+                  <%= @shop.payments.pluck(:method_type).join(', ') %>
+                </div>
+              <% end %>    
+            </td>
+          </tr>
+          <tr>
+            <th>店の特徴</th>
+            <td>
+              <% if @shop.feature_ids.present? %> 
+                <div>
+                  <%= @shop.features.pluck(:trait).join(', ') %>
+                </div>
+              <% end %>    
+            </td>
+          </tr>
+
 
         </tbody>
 
