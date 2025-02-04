@@ -1,0 +1,2 @@
+class Parfait < ApplicationRecord
+end
