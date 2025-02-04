@@ -1,2 +1,22 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.card-img-left {
+  object-fit: cover; /* 画像の比率を崩さずにトリミング */
+  border-radius: 5px; /* 角を少し丸める */
+  margin-left: 10px; /* 左側の隙間を調整 */
+  margin-right: 15px; /* 右側の隙間を調整 */
+  width: 150px;
+  height: 150px;
+}
+
+.s-table {
+  border-collapse: separate;
+  border-top: 3px solid;
+}
+
+.table_under {
+  margin-bottom: 25px;
+  line-height: 1.5;
+  font-size: 3px;
+}
