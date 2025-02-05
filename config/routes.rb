@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: 'static_pages#top' 
 
-  resources :shops, only: %i[index new create show edit update destroy]
+  resources :shops do
+    resources :parfaits, only: %i[create edit destroy index], shallow: true
+  end
 end

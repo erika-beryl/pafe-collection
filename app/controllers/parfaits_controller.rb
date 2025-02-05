@@ -1,0 +1,2 @@
+class ParfaitsController < ApplicationController
+end
