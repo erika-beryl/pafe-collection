@@ -45,6 +45,7 @@ class ShopsController < ApplicationController
 
   def show
     @shop = Shop.find(params[:id])
+    @parfaits = @shop.parfaits.order(created_at: :desc)
   end
 
   def destroy
