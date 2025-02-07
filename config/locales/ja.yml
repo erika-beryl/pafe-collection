@@ -3,14 +3,22 @@ ja:
     delete_confirm: 削除しますか？
   activerecord:
     attributes:
-      opentime:
-        weekly:
-          sunday: 日曜日
-          monday: 月曜日
-          tuesday: 火曜日
-          wednesday: 水曜日
-          thursday: 木曜日
-          friday: 金曜日
-          saturday: 土曜日
       shop:
         name: 店舗名
+      parfait:
+        name: 商品名
+  enums:
+    parfait:
+      price:
+        under_1000: 1,000円未満
+        under_1500: 1,000～1,500円
+        under_2000: 1,501～2,000円
+        under_3000: 2,001～3,000円
+        under_4000: 3,001～4,000円
+        under_5000: 4,001～5,000円
+        under_6000: 5,001～6,000円
+        under_7000: 6,001～7,000円
+        under_8000: 7,001～8,000円
+        under_9000: 8,001～9,000円
+        under_10000: 9,001～10,000円
+        over_10000: 10,000円以上

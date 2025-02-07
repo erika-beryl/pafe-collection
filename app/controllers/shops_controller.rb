@@ -15,7 +15,7 @@ class ShopsController < ApplicationController
 
     if @form.valid?
       @form.save
-      redirect_to shops_path, flash: {notice: '登録が完了しました'}
+      redirect_to shops_path, success: '店舗登録が完了しました'
 
     else
       flash[:alert] = "登録に失敗しました: #{@form.errors.full_messages.join(", ")}"
