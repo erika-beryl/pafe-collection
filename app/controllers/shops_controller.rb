@@ -18,7 +18,7 @@ class ShopsController < ApplicationController
       redirect_to shops_path, success: '店舗登録が完了しました'
 
     else
-      flash[:alert] = "登録に失敗しました: #{@form.errors.full_messages.join(", ")}"
+      flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
       render :new, status: :unprocessable_entity
 
     end
@@ -37,9 +37,10 @@ class ShopsController < ApplicationController
     @form = ShopMustForm.new(shop_params, shop: @shop)
 
     if @form.save
-      redirect_to @shop, notice: '店舗情報が更新されました'
+      redirect_to @shop, success: '店舗情報が更新されました'
     else
-      render :edit
+      flash.now[:danger] = '店舗情報を更新できませんでした'
+      render :edit, status: :unprocessable_entity
     end
   end
 

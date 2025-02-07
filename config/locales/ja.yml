@@ -1,7 +1,12 @@
 ja:
   defaults:
     delete_confirm: 削除しますか？
+    flash_message:
+      not_created: "%{item}を作成できませんでした"
   activerecord:
+    models:
+      shop: 店舗
+      parfait: パフェ
     attributes:
       shop:
         name: 店舗名
