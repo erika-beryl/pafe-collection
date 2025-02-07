@@ -4,10 +4,10 @@
       <a class="nav-link active" data-toggle="tab" data-turbo="false" href="#section1">トップ</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">セクション2</a>
+      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">パフェ一覧</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section3">セクション3</a>
+      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section3">レビュー</a>
     </li>
   </ul>
   
@@ -16,7 +16,7 @@
       <%= render 'shops/top_section_tab', shop: @shop %>
     </div>
     <div id="section2" class="tab-pane fade">
-      <p>セクション2のコンテンツが表示されます。</p>
+      <%= render 'shops/parfait_section_tab', parfaits: @parfaits %>
     </div>
     <div id="section3" class="tab-pane fade">
       <p>セクション3のコンテンツが表示されます。</p>
