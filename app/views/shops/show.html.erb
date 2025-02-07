@@ -1,129 +1,26 @@
-<div class="container pt-5">
-  <div class="row mb-3">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>店舗詳細</h1>
-      <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3">
-              <%= image_tag 'noimage.png', width: "300", height: "200", class: "card-img-top img-fluid" %>
-            </div>
-            <div class="col-md-9">
-              <h3><%= @shop.name %></h3>
-              <div>住所：<%= @shop.full_address %></div>
-              <div>電話番号：<%= @shop.tel %><div>
-              <% if user_signed_in? %>
-                <div class='d-flex justify-content-end'>
-                  <%= link_to edit_shop_path(@shop), id: "button-edit-#@shop.id}" do %>
-                    <i class='bi bi-pencil-fill'></i>
-                  <% end %>
-                  <%= link_to shop_path(@shop), id: "button-delete-#{@shop.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i>
-                  <% end %>
-                </div>
-              <% end %> 
-            </div>
-          </div>
-        </div>  
-      </article>
-      <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-      このあたりに画像起きたい
-      </div>
-      <div class="d-flex flex-row align-items-center py-3 border-top border-bottom mb-5">
-        <h5 class="mb-0 me-5">営業時間</h5>
-        <% if @shop.business.present? && @shop.business.business_time.present? %>
-          <p class="mb-0">
-            <%= simple_format(@shop.business.business_time) %>
-          </p>
-        <% else %>
-          <p class="mb-0">営業時間の情報はありません<p>
-        <% end %>  
-      </div>
-      <h4>店舗基本情報</h4>
-      <table class="s-table table_under">
-        <tbody>
-          <tr>
-            <th>店名</th>
-            <td>
-              <div>
-                <%= @shop.name %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>住所</th>
-            <td>
-              <div>
-                <%= @shop.full_address %>
-              </div>
-            </td>   
-          </tr>
-          <tr>
-            <th>電話番号</th>
-            <td>
-              <div>
-                <%= @shop.tel %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>営業時間</th>
-            <td>
-              <% if @shop.business.present? && @shop.business.business_time.present? %> 
-                <div>
-                  <%= simple_format(@shop.business.business_time) %>
-                </div>
-              <% else %>
-                <div>営業時間の情報はありません</div>
-              <% end %>    
-            </td>
-          </tr>
-          <tr>
-            <th>予約</th>
-            <td>
-              <% if @shop.reservation? %> 
-                <div>予約可</div>
-              <% else %>
-                <div>予約不可</div>
-              <% end %>    
-            </td>
-          </tr>
-          <tr>
-            <th>駐車場</th>
-            <td>
-              <% if @shop.parking? %> 
-                <div>駐車場有</div>
-              <% else %>
-                <div>駐車場無</div>
-              <% end %>    
-            </td>
-          </tr>
-          <tr>
-            <th>支払い方法</th>
-            <td>
-              <% if @shop.payment_ids.present? %> 
-                <div>
-                  <%= @shop.payments.pluck(:method_type).join(', ') %>
-                </div>
-              <% end %>    
-            </td>
-          </tr>
-          <tr>
-            <th>店の特徴</th>
-            <td>
-              <% if @shop.feature_ids.present? %> 
-                <div>
-                  <%= @shop.features.pluck(:trait).join(', ') %>
-                </div>
-              <% end %>    
-            </td>
-          </tr>
-
-
-        </tbody>
-
-      
-      </table>
+<div class="tabs">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" data-turbo="false" href="#section1">トップ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">セクション2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section3">セクション3</a>
+    </li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="section1" class="tab-pane fade show active">
+      <%= render 'shops/top_section_tab', shop: @shop %>
+    </div>
+    <div id="section2" class="tab-pane fade">
+      <p>セクション2のコンテンツが表示されます。</p>
+    </div>
+    <div id="section3" class="tab-pane fade">
+      <p>セクション3のコンテンツが表示されます。</p>
     </div>
   </div>
 </div>
+
