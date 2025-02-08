@@ -4,6 +4,7 @@ class ParfaitsController < ApplicationController
   end
 
   def new
+    @parfait = Parfait.new
   end
   
   def create
