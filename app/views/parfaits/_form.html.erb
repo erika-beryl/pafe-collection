@@ -4,8 +4,9 @@
     <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="mb-3">
+  # enumのキーを送っても自動的に値に変換されるのでkだけで大丈夫
     <%= f.label :価格 %>
-    <%= f.select :price, Parfait.prices.keys.map {|k| [I18n.t("enums.parfait.price.#{k}"), k]}, { prompt: '価格を選択してください' }, class: 'form-control' %>
+    <%= f.select :price, Parfait.prices.keys.map {|k| [I18n.t("enums.parfait.price.#{k}"), k]}, { prompt: '価格を選択してください' }, class: 'form-select' %>
   </div>
   <div class="mb-3">
     <%= f.label :期間限定商品でしょうか？ %>
