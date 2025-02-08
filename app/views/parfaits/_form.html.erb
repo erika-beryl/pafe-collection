@@ -1,4 +1,4 @@
-<%= form_with model: parfait, local: true, class: "new_parfait mt-4" do |f| %>
+<%= form_with model: parfait, url: shop_parfaits_path, local: true, class: "new_parfait mt-4" do |f| %>
   <div class="mb-3">
     <%= f.label :パフェ名 %>
     <%= f.text_field :name, class: "form-control" %>
