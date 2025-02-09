@@ -1,6 +1,10 @@
 class Parfait < ApplicationRecord
   belongs_to :shop
 
+  validates :name, presence: true, length: { maximum: 100 }
+  validates :price, presence: true
+  
+
   enum price: {
     under_1000: 0,
     under_1500: 1,

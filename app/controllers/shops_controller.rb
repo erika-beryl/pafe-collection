@@ -45,12 +45,12 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @shop = Shop.find(params[:id])
+    load_shop
     @parfaits = @shop.parfaits.order(created_at: :desc)
   end
 
   def destroy
-    @shop = Shop.find(params[:id])
+    load_shop
     @shop.destroy!
     redirect_to shops_path, success: '削除に成功しました'
   end
