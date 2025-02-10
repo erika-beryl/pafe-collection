@@ -15,7 +15,7 @@ class ParfaitsController < ApplicationController
     @parfait = Parfait.build(parfait_params)
 
     if @parfait.save
-      redirect_to shop_path(@parfait.shop), success: 'パフェが登録されました'
+      redirect_to @parfait, success: 'パフェが登録されました'
     else
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
       render :new, status: :unprocessable_entity
@@ -30,7 +30,7 @@ class ParfaitsController < ApplicationController
   def update
     load_parfait
     if @parfait.update(parfait_params)
-      redirect_to shop_path(@parfait.shop), success: 'パフェが更新されました', status: :see_other
+      redirect_to @parfait, success: 'パフェが更新されました', status: :see_other
     else
       flash.now[:danger] = "パフェを更新できませんでした"
       render :edit, status: :unprocessable_entity

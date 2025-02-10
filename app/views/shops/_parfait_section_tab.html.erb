@@ -10,7 +10,7 @@
             <%= image_tag 'noimage.png', class: "card-img-left" %>
             <div class="card-body">
               <h4 class="card-title">
-                <%= link_to parfait.name, '#' %>
+                <%= link_to parfait.name, parfait_path(parfait) %>
               </h4>
               <% if user_signed_in? %>
                 <div class='d-flex justify-content-end'>

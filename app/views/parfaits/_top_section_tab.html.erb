@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-9">
               <h3><%= parfait.name %></h3>
-              <div>価格帯：<%= parfait.price %></div>
+              <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
               <% if user_signed_in? %>
                 <div class='d-flex justify-content-end'>
                   <%= link_to edit_parfait_path(parfait), id: "button-edit-#parfait.id}" do %>
@@ -25,7 +25,13 @@
                 </div>
               <% end %> 
             </div>
-             <p><%= simple_format(parfait.body) %></p>
+            <% if parfait.is_limited? %> 
+              <div>期間限定商品</div>
+            <% else %>
+              <div>レギュラー商品</div>
+            <% end %>
+            <div>価格帯：<%= parfait.price_i18n %></div>    
+            <p><%= simple_format(parfait.body) %></p>
           </div>
         </div>  
       </article> 
