@@ -1,0 +1,35 @@
+<div class="container pt-5">
+  <div class="row mb-3">
+    <div class="col-lg-8 offset-lg-2">
+      <h1>パフェ詳細</h1>
+      <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <%= image_tag 'noimage.png', width: "300", height: "200", class: "card-img-top img-fluid" %>
+            </div>
+            <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
+            このあたりに画像起きたい
+            </div>
+            <div class="col-md-9">
+              <h3><%= parfait.name %></h3>
+              <div>価格帯：<%= parfait.price %></div>
+              <% if user_signed_in? %>
+                <div class='d-flex justify-content-end'>
+                  <%= link_to edit_parfait_path(parfait), id: "button-edit-#parfait.id}" do %>
+                    <i class='bi bi-pencil-fill'></i>
+                  <% end %>
+                  <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    <i class="bi bi-trash-fill"></i>
+                  <% end %>
+                </div>
+              <% end %> 
+            </div>
+             <p><%= simple_format(parfait.body) %></p>
+          </div>
+        </div>  
+      </article> 
+    </div>
+  </div>
+</div>
+
