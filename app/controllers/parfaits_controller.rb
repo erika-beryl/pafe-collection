@@ -1,4 +1,5 @@
 class ParfaitsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   def index
     @parfaits = Parfait.includes(:shop).order(created_at: :desc)
   end
@@ -40,7 +41,7 @@ class ParfaitsController < ApplicationController
   def destroy
     load_parfait
     @parfait.destroy!
-    redirect_to shops_path(@parfait.shop), success: '削除に成功しました'
+    redirect_to parfaits_path, success: '削除に成功しました'
   end
 
   private
