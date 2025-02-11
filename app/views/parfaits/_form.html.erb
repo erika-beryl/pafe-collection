@@ -1,0 +1,21 @@
+<%= form_with model: parfait, url: parfait.persisted? ? parfait_path(parfait) : shop_parfaits_path, local: true, class: "new_parfait mt-4" do |f| %>
+  <div class="mb-3">
+    <%= f.label :パフェ名 %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">   
+  <%# enumのキーを送っても自動的に値に変換されるのでkだけで大丈夫 %>
+    <%= f.label :価格 %>
+    <%= f.select :price, Parfait.prices.keys.map {|k| [I18n.t("enums.parfait.price.#{k}"), k]}, { prompt: '価格を選択してください' }, class: 'form-select' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :期間限定商品でしょうか？ %>
+    <%= f.check_box :is_limited, class: "form-check-input" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :商品紹介 %>
+    <%= f.text_area :body, class: "form-control", rows: "5", placeholder: '簡単な特徴の記入をお願いします' %>
+  </div>
+
+    <%= f.submit '登録', class: "btn btn-primary" %>
+<% end %>

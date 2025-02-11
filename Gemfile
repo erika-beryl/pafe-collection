@@ -78,3 +78,6 @@ end
 
 # 都道府県のgem
 gem 'jp_prefecture'
+
+# enumのgem
+gem 'enum_help', '0.0.19'

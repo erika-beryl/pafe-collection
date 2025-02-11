@@ -1,0 +1,19 @@
+<div class="tabs">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" data-turbo="false" href="#section1">トップ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">レビュー一覧</a>
+    </li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="section1" class="tab-pane fade show active">
+      <%= render 'parfaits/top_section_tab', parfait: @parfait %>
+    </div>
+    <div id="section2" class="tab-pane fade">
+      <p>レビュー一覧が表示されます</p>
+    </div>
+  </div>
+</div>

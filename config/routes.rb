@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   root to: 'static_pages#top' 
 
   resources :shops do
-    resources :parfaits, only: %i[new create edit destroy], shallow: true
+    resources :parfaits, only: %i[new create edit update destroy show], shallow: true
   end
 
-  resources :parfaits, only: %i[index show]
+  resources :parfaits, only: %i[index]
 end
