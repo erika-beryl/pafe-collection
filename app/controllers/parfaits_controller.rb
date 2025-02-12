@@ -47,7 +47,7 @@ class ParfaitsController < ApplicationController
   private
 
   def parfait_params
-    params.require(:parfait).permit(:name, :body, :price, :is_limited).merge(shop_id: params[:shop_id] || @parfait&.shop_id)
+    params.require(:parfait).permit(:name, :body, :price, :is_limited).merge(shop_id: params[:shop_id] || @parfait.shop_id)
   end
 
   def load_parfait

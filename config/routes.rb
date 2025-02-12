@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   end
 
   resources :parfaits, only: %i[index]
+  resources :reviews
 end
