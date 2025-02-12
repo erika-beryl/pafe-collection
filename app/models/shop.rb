@@ -11,6 +11,7 @@ class Shop < ApplicationRecord
   has_one :business, dependent: :destroy
 
   has_many :parfaits, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 100 }, uniqueness: true
   validates :postal_code, presence:true, uniqueness: true, format: {with: /\A[0-9]+\z/, message: "is invalid. Please input half-width characters."}
