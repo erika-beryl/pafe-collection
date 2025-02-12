@@ -4,6 +4,8 @@ class Parfait < ApplicationRecord
   validates :name, presence: true, length: { maximum: 100 }
   validates :body, length: { maximum: 500 }
   validates :price, presence: true
+
+  has_many :reviews, dependent: :destroy
   
 
   enum price: {

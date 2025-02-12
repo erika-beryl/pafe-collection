@@ -26,7 +26,8 @@
                 <%= "住所: #{shop.full_address}" %>
               </p> 
               <p>星評価</p>
-              <p>登録パフェ： 件</p>
+              <p>登録パフェ： <%= shop.parfaits_count %>件</p>
+              <p>全レビュー数： <%= shop.reviews_count %>件</p>
             </div>
           </div>
         </div>

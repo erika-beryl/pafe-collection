@@ -2,7 +2,11 @@ class ShopsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @shops = Shop.all.order(created_at: :desc)
+    @shops = Shop
+           .select("shops.*, COUNT(parfaits.id) AS parfaits_count, COUNT(reviews.id) AS reviews_count")
+           .left_joins(parfaits: :reviews)
+           .group("shops.id")
+           .order(created_at: :desc) 
   end
 
   def new
@@ -46,7 +50,7 @@ class ShopsController < ApplicationController
 
   def show
     load_shop
-    @parfaits = @shop.parfaits.order(created_at: :desc)
+    @parfaits = @shop.parfaits.includes(reviews: :user).order(created_at: :desc)
   end
 
   def destroy

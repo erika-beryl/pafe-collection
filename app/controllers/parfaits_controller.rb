@@ -1,11 +1,16 @@
 class ParfaitsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   def index
-    @parfaits = Parfait.includes(:shop).order(created_at: :desc)
+    @parfaits = Parfait
+              .select("parfaits.*, COUNT(reviews.id) AS reviews_count")
+              .left_joins(:reviews)
+              .group("parfaits.id")
+              .order(created_at: :desc)
   end
 
   def show
     load_parfait
+    @reviews = @parfait.reviews.order(created_at: :desc)
   end
 
   def new
@@ -51,7 +56,7 @@ class ParfaitsController < ApplicationController
   end
 
   def load_parfait
-    @parfait = Parfait.find(params[:id])
+    @parfait = Parfait.includes(:shop).find(params[:id])
   end
 
 end
