@@ -1,0 +1,14 @@
+<%= form_with model: review, url: review.persisted? ? review_path(review) : reviews_path, local: true, class: "new_parfait mt-4" do |f| %>
+  <div class="mb-3">
+    <%= f.label :タイトル %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :コメント %>
+    <%= f.text_area :body, class: "form-control", rows: "10", placeholder: 'レビューをお願いします' %>
+  </div>
+
+  <%= f.hidden_field :parfait_id, value: review.parfait_id %>
+
+  <%= f.submit '登録', class: "btn btn-primary" %>
+<% end %>
