@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <div class="row">
-    <% if reviews.present? %>
-      <% reviews.each do |review| %>
+    <% if @reviews.present? %>
+      <% @reviews.each do |review| %>
         <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
           <div class="d-flex">
             <%= image_tag 'noimage.png', class: "card-img-left" %>
@@ -33,4 +33,4 @@
       <div class="mb-3">レビューがありません</div>
     <% end %>
   </div>
-</div>
+</div>   

@@ -50,7 +50,16 @@ class ShopsController < ApplicationController
 
   def show
     load_shop
-    @parfaits = @shop.parfaits.includes(reviews: :user).order(created_at: :desc)
+    @parfaits = @shop.parfaits
+                    .left_joins(:reviews) 
+                    .select('parfaits.*, COUNT(reviews.id) AS reviews_count')
+                    .group('parfaits.id')
+                    .order(created_at: :desc)
+    # 店舗毎のレビューを取得するので以下のようにします
+    @reviews = Review.joins(:parfait)
+              .where(parfait: { shop_id: @shop.id })
+              .includes(:user)
+              .order(created_at: :desc)
   end
 
   def destroy
