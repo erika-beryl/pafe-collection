@@ -22,6 +22,8 @@ class ReviewsController < ApplicationController
   end
 
   def show
+    load_review
+    
   end
 
   def edit

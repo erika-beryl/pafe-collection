@@ -14,7 +14,7 @@
               <div>電話番号：<%= shop.tel %><div>
               <% if user_signed_in? %>
                 <div class='d-flex justify-content-end'>
-                  <%= link_to edit_shop_path(shop), id: "button-edit-#shop.id}" do %>
+                  <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}" do %>
                     <i class='bi bi-pencil-fill'></i>
                   <% end %>
                   <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>

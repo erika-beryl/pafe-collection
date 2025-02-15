@@ -1,7 +1,7 @@
 <div class="container pt-5">
   <div class="row mb-3">
     <div class="col-lg-8 offset-lg-2">
-      <h1>パフェ詳細</h1>
+      <h1>レビュー詳細</h1>
       <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
         <div class="card-body">
           <div class="row">
@@ -12,26 +12,20 @@
             このあたりに画像起きたい
             </div>
             <div class="col-md-9">
-              <h3><%= parfait.name %></h3>
-              <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
+              <h3><%= @review.title %></h3>
+              <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
               <% if user_signed_in? %>
                 <div class='d-flex justify-content-end'>
-                  <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}" do %>
+                  <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
                     <i class='bi bi-pencil-fill'></i>
                   <% end %>
-                  <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
                     <i class="bi bi-trash-fill"></i>
                   <% end %>
                 </div>
               <% end %> 
-            </div>
-            <% if parfait.is_limited? %> 
-              <div>期間限定商品</div>
-            <% else %>
-              <div>レギュラー商品</div>
-            <% end %>
-            <div>価格帯：<%= parfait.price_i18n %></div>    
-            <p><%= simple_format(parfait.body) %></p>
+            </div>   
+            <p><%= simple_format(@review.body) %></p>
           </div>
         </div>  
       </article> 
