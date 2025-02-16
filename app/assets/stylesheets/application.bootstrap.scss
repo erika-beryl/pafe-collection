@@ -20,3 +20,10 @@
   line-height: 1.5;
   font-size: 1.3rem;
 }
+
+.review-body-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;  /* 1行だけ表示 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

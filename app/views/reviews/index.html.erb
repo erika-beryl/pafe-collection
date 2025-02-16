@@ -23,8 +23,10 @@
                 <li><i class="bi bi-person"></i><%= review.user.name %></li>
                 <li><i class="bi bi-calendar"></i><%= l review.created_at, format: :short %></li>
               </ul>
-              <p><%= link_to review.parfait.name, parfait_path(review.parfait) %></p>
-              <p><%= simple_format(review.body) %></p>
+              <div><%= link_to review.parfait.name, parfait_path(review.parfait) %></div>
+              <div class="review-body-preview">
+                <%= simple_format(review.body) %>
+              </div>
             </div>
           </div>
         </div>
