@@ -23,16 +23,28 @@ class ReviewsController < ApplicationController
 
   def show
     load_review
-    
+
   end
 
   def edit
+    load_review
   end
 
   def update
+    load_review
+    if @review.update(review_params)
+      redirect_to parfait_path(@review.parfait), success: 'レビューが更新されました', status: :see_other
+    else
+      flash.now[:danger] = "レビューを更新できませんでした"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    load_review
+    parfait = @review.parfait 
+    @review.destroy!
+    redirect_to parfait_path(parfait), success: '削除に成功しました'
   end
 
   private
@@ -42,7 +54,7 @@ class ReviewsController < ApplicationController
   end
 
   def load_review
-    @review = Review.includes(:user, parfait: :shop).find(params[id])
+    @review = Review.includes(:user, parfait: :shop).find(params[:id])
   end
 
 end

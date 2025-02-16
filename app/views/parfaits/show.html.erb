@@ -1,19 +1,21 @@
-<div class="tabs">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" data-turbo="false" href="#section1">トップ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">レビュー一覧</a>
-    </li>
-  </ul>
-  
-  <div class="tab-content">
-    <div id="section1" class="tab-pane fade show active">
-      <%= render 'parfaits/top_section_tab', parfait: @parfait %>
-    </div>
-    <div id="section2" class="tab-pane fade">
-      <%= render 'parfaits/reviews_section_tab', reviews: @reviews, parfait: @parfait %>
+<main class="p-3">  
+  <div class="tabs">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#section1" type="button">トップ</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section2" type="button">レビュー一覧</button>
+      </li>
+    </ul>
+    
+    <div class="tab-content">
+      <div id="section1" class="tab-pane fade show active">
+        <%= render 'parfaits/top_section_tab', parfait: @parfait %>
+      </div>
+      <div id="section2" class="tab-pane fade">
+        <%= render 'parfaits/reviews_section_tab', reviews: @reviews, parfait: @parfait %>
+      </div>
     </div>
   </div>
-</div>
+</main>  

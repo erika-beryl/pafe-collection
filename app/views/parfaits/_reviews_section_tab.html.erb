@@ -17,7 +17,7 @@
                   <%= link_to '#', id: "button-edit-#{review.id}" do %>
                     <i class='bi bi-pencil-fill'></i>
                   <% end %>
-                  <%= link_to '#', id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <%= link_to review_path(review), id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
                     <i class="bi bi-trash-fill"></i>
                   <% end %>
                 </div>
