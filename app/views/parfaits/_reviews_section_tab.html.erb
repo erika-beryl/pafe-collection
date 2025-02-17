@@ -10,11 +10,11 @@
             <%= image_tag 'noimage.png', class: "card-img-left" %>
             <div class="card-body">
               <h4 class="card-title">
-                <%= link_to review.title, '#' %>
+                <%= link_to review.title, review_path(review) %>
               </h4>
               <% if user_signed_in? %>
                 <div class='d-flex justify-content-end'>
-                  <%= link_to '#', id: "button-edit-#{review.id}" do %>
+                  <%= link_to edit_review_path(review), id: "button-edit-#{review.id}" do %>
                     <i class='bi bi-pencil-fill'></i>
                   <% end %>
                   <%= link_to review_path(review), id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
@@ -26,8 +26,10 @@
                 <li><i class="bi bi-person"></i><%= review.user.name %></li>
                 <li><i class="bi bi-calendar"></i><%= l review.created_at, format: :short %></li>
               </ul>
-              <p><%= link_to review.parfait.name, parfait_path(review.parfait) %></p>
-              <p><%= simple_format(review.body) %></p>
+              <div><%= link_to review.parfait.name, parfait_path(review.parfait) %></div>
+              <div class="review-body-preview">
+                <%= simple_format(review.body) %>
+              </div>  
             </div>
           </div>
         </div>
