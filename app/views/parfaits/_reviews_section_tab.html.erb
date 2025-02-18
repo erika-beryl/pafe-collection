@@ -12,7 +12,7 @@
               <h4 class="card-title">
                 <%= link_to review.title, review_path(review) %>
               </h4>
-              <% if user_signed_in? %>
+              <% if current_user&.own?(review) %>
                 <div class='d-flex justify-content-end'>
                   <%= link_to edit_review_path(review), id: "button-edit-#{review.id}" do %>
                     <i class='bi bi-pencil-fill'></i>

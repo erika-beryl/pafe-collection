@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index]
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @reviews = Review.includes(:user, parfait: :shop).order(created_at: :desc)
@@ -27,11 +27,11 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    load_review
+    @review = current_user.reviews.find(params[:id])
   end
 
   def update
-    load_review
+    @review = current_user.reviews.find(params[:id])
     if @review.update(review_params)
       redirect_to parfait_path(@review.parfait), success: 'レビューが更新されました', status: :see_other
     else
@@ -41,7 +41,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    load_review
+    @review = current_user.reviews.includes(:user, parfait: :shop).find(params[:id])
     parfait = @review.parfait 
     @review.destroy!
     redirect_to parfait_path(parfait), success: '削除に成功しました'

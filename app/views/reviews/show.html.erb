@@ -14,7 +14,8 @@
             <div class="col-md-9">
               <h3><%= @review.title %></h3>
               <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
-              <% if user_signed_in? %>
+              <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
+              <% if current_user&.own?(@review) %>
                 <div class='d-flex justify-content-end'>
                   <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
                     <i class='bi bi-pencil-fill'></i>
