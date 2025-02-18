@@ -1,14 +1,14 @@
 <header>
   <nav class='navbar navbar-expand-lg navigation navbar-light bg-light'>
     <%= link_to '/', class: 'navbar-brand' do %>
-      <h1>パフェコレ</h1>
+      <h1 class="p-3">パフェコレ</h1>
     <% end %>
     <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
       aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
       <span class='navbar-toggler-icon'></span>
     </button>
 
-    <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+    <div class='collapse navbar-collapse p-3' id='navbarSupportedContent'>
       <ul class='navbar-nav ms-auto main-nav align-items-center'>
         <li class='nav-item'>
           <%= link_to '口コミから探す', reviews_path, class: 'nav-link' %>
