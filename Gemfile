@@ -81,3 +81,6 @@ gem 'jp_prefecture'
 
 # enumのgem
 gem 'enum_help', '0.0.19'
+
+# 国際化のgem
+gem 'rails-i18n', '~> 7.0.0'

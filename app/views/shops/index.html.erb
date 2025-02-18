@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info', role: 'button' %>
+  <%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info p-3', role: 'button' %>
 <% end %>
 <div class="container pt-3">
   <div class="row">
@@ -26,7 +26,8 @@
                 <%= "住所: #{shop.full_address}" %>
               </p> 
               <p>星評価</p>
-              <p>登録パフェ： 件</p>
+              <p>登録パフェ： <%= shop.parfaits_count %>件</p>
+              <p>全レビュー数： <%= shop.reviews_count %>件</p>
             </div>
           </div>
         </div>

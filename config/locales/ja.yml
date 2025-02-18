@@ -7,6 +7,7 @@ ja:
     models:
       shop: 店舗
       parfait: パフェ
+      review: レビュー
     attributes:
       shop:
         name: 店舗名

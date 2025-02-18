@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_04_132929) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_11_115951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_04_132929) do
     t.string "method_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.bigint "parfait_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parfait_id"], name: "index_reviews_on_parfait_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "shop_features", force: :cascade do |t|
@@ -112,6 +123,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_04_132929) do
 
   add_foreign_key "businesses", "shops"
   add_foreign_key "parfaits", "shops"
+  add_foreign_key "reviews", "parfaits"
+  add_foreign_key "reviews", "users"
   add_foreign_key "shop_features", "features"
   add_foreign_key "shop_features", "shops"
   add_foreign_key "shop_opentimes", "opentimes"

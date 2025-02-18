@@ -1,26 +1,28 @@
-<div class="tabs">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" data-turbo="false" href="#section1">トップ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section2">パフェ一覧</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" data-turbo="false" href="#section3">レビュー</a>
-    </li>
-  </ul>
-  
-  <div class="tab-content">
-    <div id="section1" class="tab-pane fade show active">
-      <%= render 'shops/top_section_tab', shop: @shop %>
-    </div>
-    <div id="section2" class="tab-pane fade">
-      <%= render 'shops/parfait_section_tab', parfaits: @parfaits, shop: @shop %>
-    </div>
-    <div id="section3" class="tab-pane fade">
-      <p>セクション3のコンテンツが表示されます。</p>
+<main class="p-3">
+  <div class="tabs">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#section1" type="button">トップ</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section2" type="button">パフェ一覧</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section3" type="button">レビュー</button>
+      </li>
+    </ul>
+    
+    <div class="tab-content">
+      <div id="section1" class="tab-pane fade show active">
+        <%= render 'shops/top_section_tab', shop: @shop %>
+      </div>
+      <div id="section2" class="tab-pane fade">
+        <%= render 'shops/parfait_section_tab', parfaits: @parfaits, shop: @shop %>
+      </div>
+      <div id="section3" class="tab-pane fade">
+        <%= render 'shops/reviews_section_tab', reviews: @reviews %>
+      </div>
     </div>
   </div>
-</div>
+</main>  
 

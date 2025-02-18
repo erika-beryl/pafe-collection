@@ -1,4 +1,4 @@
-<p>パフェの登録は店舗詳細ページからできます！</p>
+<div class="p-3">パフェの登録は店舗詳細ページからできます！</div>
 <div class="container pt-3">
   <div class="row">
     <% if @parfaits.present? %>
@@ -30,7 +30,7 @@
                 <div>レギュラー商品</div>
               <% end %> 
               <p>星評価</p>
-              <p>レビュー： 件</p>
+              <p>レビュー： <%= parfait.reviews_count %>件</p>
             </div>
           </div>
         </div>
