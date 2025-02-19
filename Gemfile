@@ -84,3 +84,9 @@ gem 'enum_help', '0.0.19'
 
 # 国際化のgem
 gem 'rails-i18n', '~> 7.0.0'
+
+# 画像アップのgem
+gem 'image_processing'                 # (サイズ変更など)画像処理用
+gem 'cloudinary', require: true        # Cloudinary
+gem 'activestorage-cloudinary-service' # Cloudinary と Active Storage の連携をする
+gem 'active_storage_validations'       # 画像ファイルのバリデーション用
