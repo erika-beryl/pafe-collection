@@ -21,6 +21,13 @@ class Shop < ApplicationRecord
   validates :tel, presence: true, uniqueness: true
   before_save :generate_address
 
+  has_one_attached :image
+
+  validates :images,
+            content_type: %i(gif png jpg jpeg),                        # 画像の種類
+            size: { less_than_or_equal_to: 5.megabytes },              # ファイルサイズ
+            dimension: { width: { max: 2000 }, height: { max: 2000 } } # 画像の大きさ
+
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
   end
