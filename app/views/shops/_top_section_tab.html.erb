@@ -5,9 +5,15 @@
       <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-3">
-              <%= image_tag 'noimage.png', width: "300", height: "200", class: "card-img-top img-fluid" %>
-            </div>
+            <% if shop.shop_image.attached? %>
+              <div class="col-md-3">
+                <%= image_tag shop.shop_image %>
+              </div>
+            <% else %>    
+              <div class="col-md-3">
+                <%= image_tag 'noimage.png', width: "300", height: "200", class: "card-img-top img-fluid" %>
+              </div>
+            <% end %>  
             <div class="col-md-9">
               <h3><%= shop.name %></h3>
               <div>住所：<%= shop.full_address %></div>
@@ -26,9 +32,6 @@
           </div>
         </div>  
       </article>
-      <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-      このあたりに画像起きたい
-      </div>
       <div class="d-flex flex-row align-items-center py-3 border-top border-bottom mb-5">
         <h5 class="mb-0 me-5">営業時間</h5>
         <% if shop.business.present? && shop.business.business_time.present? %>

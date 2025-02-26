@@ -5,7 +5,7 @@ class ShopMustForm
   jp_prefecture :prefecture_code
 
   attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking,
-                :business_time, :payment_ids, :feature_ids
+                :shop_image, :business_time, :payment_ids, :feature_ids
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -19,7 +19,6 @@ class ShopMustForm
   def initialize(attributes = nil, shop: Shop.new)
     @shop = shop
     attributes ||= default_attributes
-    Rails.logger.debug "Initializing ShopMustForm with: #{attributes.inspect}"
     super(attributes)
   end
 
@@ -29,7 +28,6 @@ class ShopMustForm
   end
 
   def save
-
     # チェックボックスでオンの時1で送られるので、=="1"でtrueに変換してる。
     self.reservation = reservation == "1"
     self.parking = parking == "1"
@@ -38,12 +36,13 @@ class ShopMustForm
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
-                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
+                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))     
       if shop.business
         shop.business.update!(business_time: business_time)
       else
         shop.create_business!(business_time: business_time)
-      end  
+      end
+      shop.shop_image.attach(shop_image) if shop_image.present?
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
@@ -76,7 +75,8 @@ class ShopMustForm
       parking: shop.parking,
       feature_ids: shop.feature_ids,
       payment_ids: shop.payment_ids,
-      business_time: shop.business.present? ? shop.business.business_time : nil
+      business_time: shop.business.present? ? shop.business.business_time : nil,
+      shop_image: shop.shop_image
     }
   end
 

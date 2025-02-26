@@ -10,19 +10,22 @@ class ShopsController < ApplicationController
   end
 
   def new
-    @form = ShopMustForm.new
-    
+    @form = ShopMustForm.new  
   end
 
   def create
+    # active_strageはshopとは別のデータベースに保存されるので、明示的に切り離しておく
     @form = ShopMustForm.new(shop_params)
 
-    if @form.valid?
-      @form.save
+    if @form.save
       redirect_to shops_path, success: '店舗登録が完了しました'
-
     else
+      Rails.logger.debug("Form errors: #{@form.errors.full_messages.inspect}")
+    
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
+      flash.now[:danger] += ": #{@form.errors.full_messages.join(', ')}" if @form.errors.any?
+
+      Rails.logger.debug("Flash message: #{flash.now[:danger]}")
       render :new, status: :unprocessable_entity
 
     end
@@ -40,7 +43,8 @@ class ShopsController < ApplicationController
 
     @form = ShopMustForm.new(shop_params, shop: @shop)
 
-    if @form.save
+    if @form.valid?
+      @form.save
       redirect_to @shop, success: '店舗情報が更新されました'
     else
       flash.now[:danger] = '店舗情報を更新できませんでした'
@@ -73,7 +77,7 @@ class ShopsController < ApplicationController
 
   def shop_params
     params.require(:shop).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :parking, :reservation,
-    :business_time, feature_ids:[], payment_ids:[])
+    :shop_image, :business_time, feature_ids:[], payment_ids:[])
   end
 
   def load_shop

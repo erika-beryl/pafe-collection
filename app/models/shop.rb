@@ -11,7 +11,6 @@ class Shop < ApplicationRecord
   has_one :business, dependent: :destroy
 
   has_many :parfaits, dependent: :destroy
-  has_many :reviews, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 100 }, uniqueness: true
   validates :postal_code, presence:true, uniqueness: true, format: {with: /\A[0-9]+\z/, message: "is invalid. Please input half-width characters."}
@@ -21,12 +20,17 @@ class Shop < ApplicationRecord
   validates :tel, presence: true, uniqueness: true
   before_save :generate_address
 
-  has_one_attached :image
+  has_one_attached :shop_image
 
-  validates :images,
+  validates :shop_image,
             content_type: %i(gif png jpg jpeg),                        # 画像の種類
             size: { less_than_or_equal_to: 5.megabytes },              # ファイルサイズ
             dimension: { width: { max: 2000 }, height: { max: 2000 } } # 画像の大きさ
+
+  def image_as_thumbnail
+    return unless image.content_type.in?(%w[image/jpeg image/png])
+    image.variant(resize_to_limit: [200, 100]).processed
+  end
 
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
