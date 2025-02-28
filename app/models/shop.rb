@@ -28,8 +28,8 @@ class Shop < ApplicationRecord
             dimension: { width: { max: 2000 }, height: { max: 2000 } } # 画像の大きさ
 
   def image_as_thumbnail
-    return unless image.content_type.in?(%w[image/jpeg image/png])
-    image.variant(resize_to_limit: [200, 100]).processed
+    return unless shop_image.content_type.in?(%w[image/jpeg image/png])
+    shop_image.variant(resize_to_limit: [400, 500]).processed
   end
 
   def prefecture_name

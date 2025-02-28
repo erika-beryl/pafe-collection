@@ -24,8 +24,6 @@ class ShopsController < ApplicationController
     
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
       flash.now[:danger] += ": #{@form.errors.full_messages.join(', ')}" if @form.errors.any?
-
-      Rails.logger.debug("Flash message: #{flash.now[:danger]}")
       render :new, status: :unprocessable_entity
 
     end
