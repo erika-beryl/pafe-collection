@@ -42,7 +42,11 @@ class ShopMustForm
       else
         shop.create_business!(business_time: business_time)
       end
-      shop.shop_image.attach(shop_image) if shop_image.present?
+
+      if shop_image.present?
+        shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
+        shop.shop_image.attach(shop_image)
+      end
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
