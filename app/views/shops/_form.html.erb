@@ -1,12 +1,11 @@
-<%= form_with model: form, local: true, class: "new_shop mt-4" do |f| %>
+<%= form_with model: form, local: false, class: "new_shop mt-4" do |f| %>
   <div class="mb-3">
     <%= f.label :店舗名 %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="mb-3">
-    <%= f.label :店舗外観 %><br>
-    <%= f.file_field :shop_image %>
-  </div>
+
+  <%= render "image_preview", f: f, form: form  %>
+
   <div class="mb-3">
     <%= f.label :郵便番号 %>
     <%= f.text_field :postal_code, class: "form-control" %>

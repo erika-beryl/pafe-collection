@@ -1,0 +1,12 @@
+<div class="my-3" data-controller="previews">
+    <%= f.label :店舗外観 %><br>
+    <%= f.file_field :shop_image,
+    direct_upload: true,
+    data: { previews_target: "input", action: "change->previews#preview" } %>
+
+    <% if f.object.shop_image.present? %>
+      <%= image_tag f.object.shop_image, data: { previews_target: "preview" } %>
+    <% else %>
+      <%= image_tag "", data: { previews_target: "preview" } %>
+    <% end %>
+</div>
