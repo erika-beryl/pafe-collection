@@ -6,6 +6,10 @@
 
     <% if f.object.shop_image.present? %>
       <%= image_tag f.object.shop_image, data: { previews_target: "preview" } %>
+      <div>
+        <%= f.check_box :remove_shop_image %>
+        <%= f.label :remove_shop_image, "画像を削除する" %>
+      </div>  
     <% else %>
       <%= image_tag "", data: { previews_target: "preview" } %>
     <% end %>

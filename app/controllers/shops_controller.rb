@@ -70,12 +70,11 @@ class ShopsController < ApplicationController
     redirect_to shops_path, success: '削除に成功しました'
   end
 
-
   private
 
   def shop_params
     params.require(:shop).permit(:name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :parking, :reservation,
-    :shop_image, :business_time, feature_ids:[], payment_ids:[])
+    :shop_image, :remove_shop_image, :business_time, feature_ids:[], payment_ids:[])
   end
 
   def load_shop

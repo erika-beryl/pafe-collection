@@ -5,7 +5,7 @@ class ShopMustForm
   jp_prefecture :prefecture_code
 
   attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking,
-                :shop_image, :business_time, :payment_ids, :feature_ids
+                :shop_image, :remove_shop_image, :business_time, :payment_ids, :feature_ids
 
   validates :name, presence: true
   validates :postal_code, presence: true
@@ -42,6 +42,13 @@ class ShopMustForm
       else
         shop.create_business!(business_time: business_time)
       end
+
+      if remove_shop_image == '1'
+        shop.shop_image.purge if shop.shop_image.attached?
+        self.shop_image = nil
+      end
+
+      # self.shop_image = nilにしたのはインスタンス変数の値は残るので、クリアするため
 
       if shop_image.present?
         shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
