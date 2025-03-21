@@ -1,16 +1,20 @@
-<div class="my-3" data-controller="previews">
-    <%= f.label :店舗外観 %><br>
-    <%= f.file_field :shop_image,
-    direct_upload: true,
-    data: { previews_target: "input", action: "change->previews#preview" } %>
+<div class="my-3" data-controller="previews" data-previews-width="250">
+  <%= f.label :店舗外観 %><br>
 
+  <%= f.file_field :shop_image,
+    direct_upload: true,
+    data: { previews_target: "input", action: "change->previews#previewImage" } %>
+
+  <div data-previews-target="preview">
     <% if f.object.shop_image.present? %>
-      <%= image_tag f.object.shop_image, data: { previews_target: "preview" } %>
-      <div>
-        <%= f.check_box :remove_shop_image %>
-        <%= f.label :remove_shop_image, "画像を削除する" %>
-      </div>  
-    <% else %>
-      <%= image_tag "", data: { previews_target: "preview" } %>
+      <%= image_tag f.object.shop_image, style: "max-width: 250px;" %>
     <% end %>
+  </div>
+
+  <% if f.object.shop_image.present? %>
+    <div>
+      <%= f.check_box :remove_shop_image %>
+      <%= f.label :remove_shop_image, "画像を削除する" %>
+    </div>  
+  <% end %>
 </div>

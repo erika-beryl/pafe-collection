@@ -6,12 +6,12 @@
         <div class="card-body">
           <div class="row">
             <% if shop.shop_image.attached? %>
-              <div class="col-md-3">
+              <div class="col-9">
                 <%= image_tag(shop.image_as_thumbnail, height: "500", class: "img-fluid") %>
               </div>
             <% else %>    
-              <div class="col-9">
-                <%= image_tag 'noimage.png', width: "200", height: "300", class: "card-img-top" %>
+              <div class="col-5">
+                <%= image_tag 'noimage.png', height: "300", class: "img-fluid" %>
               </div>
             <% end %>
           </div>

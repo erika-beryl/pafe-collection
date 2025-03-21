@@ -1,44 +1,47 @@
 <% if user_signed_in? %>
   <%= link_to '店舗登録ページはこちら', new_shop_path, class: 'btn-info p-3', role: 'button' %>
 <% end %>
+
 <div class="container pt-3">
   <div class="row">
     <% if @shops.present? %>
       <% @shops.each do |shop| %>
         <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-          <div class="d-flex">
-            <%= image_tag 'noimage.png', class: "card-img-left" %>
-            <div class="card-body">
-              <h4 class="card-title">
-                <%= link_to shop.name, shop_path(shop) %>
-              </h4>
-              <% if user_signed_in? %>
-                <div class='d-flex justify-content-end'>
-                  <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}" do %>
-                    <i class='bi bi-pencil-fill'></i>
-                  <% end %>
-                  <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i>
-                  <% end %>
-                </div>
-              <% end %>  
-              <p class="card-text">
-                <%= "住所: #{shop.full_address}" %>
-              </p> 
-              <p>星評価</p>
-              <p>登録パフェ： <%= shop.parfaits_count %>件</p>
-              <p>全レビュー数： <%= shop.reviews_count %>件</p>
-            </div>
+          
+          <!-- 画像エリア -->
+          <div class="d-flex flex-shrink-0 me-3" style="width: 200px; height: 200px;">
+            <%= image_tag shop.shop_image.present? ? shop.shop_image : 'noimage.png', class: "w-100 h-100 object-fit-cover" %>
           </div>
+
+          <!-- 文字エリア -->
+          <div class="card-body">
+            <h4 class="card-title">
+              <%= link_to shop.name, shop_path(shop) %>
+            </h4>
+
+            <% if user_signed_in? %>
+              <div class='d-flex gap-1 mt-1'>
+                <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}" do %>
+                  <i class='bi bi-pencil-fill'></i>
+                <% end %>
+                <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <i class="bi bi-trash-fill"></i>
+                <% end %>
+              </div>
+            <% end %>  
+
+            <p class="card-text">
+              <%= "住所: #{shop.full_address}" %>
+            </p> 
+            <p>星評価</p>
+            <p>登録パフェ： <%= shop.parfaits_count %>件</p>
+            <p>全レビュー数： <%= shop.reviews_count %>件</p>
+          </div>
+
         </div>
       <% end %>
     <% else %>
       <div class="mb-3">店舗情報がありません</div>
     <% end %>
   </div>
-</div>   
-
-
-
-          
-
+</div>
