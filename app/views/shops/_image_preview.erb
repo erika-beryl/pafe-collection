@@ -1,13 +1,13 @@
-<div class="my-3" data-controller="previews" data-previews-width="250">
+<div class="my-3" data-controller="previews" data-previews-width="400">
   <%= f.label :店舗外観 %><br>
 
   <%= f.file_field :shop_image,
     direct_upload: true,
     data: { previews_target: "input", action: "change->previews#previewImage" } %>
 
-  <div data-previews-target="preview">
+  <div data-previews-target="preview" class="mt-2">
     <% if f.object.shop_image.present? %>
-      <%= image_tag f.object.shop_image, style: "max-width: 250px;" %>
+      <%= image_tag f.object.shop_image %>
     <% end %>
   </div>
 

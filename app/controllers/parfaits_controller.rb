@@ -18,7 +18,7 @@ class ParfaitsController < ApplicationController
   end
   
   def create
-    @parfait = Parfait.build(parfait_params)
+    @parfait = Parfait.new(parfait_params)
 
     if @parfait.save
       redirect_to @parfait, success: 'パフェが登録されました'
@@ -35,7 +35,13 @@ class ParfaitsController < ApplicationController
 
   def update
     load_parfait
-    if @parfait.update(parfait_params)
+
+    if parfait_params[:remove_parfait_image] == '1'
+      @parfait.parfait_image.purge if @parfait.parfait_image.attached?
+      @parfait.parfait_image = nil
+    end
+
+    if @parfait.update(parfait_params.except(:remove_parfait_image))
       redirect_to @parfait, success: 'パフェが更新されました', status: :see_other
     else
       flash.now[:danger] = "パフェを更新できませんでした"
@@ -52,7 +58,7 @@ class ParfaitsController < ApplicationController
   private
 
   def parfait_params
-    params.require(:parfait).permit(:name, :body, :price, :is_limited).merge(shop_id: params[:shop_id] || @parfait.shop_id)
+    params.require(:parfait).permit(:name, :body, :price, :is_limited, :parfait_image, :remove_parfait_image).merge(shop_id: params[:shop_id] || @parfait&.shop_id)
   end
 
   def load_parfait

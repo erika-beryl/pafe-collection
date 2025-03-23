@@ -3,6 +3,9 @@
     <%= f.label :パフェ名 %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
+
+  <%= render "image_parfait_preview", f: f, parfait: parfait %>
+
   <div class="mb-3">   
   <%# enumのキーを送っても自動的に値に変換されるのでkだけで大丈夫 %>
     <%= f.label :価格 %>
