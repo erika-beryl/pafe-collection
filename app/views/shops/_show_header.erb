@@ -3,7 +3,7 @@
   <div>住所：<%= shop.full_address %></div>
   <div>電話番号：<%= shop.tel %><div>
   <% if user_signed_in? %>
-    <div class='d-flex justify-content-end'>
+    <div class='d-flex my-2'>
       <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}" do %>
         <i class='bi bi-pencil-fill'></i>
       <% end %>
