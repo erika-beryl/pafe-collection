@@ -1,18 +1,6 @@
-<div class="my-3" data-controller="multiple_previews" data-previews-width="400">
-  <%= f.label :画像 %><br>
+<div class="mb-3" data-controller="multiple-previews">
+  <%= f.label :review_images, '画像' %>
+  <%= f.file_field :review_images, multiple: true, data: { "action" => "change->multiple-previews#previewImage", "multiple-previews-target" => "input" } %>
 
-  <%= f.file_field :review_images,
-    multiple: true,
-    direct_upload: true,
-    data: { previews_target: "input", action: "change->multiple_previews#previewImage" } %>
-
-  <div data-previews-target="preview" class="mt-2">
-    <% if f.object.review_images.present? %>
-      <p>現在登録されている画像（削除する物はチェックしてください）</p>
-      <% f.object.review_images.each do |image| %>
-        <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-        <%= image_tag image %>
-      <% end %>
-    <% end %>
-  </div>
+  <div class="mt-2" data-multiple-previews-target="preview"></div>
 </div>

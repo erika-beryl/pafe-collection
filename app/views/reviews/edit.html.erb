@@ -10,11 +10,13 @@
           <%= f.text_field :title, class: "form-control" %>
         </div>
       
-        <div class="mb-3">
+        <div class="mb-3" data-controller="multiple-previews">
           <%= f.label :review_images, '画像' %>
-          <%= f.file_field :review_images, multiple: true %>
+          <%= f.file_field :review_images, multiple: true, data: { "action" => "change->multiple-previews#previewImage", "multiple-previews-target" => "input" } %>
+
+          <div class="mt-2" data-multiple-previews-target="preview"></div>
         </div>
-        
+
         <% if @review.review_images.present? %>
           <p>現在登録されている画像(削除する画像はチェックしてください) </p>
           <% @review.review_images.each do |image| %>
