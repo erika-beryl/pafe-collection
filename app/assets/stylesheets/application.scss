@@ -1,2 +1,25 @@
 /* app/assets/stylesheets/application.scss */
 @import "application.bootstrap";
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
+
+.slick-next {
+	right: 10px !important;
+	z-index: 100;
+ }
+
+.slick-prev {
+	left: 10px !important;
+  z-index: 100;
+ }
+
+ .slick-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
+}

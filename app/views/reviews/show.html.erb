@@ -5,9 +5,17 @@
       <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-3">
-              <%= image_tag 'noimage.png', width: "300", height: "200", class: "card-img-top img-fluid" %>
-            </div>
+            <% if @review.review_images.present? %>
+              <div class="slider">
+                <% @review.review_images.each do |image| %>
+                  <%= image_tag image.variant(resize_to_limit: [300, 400]).processed, format: "jpeg" %>
+                <% end %>
+              </div>
+            <% else %>    
+              <div class="col-md-3">
+                <%= image_tag 'noimage.png', width: "300", height: "200", class: "show-img" %>
+              </div>
+            <% end %>  
             <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
             このあたりに画像起きたい
             </div>
