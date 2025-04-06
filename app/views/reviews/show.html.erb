@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="row">
             <% if @review.review_images.present? %>
-              <div class="slider">
+              <div id="slider">
                 <% @review.review_images.each do |image| %>
                   <%= image_tag image.variant(resize_to_limit: [300, 400]).processed, format: "jpeg" %>
                 <% end %>
