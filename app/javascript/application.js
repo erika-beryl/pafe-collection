@@ -2,21 +2,43 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import $ from "jquery";
-import "slick-carousel";  // slickをインポート
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css"; 
+window.$ = $;
+window.jQuery = $;
 import * as bootstrap from "bootstrap"
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css';
+import { Navigation, Pagination } from 'swiper/modules';
+Swiper.use([Navigation, Pagination]);
 
-window.$ = window.jQuery = $;
-window.bootstrap = bootstrap
 
-document.addEventListener("turbo:load", function () {
-  $(".slider").slick({
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    infinite: true,
-    slidesToShow: 1,
-    centerMode: true
+window.bootstrap = bootstrap;
+
+document.addEventListener('turbo:load', () => {
+  const swiper = new Swiper('.swiper', {
+    loop: true,
+    slidesPerView: 1,  // 1枚ずつ表示
+    spaceBetween: 10,  // 画像の間隔
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
   });
 });
+
+
+
+
+
+
+
+
+
+
+

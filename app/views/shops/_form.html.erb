@@ -1,60 +1,61 @@
 <%= form_with model: form, local: false, class: "new_shop mt-4" do |f| %>
   <div class="mb-3">
-    <%= f.label :店舗名 %>
+    <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
   <%= render "image_preview", f: f, form: form  %>
 
   <div class="mb-3">
-    <%= f.label :郵便番号 %>
+    <%= f.label :postal_code %>
     <%= f.text_field :postal_code, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :都道府県 %>
+    <%= f.label :prefecture_code %>
     <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-select' %>
   </div>
   <div class="mb-3">
-    <%= f.label :市町村 %>
+    <%= f.label :city %>
     <%= f.text_field :city, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :番地 %>
+    <%= f.label :street %>
     <%= f.text_field :street, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :その他建物など %>
+    <%= f.label :other_address %>
     <%= f.text_field :other_address, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :電話番号 %>
+    <%= f.label :tel %>
     <%= f.telephone_field :tel, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :営業時間 %>
+    <%= f.label :business_time, t("activerecord.attributes.business.business_time") %>
     <%= f.text_area :business_time, value: @form.business_time, placeholder: '例 月~金: 9:00~15:00, 17:00~21:00', class: "form-control", rows: "10" %>
   </div>
   <div class="mb-3">
-    <%= f.label :予約は可能でしょうか？ %>
+    <%= f.label :reservation %>
     <%= f.check_box :reservation, class: "form-check-input" %>
   </div>
   <div class="mb-3">
-    <%= f.label :駐車場はありますか？ %>
+    <%= f.label :parking %>
     <%= f.check_box :parking, class: "form-check-input" %>
   </div>
-  <div>支払い方法</div>
+  <%= f.label :method_type, t("activerecord.attributes.payment.method_type") %>
   <%= f.collection_check_boxes :payment_ids, Payment.all, :id, :method_type do |b| %>
     <div>
       <%= b.label { b.check_box + b.text } %>
     </div>
   <% end %>
   </br>  
-  <div>店の特徴</div>
+  <%= f.label :trait, t("activerecord.attributes.feature.trait") %>
   <%= f.collection_check_boxes :feature_ids, Feature.all, :id, :trait do |b| %>
     <div>
       <%= b.label { b.check_box + b.text } %>
-    </div>  
+    </div>
   <% end %>
+  </br>
 
   <%= f.submit '登録', class: "btn btn-primary" %>
 <% end %>
