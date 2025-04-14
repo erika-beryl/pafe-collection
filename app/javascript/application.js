@@ -6,9 +6,8 @@ window.$ = $;
 window.jQuery = $;
 import * as bootstrap from "bootstrap"
 import Swiper from 'swiper';
-import 'swiper/swiper-bundle.css';
-import { Navigation, Pagination } from 'swiper/modules';
-Swiper.use([Navigation, Pagination]);
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+Swiper.use([Navigation, Pagination, Scrollbar]);
 
 
 window.bootstrap = bootstrap;
