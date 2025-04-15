@@ -28,5 +28,7 @@ module Myapp
 
     config.time_zone = 'Tokyo'
 
+    Rails.application.config.active_storage.variant_processor = :mini_magick
+
   end
 end

@@ -1,0 +1,20 @@
+<div class="my-3" data-controller="previews" data-previews-width="400">
+  <%= f.label :shop_image %><br>
+
+  <%= f.file_field :shop_image,
+    direct_upload: true,
+    data: { previews_target: "input", action: "change->previews#previewImage" } %>
+
+  <div data-previews-target="preview" class="mt-2">
+    <% if f.object.shop_image.present? %>
+      <%= image_tag f.object.shop_image %>
+    <% end %>
+  </div>
+
+  <% if f.object.shop_image.present? %>
+    <div>
+      <%= f.check_box :remove_shop_image %>
+      <%= f.label :remove_shop_image, "画像を削除する" %>
+    </div>  
+  <% end %>
+</div>

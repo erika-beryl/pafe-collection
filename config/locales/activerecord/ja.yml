@@ -1,0 +1,48 @@
+ja:
+  activerecord:
+    models:
+      shop: 店舗
+      parfait: パフェ
+      review: レビュー
+      shop_must_form: 店舗
+      business: 営業時間
+      feature: 特徴
+      shop_feature: 店舗の特徴
+      payment: 支払い方法
+      shop_payment: 店舗の支払い方法
+      user: ユーザー
+    attributes:
+      shop:
+        name: 店舗名
+        shop_image: 店舗外観
+        postal_code: 郵便番号
+        prefecture_code: 都道府県
+        city: 市町村
+        street: 番地
+        other_address: その他建物など
+        tel: 電話番号
+        reservation: 予約は可能でしょうか？
+        parking: 駐車場はありますか？
+      parfait:
+        name: 商品名
+      business:
+        business_time: 営業時間
+      payment:
+        method_type: 支払い方法
+      feature:
+        trait: 店の特徴
+  enums:
+    parfait:
+      price:
+        under_1000: 1,000円以内
+        under_1500: 1,001～1,500円
+        under_2000: 1,501～2,000円
+        under_3000: 2,001～3,000円
+        under_4000: 3,001～4,000円
+        under_5000: 4,001～5,000円
+        under_6000: 5,001～6,000円
+        under_7000: 6,001～7,000円
+        under_8000: 7,001～8,000円
+        under_9000: 8,001～9,000円
+        under_10000: 9,001～10,000円
+        over_10000: 10,000円以上

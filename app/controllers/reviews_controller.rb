@@ -13,6 +13,10 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
 
+    if params[:review][:review_images].present?
+      @review.review_images.attach(params[:review][:review_images])
+    end
+
     if @review.save
       redirect_to parfait_path(@review.parfait), success: 'レビューが投稿されました'
     else
@@ -27,11 +31,27 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = current_user.reviews.find(params[:id])
+    @review = current_user.reviews.find_by(id: params[:id])
+
+    if @review.nil?
+      redirect_to root_path, alert: '他のユーザーのレビューは編集できません'
+    end
   end
 
   def update
     @review = current_user.reviews.find(params[:id])
+
+    if params[:review][:review_images].present?
+      @review.review_images.attach(params[:review][:review_images])
+    end
+
+    if params[:review][:image_ids].present?
+      params[:review][:image_ids].each do |image_id|
+        image = @review.review_images.find(image_id)
+        image.purge if @review.user == current_user
+      end
+    end
+
     if @review.update(review_params)
       redirect_to parfait_path(@review.parfait), success: 'レビューが更新されました', status: :see_other
     else
