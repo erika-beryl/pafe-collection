@@ -1,4 +1,4 @@
-<%= form_with model: form, local: false, class: "new_shop mt-4" do |f| %>
+<%= form_with model: form, html: { multipart: true }, class: "new_shop mt-4" do |f| %>
   <div class="mb-3">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
