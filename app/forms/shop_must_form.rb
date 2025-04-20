@@ -51,13 +51,8 @@ class ShopMustForm
       # self.shop_image = nilにしたのはインスタンス変数の値は残るので、クリアするため
 
       if shop_image.present?
-        resized_image = resize_image_dpi(shop_image)
         shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-        shop.shop_image.attach(
-          io: resized_image,
-          filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg",
-          content_type: 'image/jpg'
-        )
+        shop.shop_image.attach
       end
     end
     rescue ActiveRecord::RecordInvalid => e
