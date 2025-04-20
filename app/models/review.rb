@@ -20,8 +20,8 @@ class Review < ApplicationRecord
   end
 
   def review_images_limit
-    if review_images.attached? && review_images.count > 3
-      errors.add(:review_images, "は3枚までアップロードできます")
+    if review_images.attached? && review_images.count > 5
+      errors.add(:review_images, "は5枚までアップロードできます")
     end
   end
 
