@@ -52,7 +52,7 @@ class ShopMustForm
 
       if shop_image.present?
         shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-        shop.shop_image.attach
+        shop.shop_image.attach(shop_image)
       end
     end
     rescue ActiveRecord::RecordInvalid => e
@@ -100,15 +100,5 @@ class ShopMustForm
     shop_business_hours.split("\n")
   end
 
-  def resize_image_dpi(uploaded_file)
-    image = MiniMagick::Image.read(uploaded_file.tempfile)
-    image.resize 'x1350'     # 高さを1350pxにリサイズ
-    image.density '96'       # 解像度設定（DPI）
-  
-    tempfile_jpg = Tempfile.new('resized')
-    image.write(tempfile_jpg.path)
-    tempfile_jpg.rewind
-    tempfile_jpg
-  end
-  
+
 end
