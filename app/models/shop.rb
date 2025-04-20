@@ -23,7 +23,7 @@ class Shop < ApplicationRecord
   has_one_attached :shop_image
 
   validates :shop_image,
-            content_type: %i(gif png jpg jpeg),                        # 画像の種類
+            content_type: %i(png jpg jpeg),                        # 画像の種類
             size: { less_than_or_equal_to: 5.megabytes },              # ファイルサイズ
             dimension: { width: { max: 2000 }, height: { max: 2000 } } # 画像の大きさ
 

@@ -14,7 +14,19 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.build(review_params)
 
     if params[:review][:review_images].present?
-      @review.review_images.attach(params[:review][:review_images])
+      params[:review][:review_images].each do |image|
+        resized_image = resize_image_set_dpi(image)
+        
+        # オリジナルファイル名から拡張子を除去したベース名を取得
+        original_filename_base = File.basename(image.original_filename, ".*")
+        
+        # 圧縮された画像をActiveStorageに添付
+        @review.review_images.attach(
+          io: resized_image,
+          filename: "#{original_filename_base}.jpg",
+          content_type: 'image/jpg'
+        )
+      end
     end
 
     if @review.save
@@ -42,7 +54,21 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.find(params[:id])
 
     if params[:review][:review_images].present?
-      @review.review_images.attach(params[:review][:review_images])
+      params[:review][:review_images].each do |image|
+        next if image.blank?
+
+        resized_image = resize_image_set_dpi(image)
+        
+        # オリジナルファイル名から拡張子を除去したベース名を取得
+        original_filename_base = File.basename(image.original_filename, ".*")
+        
+        # 圧縮された画像をActiveStorageに添付
+        @review.review_images.attach(
+          io: resized_image,
+          filename: "#{original_filename_base}.jpg",
+          content_type: 'image/jpg'
+        )
+      end
     end
 
     if params[:review][:image_ids].present?
@@ -77,4 +103,21 @@ class ReviewsController < ApplicationController
     @review = Review.includes(:user, parfait: :shop).find(params[:id])
   end
 
+  def resize_image_set_dpi(uploaded_file)
+    # uploaded_file.tempfileから画像を読み込み、MiniMagickオブジェクトとして扱う
+    image = MiniMagick::Image.read(uploaded_file.tempfile)
+    # 画像の縦幅を1350ピクセルにリサイズ
+    image.resize 'x1350'
+    # 画像の解像度を96 DPIに設定
+    image.density '96'
+
+    # 一時ファイルを作成
+    tempfile_jpg = Tempfile.new('resized')
+    # 変更された画像を一時ファイルに書き込み（ここで画像が指定されたリサイズと解像度で保存される）
+    image.write (tempfile_jpg.path)
+    # ファイルを読み込む準備
+    tempfile_jpg.rewind
+    # 一時ファイルを呼び出す
+    tempfile_jpg
+  end
 end

@@ -8,7 +8,7 @@
         <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
 
           <div class="d-flex flex-shrink-0 me-3" style="width: 200px; height: 200px;">
-            <%= image_tag parfait.parfait_image.present? ? parfait.parfait_image : 'noimage.png', class: "w-100 h-100 object-fit-cover border rounded" %>
+            <%= image_tag review.review_images.present? ? review.review_images.last : 'noimage.png', class: "w-100 h-100 object-fit-cover border rounded" %>
           </div>
 
           <div class="card-body">

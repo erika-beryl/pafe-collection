@@ -1,10 +1,12 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
+
 import $ from "jquery";
 window.$ = $;
 window.jQuery = $;
 import * as bootstrap from "bootstrap"
+
 import Swiper from 'swiper';
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
 Swiper.use([Navigation, Pagination, Scrollbar]);
@@ -30,14 +32,4 @@ document.addEventListener('turbo:load', () => {
     },
   });
 });
-
-
-
-
-
-
-
-
-
-
 
