@@ -44,21 +44,51 @@ class ShopMustForm
       end
 
       if remove_shop_image == '1'
-        shop.shop_image.purge if shop.shop_image.attached?
+        if shop.shop_image.attached?
+          # 本番環境ならCloudinaryの画像も削除する
+          if Rails.env.production?
+            begin
+              # ActiveStorageのメタ情報からCloudinaryのpublic_idを取得
+              key = shop.shop_image.key # ActiveStorageで保存されているkey
+              Cloudinary::Uploader.destroy(key) # Cloudinary上の画像を削除
+            rescue => e
+              Rails.logger.warn "Cloudinary削除失敗: #{e.message}"
+            end
+          end
+      
+          # ActiveStorageのデータ削除（Cloudinaryも含めて削除済みの場合も含む）
+          shop.shop_image.purge
+        end
+      
+        # インスタンス変数の画像もクリア
         self.shop_image = nil
       end
-
-      # self.shop_image = nilにしたのはインスタンス変数の値は残るので、クリアするため
-
+      
+      # 新しい画像を保存する処理
       if shop_image.present?
-        resized_image = resize_image_dpi(shop_image)
-        shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-        shop.shop_image.attach(
-          io: resized_image,
-          filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg",
-          content_type: 'image/jpg'
-        )
+        if Rails.env.production?
+          # 本番環境（Cloudinaryで保存）
+          uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg' })
+          
+          # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
+          shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
+          
+          # ActiveStorageのkeyをCloudinaryのpublic_idに設定
+          shop.shop_image.attach(
+            io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
+            filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
+            content_type: 'image/jpg'
+          )
+          
+          # ActiveStorageのkeyをCloudinaryのpublic_idにセット
+          shop.shop_image.key = uploaded['public_id']
+        else
+          # 開発・テスト環境（ローカルストレージにそのまま保存）
+          shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
+          shop.shop_image.attach(shop_image)
+        end
       end
+        
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
@@ -103,17 +133,6 @@ class ShopMustForm
 
   def split_shop_business_hours
     shop_business_hours.split("\n")
-  end
-
-  def resize_image_dpi(uploaded_file)
-    image = MiniMagick::Image.read(uploaded_file.tempfile)
-    image.resize 'x1350'     # 高さを1350pxにリサイズ
-    image.density '96'       # 解像度設定（DPI）
-  
-    tempfile_jpg = Tempfile.new('resized')
-    image.write(tempfile_jpg.path)
-    tempfile_jpg.rewind
-    tempfile_jpg
   end
   
 end
