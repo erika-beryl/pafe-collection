@@ -92,6 +92,7 @@ class ShopMustForm
     end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save shop: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n"))
       false
   end
 
