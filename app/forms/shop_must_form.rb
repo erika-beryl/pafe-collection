@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class ShopMustForm
   include ActiveModel::Model
   include ActiveModel::Attributes
