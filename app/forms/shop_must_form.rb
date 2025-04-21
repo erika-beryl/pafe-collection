@@ -67,21 +67,26 @@ class ShopMustForm
       # 新しい画像を保存する処理
       if shop_image.present?
         if Rails.env.production?
-          # 本番環境（Cloudinaryで保存）
-          uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg' })
-          
-          # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
-          shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-          
-          # ActiveStorageのkeyをCloudinaryのpublic_idに設定
-          shop.shop_image.attach(
-            io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
-            filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
-            content_type: 'image/jpg'
-          )
-          
-          # ActiveStorageのkeyをCloudinaryのpublic_idにセット
-          shop.shop_image.key = uploaded['public_id']
+          begin
+            uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg' })
+            Rails.logger.info "Cloudinary upload successful: #{uploaded['secure_url']}"
+            
+            # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
+            shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
+        
+            # ActiveStorageのkeyをCloudinaryのpublic_idに設定
+            shop.shop_image.attach(
+              io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
+              filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
+              content_type: 'image/jpg',
+              quality: 'auto'
+            )
+            
+            shop.shop_image.key = uploaded['public_id']
+          rescue CloudinaryException => e
+            Rails.logger.error "Cloudinary upload failed: #{e.message}"
+            raise "Cloudinary upload failed: #{e.message}" # エラーを投げてトランザクションをロールバック
+          end
         else
           # 開発・テスト環境（ローカルストレージにそのまま保存）
           shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
