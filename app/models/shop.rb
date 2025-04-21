@@ -29,7 +29,7 @@ class Shop < ApplicationRecord
 
   def image_as_thumbnail
     return unless shop_image.content_type.in?(%w[image/jpeg image/png])
-    shop_image.variant(resize_to_limit: [400, 500]).processed
+    shop_image.variant(resize_to_limit: [400, 500])
   end
 
   def prefecture_name
