@@ -70,7 +70,7 @@ class ShopMustForm
       if shop_image.present?
         if Rails.env.production?
           begin
-            uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg' })
+            uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg', quality: 'auto' })
             Rails.logger.info "Cloudinary upload successful: #{uploaded['secure_url']}"
             
             # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
@@ -81,7 +81,6 @@ class ShopMustForm
               io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
               filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
               content_type: 'image/jpg',
-              quality: 'auto'
             )
             
             shop.shop_image.key = uploaded['public_id']
