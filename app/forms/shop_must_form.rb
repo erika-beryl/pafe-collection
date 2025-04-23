@@ -69,21 +69,35 @@ class ShopMustForm
       if shop_image.present?
         if Rails.env.production?
           begin
-
             # 古いCloudinary画像があれば削除（容量節約のため）
-            Cloudinary::Uploader.destroy(shop.cloudinary_public_id) if shop.cloudinary_public_id.present?
-
-            uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg', quality: 'auto' })
+            if shop.cloudinary_public_id.present?
+              Cloudinary::Uploader.destroy(shop.cloudinary_public_id)
+              Rails.logger.info "Old Cloudinary image deleted: #{shop.cloudinary_public_id}"
+            end
+      
+            # Cloudinaryへのアップロードとリサイズの設定
+            uploaded = Cloudinary::Uploader.upload(
+              shop_image, 
+              transformation: { 
+                width: 2000,  # 幅を800pxにリサイズ（必要に応じて変更）
+                height: 2000, # 高さを600pxにリサイズ（必要に応じて変更）
+                crop: :limit, # リサイズ後に画像を切り取る
+                format: 'jpg', # 画像形式をjpgに
+                quality: 'auto' # 自動的に画像品質を調整
+              }
+            )
+      
             Rails.logger.info "Cloudinary upload successful: #{uploaded['secure_url']}"
-
+      
+            # shopにcloudinaryのpublic_idを保存
             shop.update!(cloudinary_public_id: uploaded['public_id'])
-            
-            # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
-            shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-        
+      
             # ActiveStorageのkeyをCloudinaryのpublic_idに設定
+            shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
+      
+            # ActiveStorageのkeyをCloudinaryの画像URLに設定
             shop.shop_image.attach(
-              io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
+              io: URI.open(uploaded['secure_url']), # Cloudinaryの画像URLを取得
               filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
               content_type: 'image/jpg',
             )
@@ -97,6 +111,7 @@ class ShopMustForm
           shop.shop_image.attach(shop_image)
         end
       end
+      
         
     end
     rescue ActiveRecord::RecordInvalid => e
