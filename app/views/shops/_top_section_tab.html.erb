@@ -7,7 +7,7 @@
           <div class="row">
             <% if shop.shop_image.attached? %>
               <div class="col-9">
-                <%= image_tag(shop.image_as_thumbnail, height: "500", class: "img-fluid") %>
+                <%= image_tag shop.shop_image %>
               </div>
             <% else %>    
               <div class="col-5">
