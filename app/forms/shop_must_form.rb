@@ -50,9 +50,7 @@ class ShopMustForm
           # 本番環境ならCloudinaryの画像も削除する
           if Rails.env.production?
             begin
-              # ActiveStorageのメタ情報からCloudinaryのpublic_idを取得
-              key = shop.shop_image.key # ActiveStorageで保存されているkey
-              Cloudinary::Uploader.destroy(key) # Cloudinary上の画像を削除
+              Cloudinary::Uploader.destroy(shop.cloudinary_public_id) # Cloudinary上の画像を削除
             rescue => e
               Rails.logger.warn "Cloudinary削除失敗: #{e.message}"
             end
@@ -60,6 +58,7 @@ class ShopMustForm
       
           # ActiveStorageのデータ削除（Cloudinaryも含めて削除済みの場合も含む）
           shop.shop_image.purge
+          shop.update!(cloudinary_public_id: nil)
         end
       
         # インスタンス変数の画像もクリア
@@ -70,8 +69,14 @@ class ShopMustForm
       if shop_image.present?
         if Rails.env.production?
           begin
+
+            # 古いCloudinary画像があれば削除（容量節約のため）
+            Cloudinary::Uploader.destroy(shop.cloudinary_public_id) if shop.cloudinary_public_id.present?
+
             uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg', quality: 'auto' })
             Rails.logger.info "Cloudinary upload successful: #{uploaded['secure_url']}"
+
+            shop.update!(cloudinary_public_id: uploaded['public_id'])
             
             # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
             shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
@@ -82,8 +87,6 @@ class ShopMustForm
               filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
               content_type: 'image/jpg',
             )
-            
-            shop.shop_image.key = uploaded['public_id']
           rescue CloudinaryException => e
             Rails.logger.error "Cloudinary upload failed: #{e.message}"
             raise "Cloudinary upload failed: #{e.message}" # エラーを投げてトランザクションをロールバック
