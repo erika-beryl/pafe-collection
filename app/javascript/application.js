@@ -33,3 +33,14 @@ document.addEventListener('turbo:load', () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.new_parfait');
+  const submitButton = form.querySelector('input[type="submit"], button[type="submit"]');
+
+  form.addEventListener('submit', function(event) {
+    // フォーム送信中にボタンを無効化
+    submitButton.disabled = true;
+  });
+});
+
+
