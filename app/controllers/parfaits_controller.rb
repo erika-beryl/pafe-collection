@@ -22,17 +22,10 @@ class ParfaitsController < ApplicationController
   
     # まずレコードを保存してから画像を添付する
     if @parfait.save
-      # 複数の画像を添付
       if params[:parfait][:parfait_image].present?
-        params[:parfait][:parfait_image].each do |image|
-
-          next if image.blank?
-
-          @parfait.parfait_image.attach(image)
-        end
+        @parfait.parfait_image.attach(params[:parfait][:parfait_image])
+        @parfait.save # 再度保存することで画像をデータベースに関連付け
       end
-      @parfait.save # 再度保存することで画像をデータベースに関連付け
-  
       redirect_to @parfait, success: 'パフェが登録されました'
     else
       Rails.logger.debug "Parfait errors: #{@parfait.errors.full_messages}"
@@ -41,6 +34,7 @@ class ParfaitsController < ApplicationController
     end
   end
   
+
   def edit
     load_parfait
 
