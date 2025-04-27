@@ -21,15 +21,7 @@ class ParfaitsController < ApplicationController
     @parfait = Parfait.new(parfait_params)
 
     if params[:parfait][:parfait_image].present?
-      resized_images = resize_image_set_dpi(params[:parfait][:parfait_image])
-      original_filename_base = File.basename(params[:parfait][:parfait_image].original_filename, ".*")
-
-      @parfait.parfait_image.attach(
-        io: resized_images,
-        filename: "#{original_filename_base}.jpg",
-        # ここでcontent_typeを指定しないと名前は.jpgの拡張子が付いているけどデータはpngみたいなことが起こる可能性がある
-        content_type: 'image/jpg'
-      )
+      @parfait.parfait_image.attach(params[:parfait][:parfait_image])
     end
 
     if @parfait.save
@@ -53,15 +45,7 @@ class ParfaitsController < ApplicationController
     end
 
     if params[:parfait][:parfait_image].present?
-      resized_images = resize_image_set_dpi(params[:parfait][:parfait_image])
-      original_filename_base = File.basename(params[:parfait][:parfait_image].original_filename, ".*")
-
-      @parfait.parfait_image.attach(
-        io: resized_images,
-        filename: "#{original_filename_base}.jpg",
-        # ここでcontent_typeを指定しないと名前は.jpgの拡張子が付いているけどデータはpngみたいなことが起こる可能性がある
-        content_type: 'image/jpg'
-      )
+      @parfait.parfait_image.attach(params[:parfait][:parfait_image])
     end
 
     if @parfait.update(parfait_params.except(:remove_parfait_image))
@@ -86,24 +70,6 @@ class ParfaitsController < ApplicationController
 
   def load_parfait
     @parfait = Parfait.includes(:shop).find(params[:id])
-  end
-
-  def resize_image_set_dpi(uploaded_file)
-    # uploaded_file.tempfileから画像を読み込み、MiniMagickオブジェクトとして扱う
-    image = MiniMagick::Image.read(uploaded_file.tempfile)
-    # 画像の縦幅を1350ピクセルにリサイズ
-    image.resize 'x1350'
-    # 画像の解像度を96 DPIに設定
-    image.density '96'
-
-    # 一時ファイルを作成
-    tempfile_jpg = Tempfile.new('resized')
-    # 変更された画像を一時ファイルに書き込み（ここで画像が指定されたリサイズと解像度で保存される）
-    image.write (tempfile_jpg.path)
-    # ファイルを読み込む準備
-    tempfile_jpg.rewind
-    # 一時ファイルを呼び出す
-    tempfile_jpg
   end
 
 end
