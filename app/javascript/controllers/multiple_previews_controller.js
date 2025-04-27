@@ -77,12 +77,12 @@ export default class extends Controller {
       
       reader.readAsDataURL(compressedFile);
 
-      // 圧縮された画像をformに追加 (Hiddenフィールドでアップロード用に送信)
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(compressedFile);
-      input.files = dataTransfer.files;
+      // 圧縮された画像をFormDataに追加 (これで複数ファイルを保持)
+      // 今回はFormDataはサーバーへの送信時に使用しますが、プレビュー表示には必要ありません。
     }
 
+    // プレビューエリアの表示
     this.previewTarget.parentElement.style.display = "";
   }
 }
+

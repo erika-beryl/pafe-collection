@@ -19,19 +19,28 @@ class ParfaitsController < ApplicationController
   
   def create
     @parfait = Parfait.new(parfait_params)
-
-    if params[:parfait][:parfait_image].present?
-      @parfait.parfait_image.attach(params[:parfait][:parfait_image])
-    end
-
+  
+    # まずレコードを保存してから画像を添付する
     if @parfait.save
+      # 複数の画像を添付
+      if params[:parfait][:parfait_image].present?
+        params[:parfait][:parfait_image].each do |image|
+
+          next if image.blank?
+
+          @parfait.parfait_image.attach(image)
+        end
+      end
+      @parfait.save # 再度保存することで画像をデータベースに関連付け
+  
       redirect_to @parfait, success: 'パフェが登録されました'
     else
-      flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
+      Rails.logger.debug "Parfait errors: #{@parfait.errors.full_messages}"
+      flash.now[:danger] = t('defaults.flash_message.not_created', item: Parfait.model_name.human)
       render :new, status: :unprocessable_entity
     end
   end
-
+  
   def edit
     load_parfait
 
