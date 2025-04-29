@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    # ネストしていないので明示的にparfait_idを書くこと
+    # ネストしていないので明示的にparfait_idを書く
     @review = Review.new(parfait_id: params[:parfait_id])
   end
 
@@ -14,19 +14,7 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.build(review_params)
 
     if params[:review][:review_images].present?
-      params[:review][:review_images].each do |image|
-        resized_image = resize_image_set_dpi(image)
-        
-        # オリジナルファイル名から拡張子を除去したベース名を取得
-        original_filename_base = File.basename(image.original_filename, ".*")
-        
-        # 圧縮された画像をActiveStorageに添付
-        @review.review_images.attach(
-          io: resized_image,
-          filename: "#{original_filename_base}.jpg",
-          content_type: 'image/jpg'
-        )
-      end
+      @review.review_images.attach(params[:review][:review_images])
     end
 
     if @review.save
@@ -53,29 +41,13 @@ class ReviewsController < ApplicationController
   def update
     @review = current_user.reviews.find(params[:id])
 
-    if params[:review][:review_images].present?
-      params[:review][:review_images].each do |image|
-        next if image.blank?
-
-        resized_image = resize_image_set_dpi(image)
-        
-        # オリジナルファイル名から拡張子を除去したベース名を取得
-        original_filename_base = File.basename(image.original_filename, ".*")
-        
-        # 圧縮された画像をActiveStorageに添付
-        @review.review_images.attach(
-          io: resized_image,
-          filename: "#{original_filename_base}.jpg",
-          content_type: 'image/jpg'
-        )
-      end
+    params[:review][:image_ids].to_a.each do |image_id|
+      image = @review.review_images.find { |img| img.blob.id.to_s == image_id }
+      image.purge if image.present? && @review.user == current_user
     end
 
-    if params[:review][:image_ids].present?
-      params[:review][:image_ids].each do |image_id|
-        image = @review.review_images.find(image_id)
-        image.purge if @review.user == current_user
-      end
+    if params[:review][:review_images].present?
+      @review.review_images.attach(params[:review][:review_images])
     end
 
     if @review.update(review_params)
@@ -103,21 +75,4 @@ class ReviewsController < ApplicationController
     @review = Review.includes(:user, parfait: :shop).find(params[:id])
   end
 
-  def resize_image_set_dpi(uploaded_file)
-    # uploaded_file.tempfileから画像を読み込み、MiniMagickオブジェクトとして扱う
-    image = MiniMagick::Image.read(uploaded_file.tempfile)
-    # 画像の縦幅を1350ピクセルにリサイズ
-    image.resize 'x1350'
-    # 画像の解像度を96 DPIに設定
-    image.density '96'
-
-    # 一時ファイルを作成
-    tempfile_jpg = Tempfile.new('resized')
-    # 変更された画像を一時ファイルに書き込み（ここで画像が指定されたリサイズと解像度で保存される）
-    image.write (tempfile_jpg.path)
-    # ファイルを読み込む準備
-    tempfile_jpg.rewind
-    # 一時ファイルを呼び出す
-    tempfile_jpg
-  end
 end

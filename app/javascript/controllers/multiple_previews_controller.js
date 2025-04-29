@@ -1,34 +1,33 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="multiple_previews"
+// Connects to data-controller="multiple-previews"
 export default class extends Controller {
   static targets = ["input", "preview"]
 
   previewImage() {
-    console.log("previewImage called!")
-
     const input = this.inputTarget
     const preview = this.previewTarget
-    console.log("Selected files:", input.files)
+    preview.innerHTML = ""  // プレビューエリアを空っぽにする
 
-    preview.innerHTML = ""
+    if (input.files.length === 0) return;  // ファイルがなかったら何もしない
 
-    if (input.files.length === 0) return;
+    // えらばれたファイルをひとつずつ見る
+    for (let i = 0; i < input.files.length; i++) {
+      const file = input.files[i];
 
-    Array.from(input.files).forEach((file) => {
       const reader = new FileReader();
-
       reader.onload = (e) => {
         const img = document.createElement("img");
-        img.src = e.target.result;
-        img.style.maxWidth = "200px";
-        img.style.marginRight = "5px";
-        preview.appendChild(img);
+        img.src = e.target.result;  // 読み込んだ画像データをimgにセット
+        img.style.maxWidth = "200px";  // プレビュー画像の大きさを小さめに
+        img.style.marginRight = "5px";  // 画像同士の間にすこしスペースを空ける
+        preview.appendChild(img);  // プレビューエリアに画像を追加
       };
+      
+      reader.readAsDataURL(file);  // ファイルを読み込む
+    }
 
-      reader.readAsDataURL(file);
-    });
-
+    // プレビューエリアを見えるようにする
     this.previewTarget.parentElement.style.display = "";
   }
 }

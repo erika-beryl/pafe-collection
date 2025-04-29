@@ -47,62 +47,23 @@ class ShopMustForm
 
       if remove_shop_image == '1'
         if shop.shop_image.attached?
-          # 本番環境ならCloudinaryの画像も削除する
-          if Rails.env.production?
-            begin
-              Cloudinary::Uploader.destroy(shop.cloudinary_public_id) # Cloudinary上の画像を削除
-            rescue => e
-              Rails.logger.warn "Cloudinary削除失敗: #{e.message}"
-            end
-          end
-      
-          # ActiveStorageのデータ削除（Cloudinaryも含めて削除済みの場合も含む）
           shop.shop_image.purge
-          shop.update!(cloudinary_public_id: nil)
-        end
-      
+        end 
         # インスタンス変数の画像もクリア
         self.shop_image = nil
       end
       
       # 新しい画像を保存する処理
       if shop_image.present?
-        if Rails.env.production?
-          begin
-
-            # 古いCloudinary画像があれば削除（容量節約のため）
-            Cloudinary::Uploader.destroy(shop.cloudinary_public_id) if shop.cloudinary_public_id.present?
-
-            uploaded = Cloudinary::Uploader.upload(shop_image, transformation: { height: 1350, crop: :limit, format: 'jpg', quality: 'auto' })
-            Rails.logger.info "Cloudinary upload successful: #{uploaded['secure_url']}"
-
-            shop.update!(cloudinary_public_id: uploaded['public_id'])
-            
-            # Cloudinaryのpublic_idをActiveStorageのkeyとして設定
-            shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-        
-            # ActiveStorageのkeyをCloudinaryのpublic_idに設定
-            shop.shop_image.attach(
-              io: URI.open(uploaded['secure_url']), # CloudinaryのURLを取得
-              filename: "#{File.basename(shop_image.original_filename, '.*')}.jpg", 
-              content_type: 'image/jpg',
-            )
-          rescue CloudinaryException => e
-            Rails.logger.error "Cloudinary upload failed: #{e.message}"
-            raise "Cloudinary upload failed: #{e.message}" # エラーを投げてトランザクションをロールバック
-          end
-        else
-          # 開発・テスト環境（ローカルストレージにそのまま保存）
-          shop.shop_image.purge if shop.persisted? && shop.shop_image.attached?
-          shop.shop_image.attach(shop_image)
-        end
+        shop.shop_image.purge if shop.shop_image.attached?
+        shop.shop_image.attach(shop_image)
       end
         
     end
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error("Failed to save shop: #{e.message}")
-      Rails.logger.error(e.backtrace.join("\n"))
-      false
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Failed to save shop: #{e.message}")
+    Rails.logger.error(e.backtrace.join("\n"))
+    false
   end
 
 
