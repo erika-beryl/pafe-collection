@@ -4,7 +4,7 @@
       <h3>レビュー編集</h3>
       <h5><%= @review.parfait.shop.name %></h5>
       <h5><%= @review.parfait.name %></h5>
-      <%= form_with model: @review, local: true, class: "new_parfait mt-4" do |f| %>
+      <%= form_with model: @review, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
         <div class="mb-3">
           <%= f.label :タイトル %>
           <%= f.text_field :title, class: "form-control" %>

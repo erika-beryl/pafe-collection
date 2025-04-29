@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    # ネストしていないので明示的にparfait_idを書くこと
+    # ネストしていないので明示的にparfait_idを書く
     @review = Review.new(parfait_id: params[:parfait_id])
   end
 
@@ -14,11 +14,7 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.build(review_params)
 
     if params[:review][:review_images].present?
-      params[:review][:review_images].each do |image|
-        
-        # 圧縮された画像をActiveStorageに添付
-        @review.review_images.attach(image)
-      end
+      @review.review_images.attach(params[:review][:review_images])
     end
 
     if @review.save
@@ -45,26 +41,13 @@ class ReviewsController < ApplicationController
   def update
     @review = current_user.reviews.find(params[:id])
 
-    if params[:review][:review_images].present?
-      params[:review][:review_images].each do |image|
-        next if image.blank?        
-        # オリジナルファイル名から拡張子を除去したベース名を取得
-        original_filename_base = File.basename(image.original_filename, ".*")
-        
-        # 圧縮された画像をActiveStorageに添付
-        @review.review_images.attach(
-          io: resized_image,
-          filename: "#{original_filename_base}.jpg",
-          content_type: 'image/jpg'
-        )
-      end
+    params[:review][:image_ids].to_a.each do |image_id|
+      image = @review.review_images.find { |img| img.blob.id.to_s == image_id }
+      image.purge if image.present? && @review.user == current_user
     end
 
-    if params[:review][:image_ids].present?
-      params[:review][:image_ids].each do |image_id|
-        image = @review.review_images.find(image_id)
-        image.purge if @review.user == current_user
-      end
+    if params[:review][:review_images].present?
+      @review.review_images.attach(params[:review][:review_images])
     end
 
     if @review.update(review_params)

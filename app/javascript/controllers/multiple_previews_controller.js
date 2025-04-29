@@ -4,85 +4,30 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "preview"]
 
-  // 画像圧縮を行う
-  compressImage(file, maxWidth = 1000, maxHeight = 1000, quality = 0.7) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        img.src = e.target.result;
-
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-
-          // 新しい画像のサイズを計算
-          const width = img.width;
-          const height = img.height;
-
-          const ratio = Math.min(maxWidth / width, maxHeight / height);
-          const newWidth = width * ratio;
-          const newHeight = height * ratio;
-
-          canvas.width = newWidth;
-          canvas.height = newHeight;
-
-          // 画像を描画
-          ctx.drawImage(img, 0, 0, newWidth, newHeight);
-
-          // 圧縮した画像をBase64として取得
-          canvas.toBlob(
-            (blob) => {
-              const compressedFile = new File([blob], file.name, {
-                type: "image/jpeg",
-                lastModified: Date.now(),
-              });
-              resolve(compressedFile);  // 圧縮されたファイルを返す
-            },
-            "image/jpeg",
-            quality
-          );
-        };
-      };
-
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // 画像が選択された時の処理
-  async previewImage() {
+  previewImage() {
     const input = this.inputTarget
     const preview = this.previewTarget
-    preview.innerHTML = ""  // プレビューエリアをクリア
+    preview.innerHTML = ""  // プレビューエリアを空っぽにする
 
-    if (input.files.length === 0) return;
+    if (input.files.length === 0) return;  // ファイルがなかったら何もしない
 
-    // 複数の画像を処理
+    // えらばれたファイルをひとつずつ見る
     for (let i = 0; i < input.files.length; i++) {
       const file = input.files[i];
-      
-      // 画像を圧縮
-      const compressedFile = await this.compressImage(file);
-      
-      // 圧縮後の画像をプレビュー表示
+
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = document.createElement("img");
-        img.src = e.target.result;
-        img.style.maxWidth = "200px";
-        img.style.marginRight = "5px";
-        preview.appendChild(img);
+        img.src = e.target.result;  // 読み込んだ画像データをimgにセット
+        img.style.maxWidth = "200px";  // プレビュー画像の大きさを小さめに
+        img.style.marginRight = "5px";  // 画像同士の間にすこしスペースを空ける
+        preview.appendChild(img);  // プレビューエリアに画像を追加
       };
       
-      reader.readAsDataURL(compressedFile);
-
-      // 圧縮された画像をFormDataに追加 (これで複数ファイルを保持)
-      // 今回はFormDataはサーバーへの送信時に使用しますが、プレビュー表示には必要ありません。
+      reader.readAsDataURL(file);  // ファイルを読み込む
     }
 
-    // プレビューエリアの表示
+    // プレビューエリアを見えるようにする
     this.previewTarget.parentElement.style.display = "";
   }
 }
-
