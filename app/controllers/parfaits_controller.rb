@@ -1,11 +1,16 @@
 class ParfaitsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   def index
-    @parfaits = Parfait
-              .select("parfaits.*, COUNT(reviews.id) AS reviews_count")
+    @parfaits = Parfait.order(created_at: :desc).page(params[:page]).per(5)
+
+    parfait_ids = @parfaits.pluck(:id)
+    @parfait_counts = Parfait
+              .select("parfaits.id, COUNT(reviews.id) AS reviews_count")
               .left_joins(:reviews)
+              .where(id: parfait_ids)
               .group("parfaits.id")
-              .order(created_at: :desc)
+              .index_by(&:id)
+
   end
 
   def show

@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @reviews = Review.includes(:user, parfait: :shop).order(created_at: :desc)
+    @reviews = Review.includes(:user, parfait: :shop).order(created_at: :desc).page(params[:page]).per(5)
   end
 
   def new
