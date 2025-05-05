@@ -33,7 +33,7 @@ class ShopMustForm
     # チェックボックスでオンの時1で送られるので、=="1"でtrueに変換してる。
     self.reservation = reservation == "1"
     self.parking = parking == "1"
-    return if invalid?
+    return false if invalid?
     full_address = generate_address
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
@@ -60,9 +60,13 @@ class ShopMustForm
       end
         
     end
+
+    # フォームオブジェクトなのでtrueを明文化しないと最後の処理がnilかtrueかで変わってしまう。画像は任意にしたのでこうしないといけない。
+    true
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error("Failed to save shop: #{e.message}")
     Rails.logger.error(e.backtrace.join("\n"))
+    errors.add(:base, "保存に失敗しました: #{e.message}") 
     false
   end
 

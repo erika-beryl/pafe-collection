@@ -36,5 +36,8 @@
     <% else %>
       <div class="mb-3">レビューがありません</div>
     <% end %>
+    <div class="p-2">
+      <%= paginate @reviews, theme: 'bootstrap-5' %>
+    </div>  
   </div>
 </div>   

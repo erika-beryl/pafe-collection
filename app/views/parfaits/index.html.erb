@@ -5,7 +5,7 @@
       <% @parfaits.each do |parfait| %>
         <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
 
-          <!-- 画像エリア -->
+          <!-- 画像 -->
           <div class="d-flex flex-shrink-0 me-3" style="width: 200px; height: 200px;">
             <%= image_tag parfait.parfait_image.present? ? parfait.parfait_image : 'noimage.png', class: "w-100 h-100 object-fit-cover border rounded" %>
           </div>
@@ -34,13 +34,17 @@
               <p>レギュラー商品</p>
             <% end %> 
             <p>星評価</p>
-            <p>レビュー： <%= parfait.reviews_count %>件</p>
+            <% counts = @parfait_counts[parfait.id] %>
+            <p>レビュー： <%= counts&.reviews_count || 0 %>件</p>
           </div>
         </div>
       <% end %>
     <% else %>
       <div class="mb-3">パフェの情報がありません</div>
     <% end %>
+    <div class="p-2">
+      <%= paginate @parfaits, theme: 'bootstrap-5' %>
+    </div>  
   </div>
 </div>   
 

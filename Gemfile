@@ -90,3 +90,7 @@ gem 'image_processing'                 # (サイズ変更など)画像処理用
 gem 'cloudinary', require: true        # Cloudinary
 gem 'activestorage-cloudinary-service' # Cloudinary と Active Storage の連携をする
 gem 'active_storage_validations'       # 画像ファイルのバリデーション用
+
+# ページネーション
+gem 'kaminari', '1.2.2'
+gem 'bootstrap5-kaminari-views'
