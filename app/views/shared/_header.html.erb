@@ -34,7 +34,7 @@
             <div class='dropdown-menu dropdown-menu-end'>
               <div class='dropdown-item'><%= current_user.name %></div>
               <div class='dropdown-divider'></div>
-              <%= link_to 'プロフィール', '#', class: 'dropdown-item' %>
+              <%= link_to 'プロフィール', users_profile_path, class: 'dropdown-item' %>
               <%= link_to 'ログアウト', destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete } %>
             </div>
           </li>
