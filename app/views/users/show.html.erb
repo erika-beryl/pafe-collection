@@ -6,15 +6,24 @@
       <table class="table">
         <tr>
           <th scope="row"><%= User.human_attribute_name(:email) %></th>
-          <td><%= current_user.email %></td>
+          <td><%= @user.email %></td>
         </tr>
         <tr>
           <th scope="row"><%= User.human_attribute_name(:name) %></th>
-          <td><%= current_user.name %></td>
+          <td><%= @user.name %></td>
         </tr>
         <tr>
           <th scope="row"><%= User.human_attribute_name(:profile) %></th>
-          <td><%= current_user.profile %></td>
+          <td><%= @user.profile %></td>
+        </tr>
+
+        <tr>
+          <th scope="row"><%= User.human_attribute_name(:avatar) %></th>
+            <% if @user.avatar.present? %>
+              <td><%= image_tag @user.avatar, class: 'rounded-circle', size: '50x50' %></td>
+            <% else %>
+              <td><%= image_tag 'noimage.png', class: 'rounded-circle', size: '50x50' %></td>
+            <% end %>   
         </tr>
         
       </table>
