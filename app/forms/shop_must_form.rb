@@ -64,9 +64,6 @@ class ShopMustForm
     # フォームオブジェクトなのでtrueを明文化しないと最後の処理がnilかtrueかで変わってしまう。画像は任意にしたのでこうしないといけない。
     true
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error("Failed to save shop: #{e.message}")
-    Rails.logger.error(e.backtrace.join("\n"))
-    errors.add(:base, "保存に失敗しました: #{e.message}") 
     false
   end
 

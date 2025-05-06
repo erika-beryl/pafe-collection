@@ -25,12 +25,16 @@ ja:
         parking: 駐車場はありますか？
       parfait:
         name: 商品名
+        price: 値段
       business:
         business_time: 営業時間
       payment:
         method_type: 支払い方法
       feature:
         trait: 店の特徴
+      review:
+        title: タイトル
+        body: コメント
   enums:
     parfait:
       price:
@@ -46,3 +50,14 @@ ja:
         under_9000: 8,001～9,000円
         under_10000: 9,001～10,000円
         over_10000: 10,000円以上
+  activemodel:
+    models:
+      shop_must_form: 店舗
+    attributes:
+      shop_must_form:
+        name: 店舗名
+        postal_code: 郵便番号
+        prefecture_code: 都道府県
+        city: 市町村
+        street: 番地
+        tel: 電話番号
