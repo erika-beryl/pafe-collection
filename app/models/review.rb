@@ -10,7 +10,7 @@ class Review < ApplicationRecord
             content_type: { in: %i(png jpg jpeg),
             message: "有効なフォーマットではありません" },
             size: { less_than_or_equal_to: 10.megabytes, message: "10MBを超える画像はアップロードできません" },              # ファイルサイズ
-            dimension: { width: { max: 4000 }, height: { max: 4100 } } # 画像の大きさ
+            dimension: { width: { max: 4100 }, height: { max: 4100 } } # 画像の大きさ
 
   validate :limit_review_images_count
 
