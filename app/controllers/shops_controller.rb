@@ -25,10 +25,7 @@ class ShopsController < ApplicationController
     if @form.save
       redirect_to shops_path, success: '店舗登録が完了しました'
     else
-      Rails.logger.debug("Form errors: #{@form.errors.full_messages.inspect}")
-    
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
-      flash.now[:danger] += ": #{@form.errors.full_messages.join(', ')}" if @form.errors.any?
       render :new, status: :unprocessable_entity
 
     end

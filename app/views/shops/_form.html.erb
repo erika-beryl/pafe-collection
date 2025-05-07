@@ -1,4 +1,14 @@
 <%= form_with model: form, data: { turbo: "false" }, class: "new_shop mt-4" do |f| %>
+  <% if @form.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul class="mb-0">
+        <% @form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="mb-3">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>

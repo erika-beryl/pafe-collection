@@ -5,6 +5,7 @@
       <h5><%= @review.parfait.shop.name %></h5>
       <h5><%= @review.parfait.name %></h5>
       <%= form_with model: @review, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
         <div class="mb-3">
           <%= f.label :タイトル %>
           <%= f.text_field :title, class: "form-control" %>
