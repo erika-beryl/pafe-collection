@@ -94,3 +94,9 @@ gem 'active_storage_validations'       # 画像ファイルのバリデーショ
 # ページネーション
 gem 'kaminari', '1.2.2'
 gem 'bootstrap5-kaminari-views'
+
+# OAuth同意
+gem 'omniauth'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
