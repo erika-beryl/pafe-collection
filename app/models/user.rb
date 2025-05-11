@@ -2,11 +2,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
   
   has_many :reviews, dependent: :destroy
 
   has_one_attached :avatar
+
+  validates :uid, uniqueness: { scope: :provider }
 
   validates :avatar,
             content_type: %i(png jpg jpeg),                        # 画像の種類
