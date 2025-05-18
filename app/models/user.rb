@@ -20,4 +20,21 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
+
+  def self.from_omniauth(auth)
+    user = User.find_by(email: auth.info.email)
+
+    if user
+      user.update(provider: auth.provider, uid: auth.uid) unless user.provider.present? && user.uid.present?
+      return user
+    else
+      User.create!(
+        email: auth.info.email,
+        name: auth.info.name,
+        password: Devise.friendly_token[0, 20],
+        provider: auth.provider,
+        uid: auth.uid
+      )
+    end
+  end
 end
