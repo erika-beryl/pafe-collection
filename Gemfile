@@ -103,3 +103,4 @@ gem 'omniauth-google-oauth2'
 
 # googlemap
 gem "dotenv-rails"
+gem "geocoder"
