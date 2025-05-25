@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'users/show'
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { 
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
+    }
   get "users/profile" => "users#show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

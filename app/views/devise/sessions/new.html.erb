@@ -23,4 +23,11 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+</br>
+<p>----------------------</p>
+<div>google認証はこちら</div>
+<div class="google-login-btn">
+  <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, form: { data: { turbo: false } }, class: "no-style-button" do %>
+    <%= image_tag 'web_light_rd_ctn@4x.png', alt: "Googleでログイン", width: 200 %>
+  <% end %>
+</div>
