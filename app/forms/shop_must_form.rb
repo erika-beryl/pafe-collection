@@ -35,6 +35,12 @@ class ShopMustForm
     self.parking = parking == "1"
     return false if invalid?
     full_address = generate_address
+
+    if full_address != shop.full_address
+      shop.assign_attributes(full_address: full_address)
+      shop.geocode
+    end
+
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
