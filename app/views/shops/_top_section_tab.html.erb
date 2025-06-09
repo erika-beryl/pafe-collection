@@ -35,7 +35,7 @@
                 <div>
                   <%= shop.full_address %>
                 </div>
-                <div id="map"></div>
+                <div id="map" style="height: 400px;"></div>
               </td>   
             </tr>
             <tr>
@@ -117,10 +117,10 @@
       zoom: 15,
       center: mapPosition
     });
-    let transitLayer = new google.maps.transitLayer();
+    let transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(map);
     
-    let contentString = ' 【住所】<%= shop.full_address %>';
+    let contentString = '【住所】<%= shop.full_address %>';
     let infowindow = new google.maps.InfoWindow({
       content: contentString
     });
@@ -137,5 +137,5 @@
   }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :google_map_api_key) || ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google[:google_map_api_key] || ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 
