@@ -114,6 +114,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.1)
       railties (>= 6.0.0)
+    csv (3.3.4)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -130,6 +131,10 @@ GEM
     devise-i18n-views (0.3.7)
     devise-security (0.18.0)
       devise (>= 4.3.0)
+    dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.1)
     enum_help (0.0.19)
       activesupport (>= 3.0.0)
@@ -152,6 +157,9 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
+    geocoder (1.8.5)
+      base64 (>= 0.1.0)
+      csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -394,7 +402,9 @@ DEPENDENCIES
   devise-i18n
   devise-i18n-views
   devise-security
+  dotenv-rails
   enum_help (= 0.0.19)
+  geocoder
   image_processing
   jbuilder
   jp_prefecture

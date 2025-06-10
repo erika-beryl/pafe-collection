@@ -35,9 +35,18 @@ class ShopMustForm
     self.parking = parking == "1"
     return false if invalid?
     full_address = generate_address
+
+    address_changed = full_address != shop.full_address
+
+    if address_changed
+      shop.assign_attributes(full_address: full_address)
+      shop.geocode
+    end
+
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
                     city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
+                    latitude: address_changed ? shop.latitude : shop.latitude_was, longitude: address_changed ? shop.longitude : shop.longitude_was,
                     feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))     
       if shop.business
         shop.business.update!(business_time: business_time)
@@ -52,6 +61,7 @@ class ShopMustForm
         # インスタンス変数の画像もクリア
         self.shop_image = nil
       end
+
       
       # 新しい画像を保存する処理
       if shop_image.present?
