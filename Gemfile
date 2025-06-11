@@ -104,3 +104,6 @@ gem 'omniauth-google-oauth2'
 # googlemap
 gem "dotenv-rails"
 gem "geocoder"
+
+# 静的OGP
+gem "meta-tags"

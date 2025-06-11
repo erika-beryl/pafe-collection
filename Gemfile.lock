@@ -204,6 +204,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.22.1)
+      actionpack (>= 6.0.0, < 8.1)
     mini_magick (5.1.2)
       benchmark
       logger
@@ -410,6 +412,7 @@ DEPENDENCIES
   jp_prefecture
   jsbundling-rails
   kaminari (= 1.2.2)
+  meta-tags
   omniauth
   omniauth-github
   omniauth-google-oauth2
