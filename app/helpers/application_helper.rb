@@ -20,7 +20,9 @@ module ApplicationHelper
       },
       twitter: {
         card: 'summary_large_image',
-        image: image_url('ogp.png')
+        image: image_url('ogp.png'),
+        title: 'パフェコレ | パフェのレビューサイト',
+        description: 'パフェ好きのためのレビュー共有サービス！'
       }
     }
   end
