@@ -17,5 +17,9 @@ ja:
   users:
     show:
       title: プロフィール
-
+  bookmarks:
+    create:
+      success: いいねしました
+    destroy:
+      success: いいねを外しました  
   
