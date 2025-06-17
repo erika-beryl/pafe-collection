@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
   
   has_many :reviews, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_reviews, through: :bookmarks, source: :review
 
   has_one_attached :avatar
 
