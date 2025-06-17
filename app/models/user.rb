@@ -14,9 +14,9 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }
 
   validates :avatar,
-            content_type: %i(png jpg jpeg),                        # 画像の種類
-            size: { less_than_or_equal_to: 10.megabytes },              # ファイルサイズ
-            dimension: { width: { max: 4100 }, height: { max: 4100 } } # 画像の大きさ
+            content_type: %i(png jpg jpeg),
+            size: { less_than_or_equal_to: 10.megabytes },
+            dimension: { width: { max: 4100 }, height: { max: 4100 } }
 
 
   def own?(object)
@@ -38,5 +38,17 @@ class User < ApplicationRecord
         uid: auth.uid
       )
     end
+  end
+
+  def bookmark(review)
+    bookmark_reviews << review
+  end
+
+  def unbookmark(review)
+    bookmark_reviews.destroy(review)
+  end
+
+  def bookmark?(review)
+    bookmark_reviews.include?(review)
   end
 end

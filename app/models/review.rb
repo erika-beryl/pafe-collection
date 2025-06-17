@@ -6,6 +6,7 @@ class Review < ApplicationRecord
   validates :body, presence: true, length: { maximum: 500 }
 
   has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_users, through: :bookmarks, source: :user
 
   has_many_attached :review_images
   validates :review_images,
