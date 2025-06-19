@@ -21,7 +21,7 @@ ja:
   reviews:
     bookmarks:
       title: いいね一覧
-      no_result: ブックマーク中のレビューがありません。
+      no_result: いいね中のレビューがありません。
   bookmarks:
     create:
       success: いいねしました

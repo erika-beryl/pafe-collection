@@ -8,20 +8,22 @@
       <%= link_to review.title, review_path(review) %>
     </h4>
 
-    <% if current_user&.own?(review) %>
-      <div class='d-flex gap-1 mt-1'>
-        <%= link_to edit_review_path(review), id: "button-edit-#{review.id}" do %>
-          <i class='bi bi-pencil-fill'></i>
-        <% end %>
-        <%= link_to review_path(review), id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-          <i class="bi bi-trash-fill"></i>
-        <% end %>
-      </div>
-    <% else %>
-      <div>
-        <%= render 'shared/bookmark_buttons', { review: review } %>
-      </div>    
-    <% end %>
+    <% if user_signed_in? %>
+      <% if current_user&.own?(review) %>
+        <div class='d-flex gap-1 mt-1'>
+          <%= link_to edit_review_path(review), id: "button-edit-#{review.id}" do %>
+            <i class='bi bi-pencil-fill'></i>
+          <% end %>
+          <%= link_to review_path(review), id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+            <i class="bi bi-trash-fill"></i>
+          <% end %>
+        </div>
+      <% else %>
+        <div>
+          <%= render 'shared/bookmark_buttons', { review: review } %>
+        </div>    
+      <% end %>
+    <% end %>  
     <ul class="list-inline">
       <li><i class="bi bi-person"></i><%= review.user.name %></li>
       <li><i class="bi bi-calendar"></i><%= l review.created_at, format: :short %></li>

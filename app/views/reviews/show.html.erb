@@ -26,22 +26,24 @@
           <div class="col-md-9">
             <div class="d-flex">
               <h3 class="mb-3"><%= @review.title %></h3>
-              <% if current_user&.own?(@review) %>
-                <div class="ms-2">
-                  <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
-                    <i class='bi bi-pencil-fill'></i>
-                  <% end %>
-                </div>
-                <div>  
-                  <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i>
-                  <% end %>
-                </div>
-              <% else %>
-                <div class="ms-2">
-                  <%= render 'shared/bookmark_buttons', { review: @review } %>
-                </div>  
-              <% end %> 
+              <% if user_signed_in? %>
+                <% if current_user&.own?(@review) %>
+                  <div class="ms-2">
+                    <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
+                      <i class='bi bi-pencil-fill'></i>
+                    <% end %>
+                  </div>
+                  <div>  
+                    <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                      <i class="bi bi-trash-fill"></i>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="ms-2">
+                    <%= render 'shared/bookmark_buttons', { review: @review } %>
+                  </div>  
+                <% end %>
+              <% end %>
             </div>
             <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
             <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
