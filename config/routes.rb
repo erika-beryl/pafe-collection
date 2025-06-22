@@ -19,5 +19,10 @@ Rails.application.routes.draw do
   end
 
   resources :parfaits, only: %i[index]
-  resources :reviews
+  resources :reviews do
+    collection do
+      get :bookmarks
+    end
+  end
+  resources :bookmarks, only: %i[create destroy]
 end

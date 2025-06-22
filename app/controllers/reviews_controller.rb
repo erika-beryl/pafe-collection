@@ -65,6 +65,10 @@ class ReviewsController < ApplicationController
     redirect_to parfait_path(parfait), success: '削除に成功しました'
   end
 
+  def bookmarks
+    @bookmark_reviews = current_user.bookmark_reviews.includes(:user).order(created_at: :desc)
+  end
+
   private
   
   def review_params

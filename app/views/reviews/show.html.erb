@@ -17,30 +17,38 @@
           <div class="swiper-scrollbar"></div> 
         </div>
       <% else %>    
-        <div class="col-md-3">
+        <div>
           <%= image_tag 'noimage.png', width: "300", height: "200", class: "show-img" %>
         </div>
       <% end %> 
       <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-9">
-              <h3><%= @review.title %></h3>
-              <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
-              <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
-              <% if current_user&.own?(@review) %>
-                <div class='d-flex justify-content-end'>
-                  <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
-                    <i class='bi bi-pencil-fill'></i>
-                  <% end %>
-                  <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i>
-                  <% end %>
-                </div>
-              <% end %> 
-            </div>   
+        <div class="card-body">   
+          <div class="col-md-9">
+            <div class="d-flex">
+              <h3 class="mb-3"><%= @review.title %></h3>
+              <% if user_signed_in? %>
+                <% if current_user&.own?(@review) %>
+                  <div class="ms-2">
+                    <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
+                      <i class='bi bi-pencil-fill'></i>
+                    <% end %>
+                  </div>
+                  <div>  
+                    <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                      <i class="bi bi-trash-fill"></i>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="ms-2">
+                    <%= render 'shared/bookmark_buttons', { review: @review } %>
+                  </div>  
+                <% end %>
+              <% end %>
+            </div>
+            <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
+            <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
             <p><%= simple_format(@review.body) %></p>
-          </div>
+          </div> 
         </div>  
       </article> 
     </div>

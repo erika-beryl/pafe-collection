@@ -14,8 +14,17 @@ ja:
     reviews: 口コミから探す
     shops: 店舗から探す
     parfaits: 商品から探す
+    bookmark_index: いいね一覧
   users:
     show:
       title: プロフィール
-
+  reviews:
+    bookmarks:
+      title: いいね一覧
+      no_result: いいね中のレビューがありません。
+  bookmarks:
+    create:
+      success: いいねしました
+    destroy:
+      success: いいねを外しました  
   
