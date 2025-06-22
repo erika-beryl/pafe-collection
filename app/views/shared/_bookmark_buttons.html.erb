@@ -1,6 +1,6 @@
 <div class='ms-auto'>
   <% if current_user.bookmark?(review) %>
-    <%= render 'shared/unbookmark', { review: review } %>
+    <%= render 'shared/unbookmark', { review: review, bookmark: bookmark } %>
   <% else %>
     <%= render 'shared/bookmark', { review: review } %>
   <% end %>

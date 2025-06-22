@@ -7,8 +7,9 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    review = Review.find(params[:review_id])
-    current_user.unbookmark(review)
+    bookmark = current_user.bookmarks.find(params[:id])
+    bookmark.destroy
     redirect_back fallback_location: root_path, success: t('.success')
   end
+
 end

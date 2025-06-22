@@ -24,7 +24,7 @@
                 </div>
               <% else %>
                 <div>
-                  <%= render 'shared/bookmark_buttons', { review: review } %>
+                  <%= render 'shared/bookmark_buttons', review: review, bookmark: current_user.bookmarks.find_by(review_id: review.id) %>
                 </div>    
               <% end %>
             <% end %> 
