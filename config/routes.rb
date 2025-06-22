@@ -25,4 +25,6 @@ Rails.application.routes.draw do
     end
   end
   resources :bookmarks, only: %i[create destroy]
+
+  resource :privacy_policy, only: %i[show]
 end
