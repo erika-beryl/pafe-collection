@@ -60,4 +60,11 @@
   outline: none;
 }
 
+.terms-wrapper p {
+  text-indent: 1em; /* 段落の一文字下げ */
+  margin-bottom: 1em; /* 下に余白 */
+}
 
+.terms-wrapper li {
+  margin-bottom: 0.5em;
+}

@@ -30,5 +30,9 @@ module Myapp
 
     Rails.application.config.active_storage.variant_processor = :mini_magick
 
+    config.generators do |g|
+      g.helper false
+      g.test_framework nil
+    end
   end
 end
