@@ -2,6 +2,7 @@
   <div class="row">
     <% if reviews.present? %>
       <% reviews.each do |review| %>
+        <% bookmark_count = bookmark_counts[review.id] || 0 %>
         <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
 
           <div class="d-flex flex-shrink-0 me-3" style="width: 200px; height: 200px;">
@@ -24,7 +25,7 @@
                 </div>
               <% else %>
                 <div>
-                  <%= render 'shared/bookmark_buttons', review: review, bookmark: current_user.bookmarks.find_by(review_id: review.id) %>
+                  <%= render 'shared/bookmark_buttons', review: review, bookmark: current_user.bookmarks.find_by(review_id: review.id), bookmark_count: bookmark_count %>
                 </div>    
               <% end %>
             <% end %> 

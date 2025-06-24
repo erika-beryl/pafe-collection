@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <div class="row">
     <% if @reviews.present? %>
-      <%= render @reviews %>
+      <%= render partial: 'review', collection: @reviews, as: :review, locals: { bookmark_counts: @bookmark_counts } %>
     <% else %>
       <div class="mb-3">レビューがありません</div>
     <% end %>

@@ -64,6 +64,7 @@ class ShopsController < ApplicationController
               .where(parfait: { shop_id: @shop.id })
               .includes(:user)
               .order(created_at: :desc)
+    @bookmark_counts = Bookmark.where(review_id: @reviews.map(&:id)).group(:review_id).count
   end
 
   def destroy
