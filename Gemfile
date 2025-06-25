@@ -107,3 +107,9 @@ gem "geocoder"
 
 # 静的OGP
 gem "meta-tags"
+
+# RSpec
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+end
