@@ -116,5 +116,5 @@ class ShopMustForm
   def split_shop_business_hours
     shop_business_hours.split("\n")
   end
-  
+
 end
