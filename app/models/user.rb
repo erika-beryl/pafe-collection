@@ -17,6 +17,9 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }
   validates :email, presence: true
 
+  # googleログイン対策でifをつける
+  validates :password_confirmation, presence: true, if: -> { password.present? && provider.blank? }
+
   validates :avatar,
             content_type: %i(png jpg jpeg),
             size: { less_than_or_equal_to: 10.megabytes },

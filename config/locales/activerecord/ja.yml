@@ -12,6 +12,11 @@ ja:
       shop_payment: 店舗の支払い方法
       user: ユーザー
     attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（再入力)
+        name: 名前
       shop:
         name: 店舗名
         shop_image: 店舗外観

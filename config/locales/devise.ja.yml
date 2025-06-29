@@ -57,6 +57,9 @@ ja:
       unlocked: "アカウントのロックを解除しました。ログインしてください。"
   errors:
     messages:
+      blank: "を入力してください"
+      taken: "はすでに存在します"
+      confirmation: "と%{attribute}の入力が一致しません"
       already_confirmed: "は既に登録済みです。もう一度ログインしてください。"
       confirmation_period_expired: "%{period} までに確認する必要がありますので、新しくリクエストしてください。"
       expired: "は有効期限切れです。"
