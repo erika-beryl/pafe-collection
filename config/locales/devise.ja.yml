@@ -52,20 +52,19 @@ ja:
       signed_out: "ログアウトに成功しました。"
       already_signed_out: "すでにログアウトされています。"
     unlocks:
-      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
-      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
-      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+      send_instructions: "アカウントのロック解除の方法について、数分以内にメールを送付します"
+      send_paranoid_instructions: "アカウントが存在すれば、ロック解除の方法について数分以内にメールを送付します。"
+      unlocked: "アカウントのロックを解除しました。ログインしてください。"
   errors:
     messages:
-      already_confirmed: "was already confirmed, please try signing in"
-      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      not_locked: "was not locked"
+      already_confirmed: "は既に登録済みです。もう一度ログインしてください。"
+      confirmation_period_expired: "%{period} までに確認する必要がありますので、新しくリクエストしてください。"
+      expired: "は有効期限切れです。"
+      not_found: "は見つかりませんでした。"
+      not_locked: "はロックされていません"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
-
+        one: "1つのエラーにより %{resource} を保存できませんでした"
+        other: "%{count} 個のエラーにより %{resource} を保存できませんでした。"
   activerecord:
     attributes:
       user:
