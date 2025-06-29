@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :uid, uniqueness: { scope: :provider }
+  validates :email, presence: true
 
   validates :avatar,
             content_type: %i(png jpg jpeg),

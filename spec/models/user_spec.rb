@@ -11,9 +11,15 @@ RSpec.describe User, type: :model do
     it 'emailがない場合にinvalidになるか' do
       user_without_email = build(:user, email: nil)
       expect(user_without_email).to be_invalid
-      expect(user_without_email.errors[:email]).to eq []
+      expect(user_without_email.errors[:email]).to eq ["メールアドレスを入力してください"]
     end
-    it 'nameが無い場合にinvalidになるか' do end
+
+    it 'nameが無い場合にinvalidになるか' do
+      user_without_name = build(:user, name: nil)
+      expect(user_without_name).to be_invalid
+      expect(user_without_name.errors[:name]).to eq ["名前を入力してください"]
+    end
+
     it 'passwordが無い場合にinvalidになるか' do end
     it 'password_confirmationが無い場合にinvalidになるか' do end
     it 'passwordとpassword_confirmationが一致しないとinvalidになるか' do end
