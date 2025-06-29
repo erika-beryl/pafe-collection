@@ -3,8 +3,6 @@ class Parfait < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 100 }
   validates :body, length: { maximum: 500 }
-  validates :price, presence: true
-  validates :price, inclusion: { in: prices.keys.map(&:to_s) }
 
   has_many :reviews, dependent: :destroy
   
@@ -36,4 +34,7 @@ class Parfait < ApplicationRecord
     under_10000: 10,
     over_10000: 11
   }
+
+  validates :price, presence: true
+  validates :price, inclusion: { in: Parfait.prices.keys.map(&:to_s) }
 end

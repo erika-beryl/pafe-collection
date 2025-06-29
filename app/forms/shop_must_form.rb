@@ -15,6 +15,7 @@ class ShopMustForm
   validates :city, presence: true
   validates :street, presence: true
   validates :tel, presence: true
+  validate :name_unique
 
   delegate :persisted?, to: :shop
 
@@ -117,4 +118,10 @@ class ShopMustForm
     shop_business_hours.split("\n")
   end
 
+  def name_unique
+    same_shop = Shop.find_by(name: name)
+    if same_shop && same_shop.id != shop.id
+      errors.add(:name, "はすでに使われています")
+    end
+  end
 end

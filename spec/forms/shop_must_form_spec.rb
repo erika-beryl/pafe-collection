@@ -54,5 +54,12 @@ RSpec.describe ShopMustForm, type: :model do
       expect(form).to be_invalid
       expect(form.errors[:tel]).to include "を入力してください"
     end
+
+    it 'nameが同じ場合invalid' do
+      existing_shop = Shop.create!(form_attributes)
+      form_same = ShopMustForm.new(form_attributes, shop: Shop.new)
+      expect(form_same.valid?).to eq false
+      expect(form_same.errors[:name]).to include "はすでに使われています"
+    end
   end
 end

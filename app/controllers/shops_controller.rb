@@ -22,7 +22,8 @@ class ShopsController < ApplicationController
     # active_strageはshopとは別のデータベースに保存されるので、明示的に切り離しておく
     @form = ShopMustForm.new(shop_params)
 
-    if @form.save
+    if @form.valid?
+      @form.save
       redirect_to shops_path, success: '店舗登録が完了しました'
     else
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
