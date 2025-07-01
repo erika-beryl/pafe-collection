@@ -70,4 +70,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # テスト時生成された画像をクリーンアップする
+  config.after(:all) do
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root) if Rails.env.test?
+  end
+
 end

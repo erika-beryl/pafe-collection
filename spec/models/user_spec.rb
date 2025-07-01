@@ -44,5 +44,17 @@ RSpec.describe User, type: :model do
       expect(user_same).to be_invalid
       expect(user_same.errors[:email]).to include "はすでに存在します"
     end
+
+    it 'pngの画像をアタッチできるか' do
+      user = build(:user, :with_avatar)
+      expect(user).to be_valid
+      expect(user.errors).to be_empty
+    end
+
+    it 'content_typeのバリデーション違反をするとinvalidになるか' do
+      user = build(:user, :invalid_avatar)
+      expect(user).to be_invalid
+      expect(user.errors[:avatar]).to include "有効なメディアファイルではありません"
+    end
   end     
 end

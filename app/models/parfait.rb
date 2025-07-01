@@ -36,5 +36,4 @@ class Parfait < ApplicationRecord
   }
 
   validates :price, presence: true
-  validates :price, inclusion: { in: Parfait.prices.keys.map(&:to_s) }
 end
