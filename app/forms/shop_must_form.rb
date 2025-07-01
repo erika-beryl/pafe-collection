@@ -64,7 +64,7 @@ class ShopMustForm
       end
 
       
-      # 新しい画像を保存する処理
+      # 新しい画像を保存する処理。shopモデルの方でアタッチする。
       if shop_image.present?
         shop.shop_image.purge if shop.shop_image.attached?
         shop.shop_image.attach(shop_image)

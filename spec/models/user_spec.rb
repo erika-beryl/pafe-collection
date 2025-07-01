@@ -46,15 +46,15 @@ RSpec.describe User, type: :model do
     end
 
     it 'pngの画像をアタッチできるか' do
-      user = build(:user, :with_avatar)
-      expect(user).to be_valid
-      expect(user.errors).to be_empty
+      user_attach = build(:user, :with_avatar)
+      expect(user_attach).to be_valid
+      expect(user_attach.errors).to be_empty
     end
 
     it 'content_typeのバリデーション違反をするとinvalidになるか' do
-      user = build(:user, :invalid_avatar)
-      expect(user).to be_invalid
-      expect(user.errors[:avatar]).to include "有効なメディアファイルではありません"
+      user_invalid_attach = build(:user, :invalid_avatar)
+      expect(user_invalid_attach).to be_invalid
+      expect(user_invalid_attach.errors[:avatar]).to include "有効なメディアファイルではありません"
     end
   end     
 end
