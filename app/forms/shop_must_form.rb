@@ -17,6 +17,11 @@ class ShopMustForm
   validates :tel, presence: true
   validate :name_unique
 
+  validates :postal_code,
+          presence: true,
+          format: { with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
+
+
   delegate :persisted?, to: :shop
 
   def initialize(attributes = nil, shop: Shop.new)

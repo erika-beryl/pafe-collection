@@ -13,7 +13,7 @@ class Shop < ApplicationRecord
   has_many :parfaits, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 100 }, uniqueness: true
-  validates :postal_code, presence:true, uniqueness: true, format: {with: /\A[0-9]+\z/, message: "is invalid. Please input half-width characters."}
+  validates :postal_code, presence:true, uniqueness: true, format: {with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
   validates :prefecture_code, presence: true
   validates :city, presence: true
   validates :street, presence: true

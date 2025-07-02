@@ -31,6 +31,18 @@ RSpec.describe ShopMustForm, type: :model do
       expect(form.errors[:postal_code]).to include "を入力してください"
     end
 
+    it 'postal_codeは7桁の半角数字で無い場合invalid' do
+      form = ShopMustForm.new(form_attributes.merge(postal_code: '12345678'))
+      expect(form).to be_invalid
+      expect(form.errors[:postal_code]).to include "は7桁の半角数字で入力してください"
+    end
+
+    it 'postal_codeに全角数字を含むとinvalid' do
+      form = ShopMustForm.new(form_attributes.merge(postal_code: '１２３４５６７'))
+      expect(form).to be_invalid
+      expect(form.errors[:postal_code]).to include "は7桁の半角数字で入力してください"
+    end
+
     it 'prefecture_codeがない場合invalid' do
       form = ShopMustForm.new(form_attributes.merge(prefecture_code: nil))
       expect(form).to be_invalid
