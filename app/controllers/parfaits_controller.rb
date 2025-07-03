@@ -16,6 +16,7 @@ class ParfaitsController < ApplicationController
   def show
     load_parfait
     @reviews = @parfait.reviews.order(created_at: :desc)
+    @bookmark_counts = Bookmark.where(review_id: @reviews.map(&:id)).group(:review_id).count
   end
 
   def new

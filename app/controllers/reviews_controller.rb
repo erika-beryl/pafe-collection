@@ -3,6 +3,8 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.includes(:user, parfait: :shop).order(created_at: :desc).page(params[:page]).per(10)
+
+    @bookmark_counts = Bookmark.group(:review_id).count
   end
 
   def new
@@ -67,6 +69,7 @@ class ReviewsController < ApplicationController
 
   def bookmarks
     @bookmark_reviews = current_user.bookmark_reviews.includes(:user).order(created_at: :desc)
+    @bookmark_counts = Bookmark.group(:review_id).count
   end
 
   private
@@ -77,6 +80,7 @@ class ReviewsController < ApplicationController
 
   def load_review
     @review = Review.includes(:user, parfait: :shop).find(params[:id])
+    @bookmark_count = @review.bookmark_users.count
   end
 
 end

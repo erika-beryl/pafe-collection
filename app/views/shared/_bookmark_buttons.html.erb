@@ -4,4 +4,10 @@
   <% else %>
     <%= render 'shared/bookmark', { review: review } %>
   <% end %>
+
+  <% if bookmark_count.to_i > 0 %>
+    <div class="text-muted small">
+      <%= bookmark_count %>件のいいね
+    </div>
+  <% end %>
 </div>

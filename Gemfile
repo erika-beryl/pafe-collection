@@ -107,3 +107,17 @@ gem "geocoder"
 
 # 静的OGP
 gem "meta-tags"
+
+# RSpec
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+end
+
+# system_spec
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+end
+

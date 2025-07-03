@@ -15,6 +15,12 @@ class ShopMustForm
   validates :city, presence: true
   validates :street, presence: true
   validates :tel, presence: true
+  validate :name_unique
+
+  validates :postal_code,
+          presence: true,
+          format: { with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
+
 
   delegate :persisted?, to: :shop
 
@@ -63,7 +69,7 @@ class ShopMustForm
       end
 
       
-      # 新しい画像を保存する処理
+      # 新しい画像を保存する処理。shopモデルの方でアタッチする。
       if shop_image.present?
         shop.shop_image.purge if shop.shop_image.attached?
         shop.shop_image.attach(shop_image)
@@ -116,5 +122,11 @@ class ShopMustForm
   def split_shop_business_hours
     shop_business_hours.split("\n")
   end
-  
+
+  def name_unique
+    same_shop = Shop.find_by(name: name)
+    if same_shop && same_shop.id != shop.id
+      errors.add(:name, "はすでに使われています")
+    end
+  end
 end

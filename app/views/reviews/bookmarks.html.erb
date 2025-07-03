@@ -17,7 +17,7 @@
     <div class="col-12">
       <div class="row">
         <% if @bookmark_reviews.present? %>
-          <%= render @bookmark_reviews %>
+          <%= render partial: 'review', collection: @bookmark_reviews, as: :review, locals: { bookmark_counts: @bookmark_counts } %>
         <% else %>
           <p><%= t('.no_result') %></p>
         <% end %>

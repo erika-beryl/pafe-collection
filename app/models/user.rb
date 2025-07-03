@@ -13,7 +13,12 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  validates :name, presence: true
   validates :uid, uniqueness: { scope: :provider }
+  validates :email, presence: true
+
+  # googleログイン対策でifをつける
+  validates :password_confirmation, presence: true, if: -> { password.present? && provider.blank? }
 
   validates :avatar,
             content_type: %i(png jpg jpeg),

@@ -4,7 +4,6 @@ class Parfait < ApplicationRecord
   validates :name, presence: true, length: { maximum: 100 }
   validates :body, length: { maximum: 500 }
   validates :price, presence: true
-
   has_many :reviews, dependent: :destroy
   
   has_one_attached :parfait_image
@@ -35,4 +34,5 @@ class Parfait < ApplicationRecord
     under_10000: 10,
     over_10000: 11
   }
+
 end
