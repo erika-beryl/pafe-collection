@@ -39,7 +39,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -49,14 +49,25 @@ gem "bootsnap", require: false
 
 # devise追加
 gem "devise"
-gem 'devise-security'
+gem 'devise-bootstrap5'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
-gem 'devise-bootstrap5'
+gem 'devise-security'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem "debug", platforms: %i[mri windows]
+
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+
+  gem 'pry-byebug'
+  gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
@@ -68,12 +79,16 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'webdrivers'
 end
 
 # 都道府県のgem
@@ -86,20 +101,20 @@ gem 'enum_help', '0.0.19'
 gem 'rails-i18n', '~> 7.0.0'
 
 # 画像アップのgem
-gem 'image_processing'                 # (サイズ変更など)画像処理用
-gem 'cloudinary', require: true        # Cloudinary
 gem 'activestorage-cloudinary-service' # Cloudinary と Active Storage の連携をする
 gem 'active_storage_validations'       # 画像ファイルのバリデーション用
+gem 'cloudinary', require: true        # Cloudinary
+gem 'image_processing'                 # (サイズ変更など)画像処理用
 
 # ページネーション
-gem 'kaminari', '1.2.2'
 gem 'bootstrap5-kaminari-views'
+gem 'kaminari', '1.2.2'
 
 # OAuth同意
 gem 'omniauth'
-gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 # googlemap
 gem "dotenv-rails"
@@ -107,30 +122,3 @@ gem "geocoder"
 
 # 静的OGP
 gem "meta-tags"
-
-# RSpecとデバッグ
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'faker'
-
-  gem 'pry-byebug'
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rspec', require: false
-  gem 'rubocop-capybara', require: false
-end
-
-# デバッグ
-group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
-
-# system_spec
-group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-end

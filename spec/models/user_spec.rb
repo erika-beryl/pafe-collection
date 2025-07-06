@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
       expect(user_difficult_password_confirmation.errors[:password_confirmation]).to include "とパスワードの入力が一致しません"
     end
 
-    it '同じメールアドレスは登録できない'do
+    it '同じメールアドレスは登録できない' do
       user = create(:user)
       user_same = build(:user, email: user.email)
       expect(user_same).to be_invalid

@@ -5,12 +5,11 @@ class ParfaitsController < ApplicationController
 
     parfait_ids = @parfaits.pluck(:id)
     @parfait_counts = Parfait
-              .select("parfaits.id, COUNT(reviews.id) AS reviews_count")
-              .left_joins(:reviews)
-              .where(id: parfait_ids)
-              .group("parfaits.id")
-              .index_by(&:id)
-
+                      .select("parfaits.id, COUNT(reviews.id) AS reviews_count")
+                      .left_joins(:reviews)
+                      .where(id: parfait_ids)
+                      .group("parfaits.id")
+                      .index_by(&:id)
   end
 
   def show

@@ -9,7 +9,7 @@ module ApplicationHelper
       keywords: 'パフェ,口コミ',
       canonical: Rails.env.production? ? 'https://pafecolle-port-first-f719169aaced.herokuapp.com' : 'http://localhost:3000',
       separator: '|',
-      og:{
+      og: {
         site_name: :site,
         title: :title,
         description: :description,

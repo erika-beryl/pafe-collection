@@ -18,9 +18,8 @@ class ShopMustForm
   validate :name_unique
 
   validates :postal_code,
-          presence: true,
-          format: { with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
-
+            presence: true,
+            format: { with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
 
   delegate :persisted?, to: :shop
 
@@ -40,6 +39,7 @@ class ShopMustForm
     self.reservation = reservation == "1"
     self.parking = parking == "1"
     return false if invalid?
+
     full_address = generate_address
 
     address_changed = full_address != shop.full_address
@@ -51,9 +51,9 @@ class ShopMustForm
 
     ActiveRecord::Base.transaction do
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
-                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
-                    latitude: address_changed ? shop.latitude : shop.latitude_was, longitude: address_changed ? shop.longitude : shop.longitude_was,
-                    feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))     
+                   city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
+                   latitude: address_changed ? shop.latitude : shop.latitude_was, longitude: address_changed ? shop.longitude : shop.longitude_was,
+                   feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))     
       if shop.business
         shop.business.update!(business_time: business_time)
       else
