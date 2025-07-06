@@ -1,0 +1,6 @@
+test:
+  <<: *default
+  database: myapp_test
+  host: db        # Docker Compose の Postgres サービス名
+  username: postgres
+  password: password
