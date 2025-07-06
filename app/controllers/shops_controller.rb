@@ -6,12 +6,11 @@ class ShopsController < ApplicationController
 
     shop_ids = @shops.pluck(:id)
     @shop_counts = Shop
-           .select("shops.id, COUNT(DISTINCT parfaits.id) AS parfaits_count, COUNT(reviews.id) AS reviews_count")
-           .left_joins(parfaits: :reviews)
-           .where(id: shop_ids)
-           .group("shops.id")
-           .index_by(&:id)
-
+      .select("shops.id, COUNT(DISTINCT parfaits.id) AS parfaits_count, COUNT(reviews.id) AS reviews_count")
+      .left_joins(parfaits: :reviews)
+      .where(id: shop_ids)
+      .group("shops.id")
+      .index_by(&:id)
   end
 
   def new

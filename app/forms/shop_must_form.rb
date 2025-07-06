@@ -85,7 +85,7 @@ class ShopMustForm
 
 
   def prefecture_name
-    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+    JpPrefecture::Prefecture.find(code: prefecture_code)&.name
   end
   
   def prefecture_name=(prefecture_name)

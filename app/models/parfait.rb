@@ -15,6 +15,7 @@ class Parfait < ApplicationRecord
 
   def image_as_thumbnail
     return unless parfait_image.content_type.in?(%w[image/jpeg image/png])
+  
     parfait_image.variant(resize_to_limit: [400, 500]).processed
   end
 

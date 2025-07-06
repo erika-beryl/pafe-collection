@@ -108,10 +108,24 @@ gem "geocoder"
 # 静的OGP
 gem "meta-tags"
 
-# RSpec
+# RSpecとデバッグ
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'faker'
+
+  gem 'pry-byebug'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-capybara', require: false
+end
+
+# デバッグ
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # system_spec
@@ -120,4 +134,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
