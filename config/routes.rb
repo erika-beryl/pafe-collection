@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   get 'users/show'
-  devise_for :users, controllers: { 
+  devise_for :users, controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
-    }
+  }
   get "users/profile" => "users#show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root to: 'static_pages#top' 
+  root to: 'static_pages#top'
 
   resources :shops do
     resources :parfaits, only: %i[new create edit update destroy show], shallow: true

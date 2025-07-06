@@ -31,14 +31,14 @@ class Shop < ApplicationRecord
 
   def image_as_thumbnail
     return unless shop_image.content_type.in?(%w[image/jpeg image/png])
-  
+
     shop_image.variant(resize_to_limit: [400, 500])
   end
 
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
   end
-  
+
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end

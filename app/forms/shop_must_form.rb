@@ -50,10 +50,10 @@ class ShopMustForm
     end
 
     ActiveRecord::Base.transaction do
-      shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code, 
+      shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code,
                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
                    latitude: address_changed ? shop.latitude : shop.latitude_was, longitude: address_changed ? shop.longitude : shop.longitude_was,
-                   feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))     
+                   feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
       if shop.business
         shop.business.update!(business_time: business_time)
       else
@@ -63,18 +63,16 @@ class ShopMustForm
       if remove_shop_image == '1'
         if shop.shop_image.attached?
           shop.shop_image.purge
-        end 
+        end
         # インスタンス変数の画像もクリア
         self.shop_image = nil
       end
 
-      
       # 新しい画像を保存する処理。shopモデルの方でアタッチする。
       if shop_image.present?
         shop.shop_image.purge if shop.shop_image.attached?
         shop.shop_image.attach(shop_image)
       end
-        
     end
 
     # フォームオブジェクトなのでtrueを明文化しないと最後の処理がnilかtrueかで変わってしまう。画像は任意にしたのでこうしないといけない。
@@ -87,7 +85,7 @@ class ShopMustForm
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code)&.name
   end
-  
+
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end

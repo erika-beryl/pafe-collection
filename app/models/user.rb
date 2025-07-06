@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
   before_create :set_provider_uid_for_email_user
-  
+
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_reviews, through: :bookmarks, source: :review
@@ -37,7 +37,7 @@ class User < ApplicationRecord
       self.uid = SecureRandom.uuid
     end
   end
-    
+
   def self.from_omniauth(auth)
     user = User.find_by(email: auth.info.email)
 

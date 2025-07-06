@@ -56,5 +56,5 @@ RSpec.describe User, type: :model do
       expect(user_invalid_attach).to be_invalid
       expect(user_invalid_attach.errors[:avatar]).to include "有効なメディアファイルではありません"
     end
-  end     
+  end
 end

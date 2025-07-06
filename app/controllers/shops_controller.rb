@@ -14,7 +14,7 @@ class ShopsController < ApplicationController
   end
 
   def new
-    @form = ShopMustForm.new  
+    @form = ShopMustForm.new
   end
 
   def create
@@ -27,9 +27,7 @@ class ShopsController < ApplicationController
     else
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
       render :new, status: :unprocessable_entity
-
     end
-   
   end
 
   def edit
@@ -55,7 +53,7 @@ class ShopsController < ApplicationController
   def show
     load_shop
     @parfaits = @shop.parfaits
-                     .left_joins(:reviews) 
+                     .left_joins(:reviews)
                      .select('parfaits.*, COUNT(reviews.id) AS reviews_count')
                      .group('parfaits.id')
                      .order(created_at: :desc)
@@ -83,5 +81,5 @@ class ShopsController < ApplicationController
   def load_shop
     @shop = Shop.find(params[:id])
   end
-  
+
 end
