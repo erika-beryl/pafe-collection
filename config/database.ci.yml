@@ -1,6 +1,7 @@
 test:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: myapp_test
-  host: db        # Docker Compose の Postgres サービス名
   username: postgres
   password: password
+  host: localhost
