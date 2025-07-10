@@ -12,11 +12,9 @@ FactoryBot.define do
     trait :with_shop_image do
       after(:build) do |shop|
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'noimage.png')
-        noimage_file = File.open(noimage_path)
         shop.shop_image.attach(
-          io: noimage_file,
+          io: Rack::Test::UploadedFile.new(noimage_path, 'image/png'),
           filename: File.basename(noimage_path),
-          content_type: 'image/png'
         )
       end
     end
@@ -24,11 +22,9 @@ FactoryBot.define do
     trait :invalid_shop_image do
       after(:build) do |shop|
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'dummy.txt')
-        noimage_file = File.open(noimage_path)
         shop.shop_image.attach(
-          io: noimage_file,
+          io: Rack::Test::UploadedFile.new(noimage_path, 'text/plain'),
           filename: File.basename(noimage_path),
-          content_type: 'text/plain'
         )
       end
     end
