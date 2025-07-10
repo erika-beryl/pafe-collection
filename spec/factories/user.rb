@@ -19,12 +19,12 @@ FactoryBot.define do
 
     trait :invalid_avatar do
       after(:build) do |user|
-        noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'noimage.png')
+        noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'dummy.txt')
         noimage_file = File.open(noimage_path)
         user.avatar.attach(
           io: noimage_file,
           filename: File.basename(noimage_path),
-          content_type: 'application/pdf'
+          content_type: 'text/plain'
         )
       end
     end
