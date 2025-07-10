@@ -7,7 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-if Rails.env.development?
+if Rails.env.development? || Rails.env.test?
   # 開発環境用：全てのmethod_typesとtraitsを挿入
   traits = %w[景色がよい ファミリー向け カウンター席有り 大食いチャレンジ有り 貸切可]
   traits.each do |trait_name|

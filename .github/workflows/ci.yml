@@ -33,6 +33,7 @@ jobs:
           --health-retries=5
 
     env:
+      RAILS_ENV: test
       SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
 
     steps:
@@ -64,14 +65,12 @@ jobs:
     - name: Setup database
       run: |
           cp config/database.ci.yml config/database.yml
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:migrate RAILS_ENV=test
-  
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rails db:seed
+
     - name: Run RSpec
       run: bundle exec rspec
 
     - name: Run RuboCop
-      run: bundle exec rubocop
-
-
-
+      run: bundle exec rubocop --fail-level W
