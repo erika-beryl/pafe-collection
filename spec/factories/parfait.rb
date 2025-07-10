@@ -19,7 +19,7 @@ FactoryBot.define do
       after(:build) do |parfait|
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'dummy.txt')
         parfait.parfait_image.attach(
-          io: Rack::Test::UploadedFile.new(noimage_path, 'text/plain'), 
+          io: Rack::Test::UploadedFile.new(noimage_path, 'text/plain'),
           filename: File.basename(noimage_path)
         )
       end

@@ -14,7 +14,7 @@ FactoryBot.define do
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'noimage.png')
         shop.shop_image.attach(
           io: Rack::Test::UploadedFile.new(noimage_path, 'image/png'),
-          filename: File.basename(noimage_path),
+          filename: File.basename(noimage_path)
         )
       end
     end
@@ -24,7 +24,7 @@ FactoryBot.define do
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'dummy.txt')
         shop.shop_image.attach(
           io: Rack::Test::UploadedFile.new(noimage_path, 'text/plain'),
-          filename: File.basename(noimage_path),
+          filename: File.basename(noimage_path)
         )
       end
     end
