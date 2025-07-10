@@ -73,6 +73,10 @@ jobs:
           bundle exec rails db:migrate
           bundle exec rails db:seed
 
+    - name: Check fixture files
+      run: ls -l spec/fixtures/images/
+
+
     - name: Run RSpec
       run: bundle exec rspec
 
