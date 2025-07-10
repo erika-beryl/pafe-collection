@@ -5,7 +5,7 @@ class Parfait < ApplicationRecord
   validates :body, length: { maximum: 500 }
   validates :price, presence: true
   has_many :reviews, dependent: :destroy
-  
+
   has_one_attached :parfait_image
 
   validates :parfait_image,
@@ -15,6 +15,7 @@ class Parfait < ApplicationRecord
 
   def image_as_thumbnail
     return unless parfait_image.content_type.in?(%w[image/jpeg image/png])
+
     parfait_image.variant(resize_to_limit: [400, 500]).processed
   end
 

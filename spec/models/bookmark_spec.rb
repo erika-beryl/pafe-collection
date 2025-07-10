@@ -11,7 +11,7 @@ RSpec.describe Bookmark, type: :model do
       expect(bookmark).to be_valid
       expect(bookmark.errors).to be_empty
     end
-      
+
     it 'reviewを書いた本人がブックマークするとエラーになる' do
       review = create(:review, user: review_user)
       bookmark_self = build(:bookmark, review: review, user: review_user)
@@ -26,6 +26,5 @@ RSpec.describe Bookmark, type: :model do
       expect(bookmark_same).to be_invalid
       expect(bookmark_same.errors[:user_id]).to include "はすでに存在します"
     end
-      
   end
 end

@@ -13,7 +13,7 @@ class Shop < ApplicationRecord
   has_many :parfaits, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 100 }, uniqueness: true
-  validates :postal_code, presence:true, uniqueness: true, format: {with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
+  validates :postal_code, presence: true, uniqueness: true, format: {with: /\A\d{7}\z/, message: "は7桁の半角数字で入力してください" }
   validates :prefecture_code, presence: true
   validates :city, presence: true
   validates :street, presence: true
@@ -31,13 +31,14 @@ class Shop < ApplicationRecord
 
   def image_as_thumbnail
     return unless shop_image.content_type.in?(%w[image/jpeg image/png])
+
     shop_image.variant(resize_to_limit: [400, 500])
   end
 
   def prefecture_name
     JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
   end
-  
+
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end

@@ -9,23 +9,19 @@ FactoryBot.define do
     trait :with_review_image do
       after(:build) do |review|
         noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'noimage.png')
-        noimage_file = File.open(noimage_path)
         review.review_images.attach(
-          io: noimage_file,
-          filename: File.basename(noimage_path),
-          content_type: 'image/png'
+          io: Rack::Test::UploadedFile.new(noimage_path, 'image/png'),
+          filename: File.basename(noimage_path)
         )
       end
     end
 
     trait :invalid_review_image do
       after(:build) do |review|
-        noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'noimage.png')
-        noimage_file = File.open(noimage_path)
+        noimage_path = Rails.root.join('spec', 'fixtures', 'images', 'dummy.txt')
         review.review_images.attach(
-          io: noimage_file,
-          filename: File.basename(noimage_path),
-          content_type: 'application/pdf'
+          io: Rack::Test::UploadedFile.new(noimage_path, 'text/plain'),
+          filename: File.basename(noimage_path)
         )
       end
     end

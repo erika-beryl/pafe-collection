@@ -19,6 +19,7 @@ class Review < ApplicationRecord
 
   def image_as_thumbnail
     return unless review_images.content_type.in?(%w[image/jpeg image/png])
+
     review_images.variant(resize_to_limit: [400, 500]).processed
   end
 

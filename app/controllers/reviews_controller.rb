@@ -62,7 +62,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review = current_user.reviews.includes(:user, parfait: :shop).find(params[:id])
-    parfait = @review.parfait 
+    parfait = @review.parfait
     @review.destroy!
     redirect_to parfait_path(parfait), success: '削除に成功しました'
   end
@@ -73,7 +73,7 @@ class ReviewsController < ApplicationController
   end
 
   private
-  
+
   def review_params
     params.require(:review).permit(:title, :body).merge(user_id: current_user.id, parfait_id: params[:review][:parfait_id])
   end

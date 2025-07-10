@@ -5,12 +5,11 @@ class ParfaitsController < ApplicationController
 
     parfait_ids = @parfaits.pluck(:id)
     @parfait_counts = Parfait
-              .select("parfaits.id, COUNT(reviews.id) AS reviews_count")
-              .left_joins(:reviews)
-              .where(id: parfait_ids)
-              .group("parfaits.id")
-              .index_by(&:id)
-
+                      .select("parfaits.id, COUNT(reviews.id) AS reviews_count")
+                      .left_joins(:reviews)
+                      .where(id: parfait_ids)
+                      .group("parfaits.id")
+                      .index_by(&:id)
   end
 
   def show
@@ -22,10 +21,10 @@ class ParfaitsController < ApplicationController
   def new
     @parfait = Parfait.new
   end
-  
+
   def create
     @parfait = Parfait.new(parfait_params)
-  
+
     # まずレコードを保存してから画像を添付する
     if @parfait.save
       if params[:parfait][:parfait_image].present?
@@ -39,7 +38,6 @@ class ParfaitsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
 
   def edit
     load_parfait
@@ -48,15 +46,15 @@ class ParfaitsController < ApplicationController
 
   def update
     load_parfait
-  
+
     # まず、普通のテキスト情報だけ更新する
     if @parfait.update(parfait_params)
-      
+
       # もし画像を消したいって指示があったら、ここで削除する
       if params[:parfait][:remove_parfait_image] == '1'
         @parfait.parfait_image.purge if @parfait.parfait_image.attached?
       end
-  
+
       # 新しい画像がアップロードされてたら、ここでつけ直す
       if params[:parfait][:parfait_image].present?
         # いったん古い画像があれば消してから
@@ -64,14 +62,13 @@ class ParfaitsController < ApplicationController
         # 新しい画像を保存
         @parfait.parfait_image.attach(params[:parfait][:parfait_image])
       end
-  
+
       redirect_to @parfait, success: 'パフェが更新されました', status: :see_other
     else
       flash.now[:danger] = "パフェを更新できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
-  
 
   def destroy
     load_parfait
