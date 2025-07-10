@@ -73,8 +73,9 @@ jobs:
           bundle exec rails db:migrate
           bundle exec rails db:seed
 
-    - name: Check file size
-      run: du -h spec/fixtures/images/noimage.png
+    - name: Check MIME type of image
+      run: file --mime-type spec/fixtures/images/noimage.png
+
 
     - name: Run RSpec
       run: bundle exec rspec
