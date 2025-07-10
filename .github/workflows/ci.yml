@@ -73,9 +73,12 @@ jobs:
           bundle exec rails db:migrate
           bundle exec rails db:seed
 
-    - name: Check MIME type of image
-      run: file --mime-type spec/fixtures/images/noimage.png
-
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -qq imagemagick
+        gem install bundler
+        bundle install
 
     - name: Run RSpec
       run: bundle exec rspec
