@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :shop do
-    name { "testshop" }
-    postal_code { "1111111" }
+    sequence(:name) { |n| "testshop#{n}" }
+    sequence(:postal_code) { |n| (1000000 + n).to_s }
     prefecture_code { 13 }
     city { "テスト区" }
     street { "テスト1-2-3" }
-    tel { "0312345678" }
+    sequence(:tel) { |n| "03123456#{format('%02d', n)}" }
     reservation { true }
     parking { false }
 

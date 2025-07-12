@@ -90,9 +90,9 @@ class ShopMustForm
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
 
-  private
-
   attr_reader :shop
+
+  private
 
   def default_attributes
     {
