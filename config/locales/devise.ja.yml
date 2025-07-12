@@ -9,10 +9,10 @@ ja:
     failure:
       already_authenticated: "ログイン済です。"
       inactive: "アカウントがアクティベートされていません。"
-      invalid: "メールアドレス %{authentication_keys} またはパスワードが違います."
+      invalid: "%{authentication_keys} またはパスワードが違います."
       locked: "あなたのアカウントはロックされています。"
       last_attempt: "もう一回ログインに失敗したらアカウントがロックされます。"
-      not_found_in_database: "メールアドレス %{authentication_keys} またはパスワードが違います。"
+      not_found_in_database: "%{authentication_keys} またはパスワードが違います。"
       timeout: "セッションが切れました。もう一度ログインしてください。"
       unauthenticated: "ログインしてください。"
       unconfirmed: "本登録を行ってください。"

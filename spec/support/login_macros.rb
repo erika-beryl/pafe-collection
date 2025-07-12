@@ -1,9 +1,8 @@
 module LoginMacros
   def login_as(user)
-    visit root_path
-    click_link 'ログイン'
-    fill_in 'user[email]', with: user.email
-    fill_in 'user[password]', with: 'password'
+    visit new_user_session_path
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     click_button 'Log in'
   end
 end
