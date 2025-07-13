@@ -1,14 +1,14 @@
 <%= form_with model: review, url: review.persisted? ? review_path(review) : reviews_path, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="mb-3">
-    <%= f.label :タイトル %>
+    <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <%= render "image_form", f: f, review: review  %>
 
   <div class="mb-3">
-    <%= f.label :コメント %>
+    <%= f.label :body %>
     <%= f.text_area :body, class: "form-control", rows: "10", placeholder: 'レビューをお願いします' %>
   </div>
 

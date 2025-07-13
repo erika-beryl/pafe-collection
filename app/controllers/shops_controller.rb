@@ -23,7 +23,7 @@ class ShopsController < ApplicationController
 
     if @form.valid?
       @form.save
-      redirect_to shops_path, success: '店舗登録が完了しました'
+      redirect_to shop_path(@form.shop), success: '店舗登録が完了しました'
     else
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Shop.model_name.human)
       render :new, status: :unprocessable_entity

@@ -66,6 +66,10 @@ jobs:
         gem install bundler
         bundle install
 
+    - name: Build CSS
+      run: |
+        ./bin/rails assets:precompile
+
     - name: Setup database
       run: |
           cp config/database.ci.yml config/database.yml
