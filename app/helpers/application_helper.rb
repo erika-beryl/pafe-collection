@@ -7,14 +7,14 @@ module ApplicationHelper
       charset: 'utf-8',
       description: 'パフェコレは、パフェのレビューサイトです。',
       keywords: 'パフェ,口コミ',
-      canonical: Rails.env.production? ? 'https://pafecolle-port-first-f719169aaced.herokuapp.com' : 'http://localhost:3000',
+      canonical: Rails.env.production? ? 'https://www.parfait-collection.com' : 'http://localhost:3000',
       separator: '|',
       og: {
         site_name: :site,
         title: :title,
         description: :description,
         type: 'website',
-        url: Rails.env.production? ? 'https://pafecolle-port-first-f719169aaced.herokuapp.com' : 'http://localhost:3000',
+        url: Rails.env.production? ? 'https://www.parfait-collection.com' : 'http://localhost:3000',
         image: image_url('ogp.png'),
         locale: 'ja-JP'
       },
