@@ -1,27 +1,7 @@
 @use 'bootstrap/scss/bootstrap';
 @use 'bootstrap-icons/font/bootstrap-icons';
 @use 'swiper/swiper-bundle';
-
-
-.swiper {
-  width: 100%;
-  height: 500px;
-}
-
-
-.swiper-slide {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.swiper-image {
-  max-width: 100%;
-  max-height: 100%;
-  display: block;
-  margin: auto;
-}
-
+@use 'swiper';
 
 .card-img-left {
   object-fit: cover; /* 画像の比率を崩さずにトリミング */
