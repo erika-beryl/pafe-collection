@@ -1,18 +1,20 @@
 <header class="header">
   <div class="container-fluid">
-    <%= link_to '/', class: 'navbar-brand ms-3' do %>
+    <%= link_to '/', class: 'navbar-brand ms-4' do %>
       <%= image_tag 'pafecolle_logo.png', alt: "パフェコレ", height: "80" %>
     <% end %>
   </div>
 
-  <div class="container-fluid d-flex justify-content-between px-4 py-2 header-illust">
-    <%= image_tag 'chestnut_illust.jpg', class: 'header-image' %>
-    <%= image_tag 'icecream_illust.jpg', class: 'header-image' %>
-    <%= image_tag 'parfait_illust.jpg', class: 'header-image' %>
-    <%= image_tag 'peach_illust.jpg', class: 'header-image' %>
-    <%= image_tag 'blueberry_illust.jpg', class: 'header-image' %>
-  </div>
-  
+  <% if current_page?(root_path) %>
+    <div class="container-fluid d-flex justify-content-between px-4 header-illust">
+      <%= image_tag 'chestnut_illust.jpg', class: 'header-image' %>
+      <%= image_tag 'icecream_illust.jpg', class: 'header-image' %>
+      <%= image_tag 'parfait_illust.jpg', class: 'header-image' %>
+      <%= image_tag 'peach_illust.jpg', class: 'header-image' %>
+      <%= image_tag 'blueberry_illust.jpg', class: 'header-image' %>
+    </div>
+  <% end %>
+
   <div class="container-fluid d-flex justify-content-end mt-auto">
     <nav class='navbar navbar-expand-lg'>
       <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
@@ -44,7 +46,7 @@
                   <%= image_tag current_user.avatar, class: 'rounded-circle mr15', width: '40', height: '40' %>
                 <% else %>  
                   <%= image_tag 'noimage.png', class: 'rounded-circle mr15', width: '40', height: '40' %>
-                <% end %>  
+                <% end %>
               <% end %>
               <div class='dropdown-menu dropdown-menu-end'>
                 <div class='dropdown-item'><%= current_user.name %></div>
