@@ -122,5 +122,3 @@ gem "geocoder"
 
 # 静的OGP
 gem "meta-tags"
-
-gem 'sassc-rails'

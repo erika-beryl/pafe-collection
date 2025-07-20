@@ -17,8 +17,6 @@ window.bootstrap = bootstrap;
 document.addEventListener('turbo:load', () => {
   const swiper = new Swiper('.swiper', {
     loop: true,
-    slidesPerView: 1,  // 1枚ずつ表示
-    spaceBetween: 10,  // 画像の間隔
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
