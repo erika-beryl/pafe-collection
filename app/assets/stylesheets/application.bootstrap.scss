@@ -2,6 +2,7 @@
 @use 'bootstrap-icons/font/bootstrap-icons';
 @use 'swiper/swiper-bundle';
 @use 'swiper';
+@use 'header';
 
 .card-img-left {
   object-fit: cover; /* 画像の比率を崩さずにトリミング */

@@ -1,14 +1,19 @@
-<header>
+<header class="header">
   <div class="container-fluid">
     <%= link_to '/', class: 'navbar-brand ms-3' do %>
-      <%= image_tag 'pafecolle_logo.png', alt: "ロゴ", height: "80" %>
+      <%= image_tag 'pafecolle_logo.png', alt: "パフェコレ", height: "80" %>
     <% end %>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid d-flex justify-content-between px-4 py-2 header-illust">
+    <%= image_tag 'chestnut_illust.jpg', class: 'header-image' %>
+    <%= image_tag 'icecream_illust.jpg', class: 'header-image' %>
+    <%= image_tag 'parfait_illust.jpg', class: 'header-image' %>
+    <%= image_tag 'peach_illust.jpg', class: 'header-image' %>
+    <%= image_tag 'blueberry_illust.jpg', class: 'header-image' %>
   </div>
   
-  <div class="container-fluid">
+  <div class="container-fluid d-flex justify-content-end mt-auto">
     <nav class='navbar navbar-expand-lg'>
       <button class='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent'
         aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
