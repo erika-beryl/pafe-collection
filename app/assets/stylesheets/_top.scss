@@ -7,3 +7,36 @@
   width: fit-content;
   max-width: 100%;
 }
+
+.parfait-image-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+  border-radius: 5px 5px 0 0;
+}
+
+.parfait-image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-text {
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  max-height: calc(1.5em * 3);
+  min-height: calc(1.5em * 3);
+  word-break: break-word;
+}
