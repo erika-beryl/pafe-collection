@@ -4,6 +4,8 @@
 @use 'swiper';
 @use 'header';
 @use 'footer';
+@use 'top';
+@use 'shop';
 
 .card-img-left {
   object-fit: cover; /* 画像の比率を崩さずにトリミング */
