@@ -6,6 +6,12 @@
 @use 'footer';
 @use 'top';
 @use 'shop';
+@use 'user';
+
+.form-wrapper {
+  background-color: #EEEEEE;
+  padding: 1rem;
+}
 
 .card-img-left {
   object-fit: cover; /* 画像の比率を崩さずにトリミング */
