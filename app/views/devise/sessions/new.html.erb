@@ -21,7 +21,7 @@
       <% end %>
 
       <div class="actions">
-        <%= f.submit "ログイン", class: "btn btn-primary" %>
+        <%= f.button 'ログイン', type: 'button', onclick: 'this.form.submit();', class: "btn btn-primary" %>
       </div>
     <% end %>
 
