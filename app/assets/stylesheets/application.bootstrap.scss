@@ -6,6 +6,21 @@
 @use 'footer';
 @use 'top';
 @use 'shop';
+@use 'user';
+
+
+/* フォームの背景 */
+.form-wrapper {
+  background-color: #EEEEEE;
+  padding: 1rem;
+}
+
+/* 見出しを装飾 */
+h2 {
+  padding: 0 0.5em;/*上下 左右の余白*/
+  color: #494949;/*文字色*/
+  border-left: solid 5px #ffaf58;/*左線*/
+}
 
 .card-img-left {
   object-fit: cover; /* 画像の比率を崩さずにトリミング */
@@ -52,4 +67,9 @@
 
 .terms-wrapper li {
   margin-bottom: 0.5em;
+}
+
+/* フラッシュメッセージ */
+.alert {
+  margin-bottom: 0;
 }

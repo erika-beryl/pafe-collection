@@ -9,7 +9,7 @@ RSpec.describe 'UserSessions', type: :system do
         visit new_user_session_path
         fill_in 'メールアドレス', with: user.email
         fill_in 'パスワード', with: user.password
-        click_button 'Log in'
+        click_button 'ログイン'
         expect(page).to have_content 'ログインに成功しました。'
         expect(current_path).to eq root_path
       end
@@ -20,7 +20,7 @@ RSpec.describe 'UserSessions', type: :system do
         visit new_user_session_path
         fill_in 'メールアドレス', with: ''
         fill_in 'パスワード', with: user.password
-        click_button 'Log in'
+        click_button 'ログイン'
         expect(page).to have_content 'メールアドレス またはパスワードが違います'
         expect(current_path).to eq new_user_session_path
       end
