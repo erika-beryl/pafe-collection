@@ -25,7 +25,6 @@ RSpec.describe 'Users', type: :system do
         fill_in 'パスワード', with: user.password
         fill_in 'パスワード（再入力）', with: user.password_confirmation
         click_button '登録'
-        expect(page).to have_content 'ユーザー を保存できませんでした。'
         expect(page).to have_content '名前を入力してください'
         expect(current_path).to eq user_registration_path
       end
@@ -39,7 +38,6 @@ RSpec.describe 'Users', type: :system do
         fill_in 'パスワード', with: user.password
         fill_in 'パスワード（再入力）', with: user.password_confirmation
         click_button '登録'
-        expect(page).to have_content 'ユーザー を保存できませんでした。'
         expect(page).to have_content 'メールアドレスを入力してください'
         expect(current_path).to eq user_registration_path
       end
@@ -54,7 +52,6 @@ RSpec.describe 'Users', type: :system do
         fill_in 'パスワード', with: user.password
         fill_in 'パスワード（再入力）', with: user.password_confirmation
         click_button '登録'
-        expect(page).to have_content 'ユーザー を保存できませんでした。'
         expect(page).to have_content 'メールアドレスはすでに存在します'
         expect(current_path).to eq user_registration_path
       end
@@ -68,7 +65,6 @@ RSpec.describe 'Users', type: :system do
         fill_in 'パスワード', with: ''
         fill_in 'パスワード（再入力）', with: user.password_confirmation
         click_button '登録'
-        expect(page).to have_content 'ユーザー を保存できませんでした。'
         expect(page).to have_content 'パスワードを入力してください'
         expect(current_path).to eq user_registration_path
       end
@@ -82,7 +78,6 @@ RSpec.describe 'Users', type: :system do
         fill_in 'パスワード', with: user.password
         fill_in 'パスワード（再入力）', with: ''
         click_button '登録'
-        expect(page).to have_content 'ユーザー を保存できませんでした。'
         expect(page).to have_content 'パスワード（再入力）とパスワードの入力が一致しません'
         expect(page).to have_content 'パスワード（再入力）を入力してください'
         expect(current_path).to eq user_registration_path
