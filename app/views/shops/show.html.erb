@@ -1,29 +1,31 @@
-<main class="container">
-  <%= render 'shops/show_header', shop: @shop %>
-  <div class="tabs">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#section1" type="button">トップ</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section2" type="button">パフェ一覧</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section3" type="button">レビュー</button>
-      </li>
-    </ul>
-    
-    <div class="tab-content">
-      <div id="section1" class="tab-pane fade show active">
-        <%= render 'shops/top_section_tab', shop: @shop %>
-      </div>
-      <div id="section2" class="tab-pane fade">
-        <%= render 'shops/parfait_section_tab', parfaits: @parfaits, shop: @shop %>
-      </div>
-      <div id="section3" class="tab-pane fade">
-        <%= render 'shops/reviews_section_tab', reviews: @reviews, bookmark_counts: @bookmark_counts %>
+<div class="show-wrapper">
+  <div class="container show-page pt-3">
+    <%= render 'shops/show_header', shop: @shop %>
+    <div class="tabs">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#section1" type="button">トップ</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section2" type="button">パフェ一覧</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#section3" type="button">レビュー</button>
+        </li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="section1" class="tab-pane fade show active">
+          <%= render 'shops/top_section_tab', shop: @shop %>
+        </div>
+        <div id="section2" class="tab-pane fade">
+          <%= render 'shops/parfait_section_tab', parfaits: @parfaits, shop: @shop %>
+        </div>
+        <div id="section3" class="tab-pane fade">
+          <%= render 'shops/reviews_section_tab', reviews: @reviews, bookmark_counts: @bookmark_counts %>
+        </div>
       </div>
     </div>
   </div>
-</main>  
+</div>
 

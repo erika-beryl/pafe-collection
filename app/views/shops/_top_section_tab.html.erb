@@ -1,111 +1,99 @@
-<div class="container pt-5">
-  <div class="row mb-3">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>店舗詳細</h1>
-      <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-        <div class="card-body">
-          <div class="row">
-            <% if shop.shop_image.attached? %>
-              <div class="col-9">
-                <%= image_tag(shop.image_as_thumbnail, height: "500", class: "img-fluid") %>
+<div class="pt-5">
+  <h2>店舗詳細</h2>
+  <article class="align-items-center py-3 border-top border-bottom">
+    <% if shop.shop_image.attached? %>
+      <div>
+        <%= image_tag(shop.image_as_thumbnail, height: "500", class: "img-fluid") %>
+      </div>
+    <% else %>
+      <div>
+        <%= image_tag 'noimage.png', height: "300", class: "img-fluid" %>
+      </div>
+    <% end %>
+  </article>
+  <div class="pt-5">
+    <table class="s-table table_under">
+      <h4>店舗情報（詳細）</h4>
+      <tbody>
+        <tr>
+          <th>店名</th>
+          <td>
+            <div>
+              <%= shop.name %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td>
+            <div>
+              <%= shop.full_address %>
+            </div>
+            <div id="map" style="height: 400px;"></div>
+          </td>   
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td>
+            <div>
+              <%= shop.tel %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>営業時間</th>
+          <td>
+            <% if shop.business.present? && shop.business.business_time.present? %> 
+              <div>
+                <%= simple_format(shop.business.business_time) %>
               </div>
-            <% else %>    
-              <div class="col-5">
-                <%= image_tag 'noimage.png', height: "300", class: "img-fluid" %>
+            <% else %>
+              <div>営業時間の情報はありません</div>
+            <% end %>    
+          </td>
+        </tr>
+        <tr>
+          <th>予約</th>
+          <td>
+            <% if shop.reservation? %> 
+              <div>予約可</div>
+            <% else %>
+              <div>予約不可</div>
+            <% end %>    
+          </td>
+        </tr>
+        <tr>
+          <th>駐車場</th>
+          <td>
+            <% if shop.parking? %> 
+              <div>駐車場有</div>
+            <% else %>
+              <div>駐車場無</div>
+            <% end %>    
+          </td>
+        </tr>
+        <tr>
+          <th>支払い方法</th>
+          <td>
+            <% if shop.payment_ids.present? %> 
+              <div>
+                <%= shop.payments.pluck(:method_type).join(', ') %>
               </div>
-            <% end %>
-          </div>
-        </div>
-      </article>
-      <div class="pt-5">
-        <table class="s-table table_under">
-          <h4>店舗情報（詳細）</h4>
-          <tbody>
-            <tr>
-              <th>店名</th>
-              <td>
-                <div>
-                  <%= shop.name %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>住所</th>
-              <td>
-                <div>
-                  <%= shop.full_address %>
-                </div>
-                <div id="map" style="height: 400px;"></div>
-              </td>   
-            </tr>
-            <tr>
-              <th>電話番号</th>
-              <td>
-                <div>
-                  <%= shop.tel %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>営業時間</th>
-              <td>
-                <% if shop.business.present? && shop.business.business_time.present? %> 
-                  <div>
-                    <%= simple_format(shop.business.business_time) %>
-                  </div>
-                <% else %>
-                  <div>営業時間の情報はありません</div>
-                <% end %>    
-              </td>
-            </tr>
-            <tr>
-              <th>予約</th>
-              <td>
-                <% if shop.reservation? %> 
-                  <div>予約可</div>
-                <% else %>
-                  <div>予約不可</div>
-                <% end %>    
-              </td>
-            </tr>
-            <tr>
-              <th>駐車場</th>
-              <td>
-                <% if shop.parking? %> 
-                  <div>駐車場有</div>
-                <% else %>
-                  <div>駐車場無</div>
-                <% end %>    
-              </td>
-            </tr>
-            <tr>
-              <th>支払い方法</th>
-              <td>
-                <% if shop.payment_ids.present? %> 
-                  <div>
-                    <%= shop.payments.pluck(:method_type).join(', ') %>
-                  </div>
-                <% end %>    
-              </td>
-            </tr>
-            <tr>
-              <th>店の特徴</th>
-              <td>
-                <% if shop.feature_ids.present? %> 
-                  <div>
-                    <%= shop.features.pluck(:trait).join(', ') %>
-                  </div>
-                <% end %>    
-              </td>
-            </tr>
-
-
-          </tbody>
-
-        
-        </table>
-      </div>  
-    </div>
+            <% end %>    
+          </td>
+        </tr>
+        <tr>
+          <th>店の特徴</th>
+          <td>
+            <% if shop.feature_ids.present? %> 
+              <div>
+                <%= shop.features.pluck(:trait).join(', ') %>
+              </div>
+            <% end %>    
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
