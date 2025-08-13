@@ -1,4 +1,4 @@
-<div class='ms-auto'>
+<div class='ms-auto d-flex'>
   <% if current_user.bookmark?(review) %>
     <%= render 'shared/unbookmark', { review: review } %>
   <% else %>
@@ -6,8 +6,8 @@
   <% end %>
 
   <% if bookmark_count.to_i > 0 %>
-    <div class="text-muted small">
-      <%= bookmark_count %>件のいいね
+    <div class="m-1 text-muted">
+      <%= bookmark_count %>
     </div>
   <% end %>
 </div>
