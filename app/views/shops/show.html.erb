@@ -16,7 +16,7 @@
       
       <div class="tab-content">
         <div id="section1" class="tab-pane fade show active">
-          <%= render 'shops/top_section_tab', shop: @shop %>
+          <%= render 'shops/top_section_tab', shop: @shop, parfaits_count: @parfaits_count, shop_parfait_reviews_count: @shop_parfait_reviews_count %>
         </div>
         <div id="section2" class="tab-pane fade">
           <%= render 'shops/parfait_section_tab', parfaits: @parfaits, shop: @shop %>

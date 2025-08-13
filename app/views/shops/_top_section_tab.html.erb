@@ -1,16 +1,53 @@
 <div class="pt-5">
   <h2>店舗詳細</h2>
-  <article class="align-items-center py-3 border-top border-bottom">
-    <% if shop.shop_image.attached? %>
-      <div>
-        <%= image_tag(shop.image_as_thumbnail, height: "500", class: "img-fluid") %>
+  <div class="top-top border-top border-bottom m-3">
+    <div class="py-4">
+      <div class="row">
+        <div class="col-7">
+          <% if shop.shop_image.attached? %>
+            <div class="show-image">
+              <%= image_tag(shop.image_as_thumbnail) %>
+            </div>
+          <% else %>
+            <div class="show-image">
+              <%= image_tag 'noimage.png' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-5">
+          <div class="d-flex">
+            <h4 class="card-title mb-1">
+              <%= shop.name %>
+            </h4>
+            <% if user_signed_in? %>
+              <div class='ms-auto d-flex'>
+                <!-- rspecテストのためにid必要です -->
+                <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}", class: "me-2" do %>
+                  <i class='bi bi-pencil-fill'></i> 編集
+                <% end %>
+                <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <i class="bi bi-trash-fill"></i> 削除
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div>
+            <%= "住所: #{shop.full_address}" %>
+          </div>
+
+          <div class="custom-line"></div>
+          <div title="評価機能は後で実装予定です！お楽しみに！", class="star-size mb-3">☆☆☆☆☆</div>
+          <div class="mb-1">
+            登録パフェ： <%= parfaits_count %>件
+          </div>
+          <div>
+            レビュー数： <%= shop_parfait_reviews_count %>件
+          </div>  
+        </div>  
       </div>
-    <% else %>
-      <div>
-        <%= image_tag 'noimage.png', height: "300", class: "img-fluid" %>
-      </div>
-    <% end %>
-  </article>
+    </div>  
+  </div>
   <div class="pt-5">
     <table class="s-table table_under">
       <h4>店舗情報（詳細）</h4>
@@ -29,7 +66,7 @@
             <div>
               <%= shop.full_address %>
             </div>
-            <div id="map" style="height: 400px;"></div>
+            <div id="map" style="height: 400px;", class="mt-3"></div>
           </td>   
         </tr>
         <tr>
@@ -96,6 +133,8 @@
     </table>
   </div>
 </div>
+
+<br>
 
 <script>
   function initMap(){
