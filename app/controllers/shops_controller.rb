@@ -52,6 +52,8 @@ class ShopsController < ApplicationController
 
   def show
     load_shop
+    @parfaits_count = @shop.parfaits.count
+    @shop_parfait_reviews_count = @shop.parfaits.joins(:reviews).count
     @parfaits = @shop.parfaits
                      .left_joins(:reviews)
                      .select('parfaits.*, COUNT(reviews.id) AS reviews_count')

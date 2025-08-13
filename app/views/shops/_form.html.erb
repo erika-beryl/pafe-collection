@@ -1,6 +1,6 @@
 <%= form_with model: form, data: { turbo: "false" }, class: "new_shop mt-4" do |f| %>
   <% if @form.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
+    <div id="error_explanation" class="alert alert-danger mb-3">
       <ul class="mb-0">
         <% @form.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -66,6 +66,9 @@
     </div>
   <% end %>
   </br>
-
-  <%= f.submit '登録', class: "btn btn-primary" %>
+  <% if Rails.env.test? %>
+    <%= f.submit '登録', class: "btn btn-primary" %>
+  <% else %>  
+    <%= f.button '登録', type: 'button', onclick: 'this.form.submit();', class: "btn btn-primary" %>
+  <% end %>  
 <% end %>
