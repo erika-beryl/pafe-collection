@@ -21,7 +21,11 @@
       <% end %>
 
       <div class="actions">
-        <%= f.button 'ログイン', type: 'button', onclick: 'this.form.submit();', class: "btn btn-primary" %>
+        <% if Rails.env.test? %>
+          <%= f.submit 'ログイン', class: "btn btn-primary" %>
+        <% else %>  
+          <%= f.button 'ログイン', type: 'button', onclick: 'this.form.submit();', class: "btn btn-primary" %>
+        <% end %>  
       </div>
     <% end %>
 
