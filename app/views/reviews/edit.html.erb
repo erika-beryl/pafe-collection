@@ -1,42 +1,42 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <h3>レビュー編集</h3>
-      <h5><%= @review.parfait.shop.name %></h5>
-      <h5><%= @review.parfait.name %></h5>
-      <%= form_with model: @review, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <div class="mb-3">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: "form-control" %>
-        </div>
-      
-        <div class="mb-3" data-controller="multiple-previews">
-          <%= f.label :review_images, '画像' %>
-          <%= f.file_field :review_images, multiple: true, data: { "action" => "change->multiple-previews#previewImage", "multiple-previews-target" => "input" } %>
-
-          <div class="mt-2" data-multiple-previews-target="preview"></div>
-        </div>
-
-        <% if @review.review_images.present? %>
-          <p>現在登録されている画像(削除する画像はチェックしてください) </p>
-          <% @review.review_images.each do |image| %>
-            <% if image.persisted? %>
-              <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
-              <%= image_tag image, size:"150x150" %>
-            <% end %>  
-          <% end %>
-        <% end %>  
-      
-        <div class="mb-3">
-          <%= f.label :body %>
-          <%= f.text_area :body, class: "form-control", rows: "10", placeholder: 'レビューをお願いします' %>
-        </div>
-      
-        <%= f.hidden_field :parfait_id, value: @review.parfait_id %>
-      
-        <%= f.submit '登録', class: "btn btn-primary" %>
-      <% end %>
+<div class="form-wrapper">  
+  <div class="container review-page">
+    <h2 class="mb-3">レビュー編集</h2>
+    <h5><%= @review.parfait.shop.name %></h5>
+    <h5><%= @review.parfait.name %></h5>
+    <%= form_with model: @review, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="mb-3">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
       </div>
+    
+      <div class="mb-3" data-controller="multiple-previews">
+        <%= f.label :review_images, '画像' %>
+        <%= f.file_field :review_images, multiple: true, data: { "action" => "change->multiple-previews#previewImage", "multiple-previews-target" => "input" } %>
+
+        <div class="mt-2" data-multiple-previews-target="preview"></div>
+      </div>
+
+      <% if @review.review_images.present? %>
+        <p>現在登録されている画像(削除する画像はチェックしてください) </p>
+        <% @review.review_images.each do |image| %>
+          <% if image.persisted? %>
+            <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+            <%= image_tag image, size:"150x150" %>
+          <% end %>  
+        <% end %>
+      <% end %>  
+    
+      <div class="mb-3">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: "form-control", rows: "10", placeholder: 'レビューをお願いします' %>
+      </div>
+    
+      <%= f.hidden_field :parfait_id, value: @review.parfait_id %>
+      
+      <%# デフォルトのenterで送信する機能で送信されないためのダミー %>
+      <%= tag.input type: 'submit', style: 'display:none', disabled: true %>
+      <%= f.submit '登録', class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>

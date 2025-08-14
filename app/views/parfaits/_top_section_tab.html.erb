@@ -16,19 +16,19 @@
         </div>
         <div class="col-5">
           <h3><%= parfait.name %></h3>
-          <div class="d-flex">
-            <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
-            <% if user_signed_in? %>
-              <div class='ms-auto d-flex'>
-                <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
-                  <i class='bi bi-pencil-fill'></i> 編集
-                <% end %>
-                <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                  <i class="bi bi-trash-fill"></i> 削除
-                <% end %>
-              </div>
-            <% end %>
-          </div>
+          <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
+          <% if user_signed_in? %>
+            <div class='text-end'>
+              <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
+                <i class='bi bi-pencil-fill'></i> 編集
+              <% end %>
+              <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                <i class="bi bi-trash-fill"></i> 削除
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="custom-line"></div>
           <% if parfait.is_limited? %> 
             <div>期間限定商品</div>
           <% else %>

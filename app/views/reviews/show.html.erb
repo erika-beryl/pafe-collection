@@ -1,7 +1,7 @@
-<div class="container pt-5">
-  <div class="row mb-3">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>レビュー詳細</h1>
+<div class="show-wrapper">
+  <div class="container show-page pt-3">
+    <div class="py-4">
+      <h2>レビュー詳細</h2>
       <% if @review.review_images.present? %>
         <div class="swiper">
           <div class="swiper-wrapper">
@@ -18,39 +18,30 @@
         </div>
       <% else %>    
         <div>
-          <%= image_tag 'noimage.png', width: "300", height: "200", class: "show-img" %>
+          <%= image_tag 'noimage.png', height: "400", class: "review-show-img" %>
         </div>
       <% end %> 
-      <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-        <div class="card-body">   
-          <div class="col-md-9">
-            <div class="d-flex">
-              <h3 class="mb-3"><%= @review.title %></h3>
-              <% if user_signed_in? %>
-                <% if current_user&.own?(@review) %>
-                  <div class="ms-2">
-                    <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
-                      <i class='bi bi-pencil-fill'></i>
-                    <% end %>
-                  </div>
-                  <div>  
-                    <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                      <i class="bi bi-trash-fill"></i>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <div class="ms-2">
-                    <%= render 'shared/bookmark_buttons', { review: @review, bookmark_count: @bookmark_count } %>
-                  </div>  
-                <% end %>
+      <div class= "py-3 border-top border-bottom">
+        <h3><%= @review.title %></h3>
+        <div class='text-end'>
+          <% if user_signed_in? %>
+            <% if current_user&.own?(@review) %>
+              <%= link_to edit_review_path(@review), id: "button-edit-#{@review.id}" do %>
+                <i class='bi bi-pencil-fill'></i> 編集
               <% end %>
-            </div>
-            <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
-            <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
-            <p><%= simple_format(@review.body) %></p>
-          </div> 
-        </div>  
-      </article> 
+              <%= link_to review_path(@review), id: "button-delete-#{@review.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                <i class="bi bi-trash-fill"></i> 削除
+              <% end %>
+            <% else %>
+                <%= render 'shared/bookmark_buttons', { review: @review, bookmark_count: @bookmark_count } %>
+            <% end %>
+          <% end %>
+        </div>
+        <h5>店舗：<%= link_to @review.parfait.shop.name, shop_path(@review.parfait.shop) %></h5>
+        <div><%= link_to @review.parfait.name, parfait_path(@review.parfait) %></div>
+        <div class="custom-line"></div>
+        <p><%= simple_format(@review.body) %></p>
+      </div>
     </div>
   </div>
 </div>
