@@ -15,11 +15,11 @@
         <% if user_signed_in? %>
           <% if current_user&.own?(review) %>
             <div class='d-flex'>
-              <%= link_to edit_review_path(review), id: "button-edit-#{review.id}" do %>
-                <i class='bi bi-pencil-fill'></i>
+              <%= link_to edit_review_path(review), id: "button-edit-#{review.id}", class: "me-2" do %>
+                <i class='bi bi-pencil-fill'></i> 編集
               <% end %>
               <%= link_to review_path(review), id: "button-delete-#{review.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                <i class="bi bi-trash-fill"></i>
+                <i class="bi bi-trash-fill"></i> 削除
               <% end %>
             </div>  
           <% else %>
