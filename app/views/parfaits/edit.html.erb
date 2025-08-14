@@ -1,9 +1,11 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <h3>商品編集</h3>
-      <div><%= @parfait.shop.name %></div>
-      <%= render 'form', parfait: @parfait %>
+<div class="form-wrapper">
+  <div class="container parfait-page">
+    <div class="container">
+      <h2>商品編集</h2>
+      <div class="pt-2">
+        <h4><%= @parfait.shop.name %></h4>
       </div>
+      <%= render 'form', parfait: @parfait %>
+    </div>
   </div>
 </div>

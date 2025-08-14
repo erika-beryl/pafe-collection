@@ -1,43 +1,55 @@
-<div class="p-3">パフェの登録は店舗詳細ページからできます！</div>
-<div class="container pt-3">
-  <div class="row">
+<div class="pt-3 pe-5 text-end">☆パフェの登録は店舗詳細ページからできます！☆</div>
+<div class="index-wrapper">
+  <div class="container pt-3 index-page">
+    <h2 class="mb-5">パフェ一覧</h2>
     <% if @parfaits.present? %>
       <% @parfaits.each do |parfait| %>
-        <div class="d-flex flex-row align-items-center py-3 border-top border-bottom">
+        <div class="d-flex style="min-height: 150px;">
 
           <!-- 画像 -->
-          <div class="d-flex flex-shrink-0 me-3" style="width: 200px; height: 200px;">
-            <%= image_tag parfait.parfait_image.present? ? parfait.parfait_image : 'noimage.png', class: "w-100 h-100 object-fit-cover border rounded" %>
+          <div style="flex: 0 0 25%;">
+            <div class="index-photo">
+              <%= image_tag parfait.parfait_image.present? ? parfait.parfait_image : 'noimage.png' %>
+            </div>  
           </div>
 
-          <div class="card-body">
-            <h4 class="card-title">
-              <%= link_to parfait.name, parfait_path(parfait) %>
-            </h4>
-            <% if user_signed_in? %>
-              <div class='d-flex gap-1 mt-1'>
-                <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}" do %>
-                  <i class='bi bi-pencil-fill'></i>
-                <% end %>
-                <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                  <i class="bi bi-trash-fill"></i>
-                <% end %>
-              </div>
-            <% end %>
+          <div style="flex: 1; padding-left: 1rem;">
+            <div class="d-flex">
+              <h4>
+                <%= link_to parfait.name, parfait_path(parfait) %>
+              </h4>
+              <% if user_signed_in? %>
+                <div class="ms-auto d-flex">
+                  <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
+                    <i class='bi bi-pencil-fill'></i> 編集
+                  <% end %>
+                  <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    <i class="bi bi-trash-fill"></i> 削除
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
             <div>
               <%= link_to parfait.shop.name, shop_path(parfait.shop) %>
             </div>
+
+            <div class="custom-line"></div>
+
             <div>価格帯：<%= parfait.price_i18n %></div>
             <% if parfait.is_limited? %> 
-              <p>期間限定商品</p>
+              <div>期間限定商品</div>
             <% else %>
-              <p>レギュラー商品</p>
+              <div>レギュラー商品</div>
             <% end %> 
-            <p>星評価</p>
+            <div>評価：</div>
+            <div title="評価機能は後で実装予定です！お楽しみに！", class="star-size">☆☆☆☆☆</div>
             <% counts = @parfait_counts[parfait.id] %>
             <p>レビュー： <%= counts&.reviews_count || 0 %>件</p>
           </div>
         </div>
+
+        <div class="custom-line"></div>
       <% end %>
     <% else %>
       <div class="mb-3">パフェの情報がありません</div>
