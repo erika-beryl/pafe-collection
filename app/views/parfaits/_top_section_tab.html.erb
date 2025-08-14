@@ -1,44 +1,44 @@
-<div class="container pt-5">
-  <div class="row mb-3">
-    <div class="col-lg-8 offset-lg-2">
-      <h1>パフェ詳細</h1>
-      <article class="d-flex flex-row align-items-center py-3 border-top border-bottom">
-        <div class="card-body">
-          <div class="row">
-            <% if parfait.parfait_image.attached? %>
-              <div class="col-9">
-                <%= image_tag(parfait.image_as_thumbnail, height: "500", class: "img-fluid") %>
-              </div>
-            <% else %>    
-              <div class="col-5">
-                <%= image_tag 'noimage.png', height: "300", class: "img-fluid" %>
-              </div>
-            <% end %>
-            <div class="col-md-9">
-              <h3><%= parfait.name %></h3>
-              <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
-              <% if user_signed_in? %>
-                <div class='d-flex justify-content-end'>
-                  <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}" do %>
-                    <i class='bi bi-pencil-fill'></i>
-                  <% end %>
-                  <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i>
-                  <% end %>
-                </div>
-              <% end %> 
+<div class="pt-5">
+  <h2>パフェ詳細</h2>
+  <div class="top-top border-top border-bottom m-3">
+    <div class="py-4">
+      <div class="row">
+        <div class="col-7">
+          <% if parfait.parfait_image.attached? %>
+            <div class="show-image">
+              <%= image_tag(parfait.image_as_thumbnail) %>
             </div>
-            <% if parfait.is_limited? %> 
-              <div>期間限定商品</div>
-            <% else %>
-              <div>レギュラー商品</div>
+          <% else %>    
+            <div class="show-image">
+              <%= image_tag 'noimage.png' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-5">
+          <h3><%= parfait.name %></h3>
+          <div class="d-flex">
+            <h5>店舗：<%= link_to parfait.shop.name, shop_path(parfait.shop) %></h5>
+            <% if user_signed_in? %>
+              <div class='ms-auto d-flex'>
+                <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
+                  <i class='bi bi-pencil-fill'></i> 編集
+                <% end %>
+                <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <i class="bi bi-trash-fill"></i> 削除
+                <% end %>
+              </div>
             <% end %>
-            <div>価格帯：<%= parfait.price_i18n %></div>    
-            <p><%= simple_format(parfait.body) %></p>
           </div>
-        </div>  
-      </article> 
-    </div>
-  </div>
+          <% if parfait.is_limited? %> 
+            <div>期間限定商品</div>
+          <% else %>
+            <div>レギュラー商品</div>
+          <% end %>
+          <div>価格帯：<%= parfait.price_i18n %></div>
+          <p><%= simple_format(parfait.body) %></p>
+        </div>
+      </div>
+    </div>  
+  </div> 
 </div>
 
