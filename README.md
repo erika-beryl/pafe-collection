@@ -107,3 +107,13 @@ https://www.figma.com/design/l1S8dKykULTLfMqENK0VC6/%E7%94%BB%E9%9D%A2%E9%81%B7%
 
 ER図:
 https://drive.google.com/file/d/17A-z8av6lBDI5aivO22MtwWCGyoxd3LU/view?usp=sharing
+
+## ■ GitHub CLI
+GitHub Actionsを用いて以下を自動実行しています。
+[![Rails CI](https://github.com/erika-beryl/pafe-collection/actions/workflows/ci.yml/badge.svg)](https://github.com/erika-beryl/pafe-collection/actions/workflows/ci.yml)
+
+- RSpecによる自動テスト
+- RuboCopによるコード解析
+- postgres（テスト用）
+- Selenium (systemテスト用)
+- アセットの事前コンパイル
