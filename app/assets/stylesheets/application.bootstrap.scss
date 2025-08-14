@@ -138,3 +138,8 @@ table {
   width: 100%;
 }
 
+/* 必須項目にマークをつける */
+.must-form::after {
+  content: " *";
+  color: red;
+}
