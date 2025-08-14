@@ -1,5 +1,6 @@
-<div class="container pt-3">
-  <div class="row">
+<div class="index-wrapper">
+  <div class="container pt-3 index-page">
+    <h2 class="mb-5">レビュー一覧</h2>
     <% if @reviews.present? %>
       <%= render partial: 'review', collection: @reviews, as: :review, locals: { bookmark_counts: @bookmark_counts } %>
     <% else %>
@@ -7,6 +8,6 @@
     <% end %>
     <div class="p-2">
       <%= paginate @reviews, theme: 'bootstrap-5' %>
-    </div>  
+    </div>
   </div>
-</div>   
+</div>
