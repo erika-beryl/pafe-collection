@@ -26,6 +26,26 @@ crumb :user_profile do |user|
   link "プロフィール", users_profile_path(user)
   parent :root
 end
+
+crumb :shop_show do |shop|
+  link "#{shop.name}の詳細", shop_path(shop)
+  parent :shop_index
+end
+
+crumb :parfait_show do |parfait|
+  link "#{parfait.name}の詳細", parfait_path(parfait)
+  parent :parfait_index
+end
+
+crumb :review_show do |review|
+  link "#{review.title}の詳細", review_path(review)
+  parent :review_index
+end
+
+crumb :bookmark_index do
+  link "あなたのいいね一覧"
+  parent :root
+end
 # crumb :projects do
 #   link "Projects", projects_path
 # end
