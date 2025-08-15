@@ -11,6 +11,21 @@ crumb :shop_index do
   link "店舗一覧", shops_path
   parent :root
 end
+
+crumb :parfait_index do
+  link "パフェ一覧", parfaits_path
+  parent :root
+end
+
+crumb :review_index do
+  link "レビュー一覧", reviews_path
+  parent :root
+end
+
+crumb :user_profile do |user|
+  link "プロフィール", users_profile_path(user)
+  parent :root
+end
 # crumb :projects do
 #   link "Projects", projects_path
 # end
