@@ -6,6 +6,11 @@ crumb :user_new do
   link "ユーザー登録", new_user_registration_path
   parent :root
 end
+
+crumb :shop_index do
+  link "店舗一覧", shops_path
+  parent :root
+end
 # crumb :projects do
 #   link "Projects", projects_path
 # end

@@ -15,6 +15,7 @@
   <body>
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
+    <%= breadcrumbs separator: " &rsaquo; ", class: "breadcrum-wrapper" %>
     <%= yield %>
     <%= render 'shared/footer' %>
   </body>
