@@ -1,7 +1,7 @@
 <%= form_with model: parfait, url: parfait.persisted? ? parfait_path(parfait) : shop_parfaits_path, local: true, class: "new_parfait mt-4", data: { turbo: "false" } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="mb-3">
-    <%= f.label :name %>
+    <%= f.label :name, class: "must-form" %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
@@ -9,7 +9,7 @@
 
   <%# enumのキーを送っても自動的に値に変換されるのでkだけで大丈夫 %>
   <div class="mb-3">
-    <%= f.label :price, '価格' %>
+    <%= f.label :price, '価格', class: "must-form" %>
     <%= f.select :price, Parfait.prices.keys.map {|k| [I18n.t("enums.parfait.price.#{k}"), k]}, { prompt: '価格を選択してください' }, class: 'form-select' %>
   </div>
   <div class="mb-3">

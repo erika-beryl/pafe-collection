@@ -138,3 +138,14 @@ table {
   width: 100%;
 }
 
+/* 必須項目にマークをつける */
+.must-form::after {
+  content: " *";
+  color: red;
+}
+
+
+/* パンくず */
+.breadcrum-wrapper {
+  margin: 10px 0 0 30px;
+}

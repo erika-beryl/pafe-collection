@@ -12,12 +12,11 @@
     <%= display_meta_tags(default_meta_tags) %>
   </head>
 
-  <body class="d-flex flex-column min-vh-100">
+  <body>
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
-    <main class="flex-grow-1">
-      <%= yield %>
-    </main>
+    <%= breadcrumbs separator: " &rsaquo; ", class: "breadcrum-wrapper" %>
+    <%= yield %>
     <%= render 'shared/footer' %>
   </body>
 </html>

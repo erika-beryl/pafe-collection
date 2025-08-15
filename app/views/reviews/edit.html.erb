@@ -6,7 +6,7 @@
     <%= form_with model: @review, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="mb-3">
-        <%= f.label :title %>
+        <%= f.label :title, class: "must-form" %>
         <%= f.text_field :title, class: "form-control" %>
       </div>
     
@@ -28,7 +28,7 @@
       <% end %>  
     
       <div class="mb-3">
-        <%= f.label :body %>
+        <%= f.label :body, class: "must-form" %>
         <%= f.text_area :body, class: "form-control", rows: "10", placeholder: 'レビューをお願いします' %>
       </div>
     

@@ -122,3 +122,6 @@ gem "geocoder"
 
 # 静的OGP
 gem "meta-tags"
+
+# パンくず
+gem 'gretel'

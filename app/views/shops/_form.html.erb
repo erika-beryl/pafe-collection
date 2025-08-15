@@ -10,26 +10,26 @@
   <% end %>
 
   <div class="mb-3">
-    <%= f.label :name %>
+    <%= f.label :name, class: "must-form" %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
   <%= render "image_preview", f: f, form: form  %>
 
   <div class="mb-3">
-    <%= f.label :postal_code %>
+    <%= f.label :postal_code, class: "must-form" %>
     <%= f.text_field :postal_code, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :prefecture_code %>
+    <%= f.label :prefecture_code, class: "must-form" %>
     <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-select' %>
   </div>
   <div class="mb-3">
-    <%= f.label :city %>
+    <%= f.label :city, class: "must-form" %>
     <%= f.text_field :city, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :street %>
+    <%= f.label :street, class: "must-form" %>
     <%= f.text_field :street, class: "form-control" %>
   </div>
   <div class="mb-3">
@@ -37,7 +37,7 @@
     <%= f.text_field :other_address, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= f.label :tel %>
+    <%= f.label :tel, class: "must-form" %>
     <%= f.telephone_field :tel, class: "form-control" %>
   </div>
   <div class="mb-3">
