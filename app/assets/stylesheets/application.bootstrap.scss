@@ -149,3 +149,8 @@ table {
 .breadcrum-wrapper {
   margin: 10px 0 0 30px;
 }
+
+/* 一覧に何も入ってない場合 */
+.no-date {
+  min-height: 50vh; /* 画面半分の高さを確保 */
+}
