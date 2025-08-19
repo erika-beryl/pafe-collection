@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_reviews, through: :bookmarks, source: :review
+  has_many :shops, dependent: :destroy
+  has_many :parfaits, dependent: :destroy
 
   has_one_attached :avatar
 
