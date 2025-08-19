@@ -6,6 +6,7 @@ class ShopMustForm
   include JpPrefecture
   jp_prefecture :prefecture_code
 
+  attr_accessor :user
   attr_accessor :name, :postal_code, :prefecture_code, :city, :street, :other_address, :tel, :reservation, :parking,
                 :shop_image, :remove_shop_image, :business_time, :payment_ids, :feature_ids
 
@@ -53,7 +54,7 @@ class ShopMustForm
       shop.update!(name: name, postal_code: postal_code, prefecture_code: prefecture_code,
                    city: city, street: street, other_address: other_address, tel: tel, reservation: reservation, parking: parking, full_address: full_address,
                    latitude: address_changed ? shop.latitude : shop.latitude_was, longitude: address_changed ? shop.longitude : shop.longitude_was,
-                   feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?))
+                   feature_ids: feature_ids.reject(&:blank?), payment_ids: payment_ids.reject(&:blank?), user_id: shop.user_id || user.id)
       if shop.business
         shop.business.update!(business_time: business_time)
       else
