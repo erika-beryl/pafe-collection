@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Parfaits', type: :system do
   let!(:user) { create(:user) }
-  let!(:shop) { create(:shop) }
-  let(:parfait) { create(:parfait, shop:shop) }
+  let!(:shop) { create(:shop, user: user) }
+  let(:parfait) { create(:parfait, shop: shop, user: user) }
 
   describe 'ログイン前' do
     describe 'ページ遷移確認' do
@@ -55,7 +55,7 @@ RSpec.describe 'Parfaits', type: :system do
           check '期間限定商品でしょうか？'
           fill_in '商品紹介', with: 'testtest'
           click_button '登録'
-          expect(page).to have_content 'パフェが登録されました'
+          expect(page).to have_content 'パフェ情報が登録されました'
           expect(page).to have_content 'test_parfait'
           expect(current_path).to eq parfait_path(Parfait.last)
         end
@@ -101,7 +101,7 @@ RSpec.describe 'Parfaits', type: :system do
     end
 
     describe 'パフェ編集' do
-      let!(:parfait) { create(:parfait, shop: shop) }
+      let!(:parfait) { create(:parfait, shop: shop, user: user) }
       before { visit edit_parfait_path(parfait) }
 
       context 'フォームの入力値が正常' do
@@ -118,7 +118,7 @@ RSpec.describe 'Parfaits', type: :system do
           fill_in '商品名', with: ''
           fill_in '商品紹介', with: 'update_body'
           click_button '登録'
-          expect(page).to have_content 'パフェを更新できませんでした'
+          expect(page).to have_content 'パフェ情報を更新できませんでした'
           expect(page).to have_content '商品名を入力してください'
           expect(current_path).to eq parfait_path(parfait)
         end
@@ -126,7 +126,7 @@ RSpec.describe 'Parfaits', type: :system do
     end
 
     describe 'パフェ削除' do
-      let!(:parfait) { create(:parfait, shop: shop) }
+      let!(:parfait) { create(:parfait, shop: shop, user: user) }
 
       it 'パフェの削除が成功する' do
         visit parfaits_path
