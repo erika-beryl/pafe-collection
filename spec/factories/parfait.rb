@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :parfait do
     association :shop
+    association :user
 
     name { "テストパフェ" }
     body { "美味しいパフェです" }
