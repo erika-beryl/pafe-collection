@@ -22,14 +22,16 @@
                 <%= link_to parfait.name, parfait_path(parfait) %>
               </h4>
               <% if user_signed_in? %>
-                <div class="ms-auto d-flex">
-                  <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
-                    <i class='bi bi-pencil-fill'></i> 編集
-                  <% end %>
-                  <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <i class="bi bi-trash-fill"></i> 削除
-                  <% end %>
-                </div>
+                <% if current_user.own?(parfait) %>
+                  <div class="ms-auto d-flex">
+                    <%= link_to edit_parfait_path(parfait), id: "button-edit-#{parfait.id}", class: "me-2" do %>
+                      <i class='bi bi-pencil-fill'></i> 編集
+                    <% end %>
+                    <%= link_to parfait_path(parfait), id: "button-delete-#{parfait.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                      <i class="bi bi-trash-fill"></i> 削除
+                    <% end %>
+                  </div>
+                <% end %>  
               <% end %>
             </div>
 

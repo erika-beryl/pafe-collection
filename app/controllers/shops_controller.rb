@@ -71,7 +71,6 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop = current_user.shops.find(params[:id])
-    redirect_to root_path, alert: '他のユーザーが登録した店舗情報は編集できません' unless @shop.user == current_user
     @shop.destroy!
     redirect_to shops_path, success: '削除に成功しました'
   end
