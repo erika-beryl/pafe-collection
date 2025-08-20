@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ShopMustForm, type: :model do
   describe "フォームオブジェクトでの入力テスト" do
+    let!(:user) { create(:user) }
+
     let(:form_attributes) do
       {
         name: "testshop",
@@ -11,7 +13,8 @@ RSpec.describe ShopMustForm, type: :model do
         street: "テスト1-2-3",
         tel: "0312345678",
         reservation: true,
-        parking: false
+        parking: false,
+        user: user
       }
     end
     it '設定したすべてのバリデーションが機能しているか' do

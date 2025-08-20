@@ -20,6 +20,7 @@ class ShopsController < ApplicationController
   def create
     # active_strageはshopとは別のデータベースに保存されるので、明示的に切り離しておく
     @form = ShopMustForm.new(shop_params)
+    @form.user = current_user
 
     if @form.valid?
       @form.save
@@ -32,12 +33,13 @@ class ShopsController < ApplicationController
 
   def edit
     load_shop
+    redirect_to root_path, alert: '他のユーザーが登録した店舗情報は編集できません' unless @shop.user == current_user
 
     @form = ShopMustForm.new(shop: @shop)
   end
 
   def update
-    load_shop
+    @shop = current_user.shops.find(params[:id])
 
     @form = ShopMustForm.new(shop_params, shop: @shop)
 
@@ -68,7 +70,7 @@ class ShopsController < ApplicationController
   end
 
   def destroy
-    load_shop
+    @shop = current_user.shops.find(params[:id])
     @shop.destroy!
     redirect_to shops_path, success: '削除に成功しました'
   end

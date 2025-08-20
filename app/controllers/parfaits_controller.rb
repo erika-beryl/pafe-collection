@@ -23,7 +23,7 @@ class ParfaitsController < ApplicationController
   end
 
   def create
-    @parfait = Parfait.new(parfait_params)
+    @parfait = current_user.parfaits.new(parfait_params)
 
     # まずレコードを保存してから画像を添付する
     if @parfait.save
@@ -31,7 +31,7 @@ class ParfaitsController < ApplicationController
         @parfait.parfait_image.attach(params[:parfait][:parfait_image])
         @parfait.save # 再度保存することで画像をデータベースに関連付け
       end
-      redirect_to @parfait, success: 'パフェが登録されました'
+      redirect_to @parfait, success: 'パフェ情報が登録されました'
     else
       Rails.logger.debug "Parfait errors: #{@parfait.errors.full_messages}"
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Parfait.model_name.human)
@@ -40,12 +40,14 @@ class ParfaitsController < ApplicationController
   end
 
   def edit
-    load_parfait
-
+    @parfait = current_user.parfaits.find(params[:id])
+    if @parfait.nil?
+      redirect_to root_path, alert: '他のユーザーが登録したパフェ情報は編集できません'
+    end
   end
 
   def update
-    load_parfait
+    @parfait = current_user.parfaits.find(params[:id])
 
     # まず、普通のテキスト情報だけ更新する
     if @parfait.update(parfait_params)
@@ -63,15 +65,15 @@ class ParfaitsController < ApplicationController
         @parfait.parfait_image.attach(params[:parfait][:parfait_image])
       end
 
-      redirect_to @parfait, success: 'パフェが更新されました', status: :see_other
+      redirect_to @parfait, success: 'パフェ情報が更新されました', status: :see_other
     else
-      flash.now[:danger] = "パフェを更新できませんでした"
+      flash.now[:danger] = "パフェ情報を更新できませんでした"
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    load_parfait
+    @parfait = current_user.parfaits.find(params[:id])
     @parfait.destroy!
     redirect_to parfaits_path, success: '削除に成功しました'
   end

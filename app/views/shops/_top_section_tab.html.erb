@@ -23,15 +23,17 @@
           </div>
 
           <% if user_signed_in? %>
-            <div class='text-end'>
-              <!-- rspecテストのためにid必要です -->
-              <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}", class: "me-2" do %>
-                <i class='bi bi-pencil-fill'></i> 編集
-              <% end %>
-              <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                <i class="bi bi-trash-fill"></i> 削除
-              <% end %>
-            </div>
+            <% if current_user.own?(shop) %>
+              <div class='text-end'>
+                <!-- rspecテストのためにid必要です -->
+                <%= link_to edit_shop_path(shop), id: "button-edit-#{shop.id}", class: "me-2" do %>
+                  <i class='bi bi-pencil-fill'></i> 編集
+                <% end %>
+                <%= link_to shop_path(shop), id: "button-delete-#{shop.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <i class="bi bi-trash-fill"></i> 削除
+                <% end %>
+              </div>
+            <% end %>
           <% end %>
 
           <div class="custom-line"></div>

@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :shop do
+    association :user
+
     sequence(:name) { |n| "testshop#{n}" }
     sequence(:postal_code) { |n| (1000000 + n).to_s }
     prefecture_code { 13 }

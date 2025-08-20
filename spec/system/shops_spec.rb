@@ -252,7 +252,7 @@ RSpec.describe 'shops', type: :system do
     end
 
     describe 'shopの編集' do
-      let!(:shop) { create(:shop) }
+      let!(:shop) { create(:shop, user: user) }
       before do
         visit edit_shop_path(shop)
       end
@@ -268,7 +268,7 @@ RSpec.describe 'shops', type: :system do
     end
 
     describe 'shopの削除' do
-      let!(:shop) { create(:shop) }
+      let!(:shop) { create(:shop, user: user) }
 
       it 'shopの削除に成功する' do
         visit shops_path

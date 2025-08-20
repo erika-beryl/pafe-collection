@@ -1,5 +1,6 @@
 class Parfait < ApplicationRecord
   belongs_to :shop
+  belongs_to :user
 
   validates :name, presence: true, length: { maximum: 100 }
   validates :body, length: { maximum: 500 }
