@@ -2,7 +2,8 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @reviews = Review.includes(:user, parfait: :shop).order(created_at: :desc).page(params[:page]).per(10)
+    @q = Review.ransack(params[:q])
+    @reviews = @q.result.includes(:user, parfait: :shop).order(created_at: :desc).page(params[:page]).per(10)
 
     @bookmark_counts = Bookmark.group(:review_id).count
   end
