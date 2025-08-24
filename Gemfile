@@ -127,4 +127,4 @@ gem "meta-tags"
 gem 'gretel'
 
 # 検索
-gem 'ransack', '3.2.1'
+gem 'ransack', '~> 4.0'

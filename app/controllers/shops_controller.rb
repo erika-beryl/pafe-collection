@@ -2,7 +2,8 @@ class ShopsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @shops = Shop.order(created_at: :desc).page(params[:page]).per(10)
+    @q = Shop.ransack(params[:q])
+    @shops = @q.result.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
 
     shop_ids = @shops.pluck(:id)
     @shop_counts = Shop
