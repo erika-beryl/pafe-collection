@@ -1,7 +1,8 @@
 class ParfaitsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   def index
-    @parfaits = Parfait.includes(:shop).order(created_at: :desc).page(params[:page]).per(10)
+    @q = Parfait.ransack(params[:q])
+    @parfaits = @q.result.includes(:shop).order(created_at: :desc).page(params[:page]).per(10)
 
     parfait_ids = @parfaits.pluck(:id)
     @parfait_counts = Parfait

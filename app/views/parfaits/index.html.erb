@@ -1,9 +1,14 @@
 <div>
   <% breadcrumb :parfait_index %>
 </div>
-<div class="pt-3 pe-5 text-end">☆パフェの登録は店舗詳細ページからできます！☆</div>
 <div class="index-wrapper">
   <div class="container pt-3 index-page">
+    <div class="row">
+      <div class="mb-2">
+        <%= render 'search_form', q: @q, url: parfaits_path %>
+      </div>
+    </div>
+    <div class="pt-3 pe-5 text-end">☆パフェの登録は店舗詳細ページからできます！☆</div>
     <h2 class="mb-5">パフェ一覧</h2>
     <% if @parfaits.present? %>
       <% @parfaits.each do |parfait| %>
