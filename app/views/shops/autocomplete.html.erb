@@ -1,0 +1,8 @@
+<% @shops.each do |shop| %>
+  <div class="list-group-item list-group-item-action d-flex align-items-center" 
+       role="option" 
+       data-autocomplete-value="<%= shop.id %>" 
+       data-autocomplete-label="<%= shop.name %>">
+    <%= shop.name %>
+  </div>
+<% end %>

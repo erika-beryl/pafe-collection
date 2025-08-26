@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   resources :shops do
     resources :parfaits, only: %i[new create edit update destroy show], shallow: true
+    collection do
+      get :autocomplete
+    end
   end
 
   resources :parfaits, only: %i[index]
