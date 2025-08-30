@@ -154,3 +154,20 @@ table {
 .no-date {
   min-height: 50vh; /* 画面半分の高さを確保 */
 }
+
+/* オートコンプリート機能 */
+// オートコンプリート用の親 div
+[data-controller="autocomplete"] {
+  position: relative; // 子要素の絶対位置の基準にする
+
+  // 結果リスト
+  ul[data-autocomplete-target="results"] {
+    position: absolute; // 親から独立して浮かせる
+    top: 100%;          // input の下に表示
+    left: 0;
+    width: 100%;        // input と同じ幅
+    z-index: 1000;      // 他の要素より前面に表示
+    max-height: 200px;  // 高さ制限
+    overflow-y: auto;   // 縦スクロール出す
+  }
+}

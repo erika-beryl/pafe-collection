@@ -1,8 +1,8 @@
 <% @parfaits.each do |parfait| %>
-  <div class="list-group-item list-group-item-action d-flex align-items-center" 
+  <li class="list-group-item list-group-item-action d-flex align-items-center" 
        role="option" 
        data-autocomplete-value="<%= parfait.id %>" 
        data-autocomplete-label="<%= parfait.name %>">
     <%= parfait.name %>
-  </div>
+  </li>
 <% end %>
