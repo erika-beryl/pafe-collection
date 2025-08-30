@@ -1,8 +1,8 @@
 class ParfaitsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show autocomplete]
   def index
     @q = Parfait.ransack(params[:q])
-    @parfaits = @q.result.includes(:shop).order(created_at: :desc).page(params[:page]).per(10)
+    @parfaits = @q.result.includes(:user, :shop).order(created_at: :desc).page(params[:page]).per(10)
 
     parfait_ids = @parfaits.pluck(:id)
     @parfait_counts = Parfait
@@ -34,7 +34,6 @@ class ParfaitsController < ApplicationController
       end
       redirect_to @parfait, success: 'パフェ情報が登録されました'
     else
-      Rails.logger.debug "Parfait errors: #{@parfait.errors.full_messages}"
       flash.now[:danger] = t('defaults.flash_message.not_created', item: Parfait.model_name.human)
       render :new, status: :unprocessable_entity
     end
@@ -77,6 +76,13 @@ class ParfaitsController < ApplicationController
     @parfait = current_user.parfaits.find(params[:id])
     @parfait.destroy!
     redirect_to parfaits_path, success: '削除に成功しました'
+  end
+
+  def autocomplete
+    @parfaits = Parfait.where("name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

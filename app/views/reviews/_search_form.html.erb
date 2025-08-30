@@ -1,6 +1,10 @@
 <%= search_form_for q, url: url do |f| %>
   <div class="input-group mb-3">
-    <%= f.search_field :title_cont, class: 'form-control', placeholder: "タイトル" %>
+    <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_reviews_path %>" role="combobox">
+      <%= f.search_field :title_cont, class: 'form-control', placeholder: "タイトル", data: { autocomplete_target: 'input' } %>
+      <%= f.hidden_field :title, data: { autocomplete_target: 'hidden' } %>
+      <ul class="list-group" data-autocomplete-target="results"></ul>
+    </div>  
     <%= f.search_field :body_cont, class: 'form-control', placeholder: "本文" %>
     <%= f.submit class: 'btn btn-primary' %>
   </div>

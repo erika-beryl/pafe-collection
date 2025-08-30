@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show autocomplete]
 
   def index
     @q = Review.ransack(params[:q])
@@ -71,6 +71,13 @@ class ReviewsController < ApplicationController
   def bookmarks
     @bookmark_reviews = current_user.bookmark_reviews.includes(:user).order(created_at: :desc)
     @bookmark_counts = Bookmark.group(:review_id).count
+  end
+
+  def autocomplete
+    @reviews = Review.where("title LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
