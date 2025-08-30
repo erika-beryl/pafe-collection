@@ -20,6 +20,11 @@ class Parfait < ApplicationRecord
     parfait_image.variant(resize_to_limit: [400, 500]).processed
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    # 検索を許可するカラムだけを書く
+    %w[name price is_limited]
+  end
+
   attr_accessor :remove_parfait_image
 
   enum price: {

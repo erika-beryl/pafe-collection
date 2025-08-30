@@ -125,3 +125,6 @@ gem "meta-tags"
 
 # パンくず
 gem 'gretel'
+
+# 検索
+gem 'ransack', '~> 4.0'

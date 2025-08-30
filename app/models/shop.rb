@@ -44,6 +44,11 @@ class Shop < ApplicationRecord
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    # 検索を許可するカラムだけを書く
+    %w[name full_address]
+  end
+
   private
 
   def generate_address

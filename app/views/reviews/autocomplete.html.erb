@@ -1,0 +1,8 @@
+<% @reviews.each do |review| %>
+  <li class="list-group-item list-group-item-action d-flex align-items-center" 
+       role="option" 
+       data-autocomplete-value="<%= review.id %>" 
+       data-autocomplete-label="<%= review.title %>">
+    <%= review.title %>
+  </li>
+<% end %>

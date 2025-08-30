@@ -1,8 +1,9 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show autocomplete]
 
   def index
-    @shops = Shop.order(created_at: :desc).page(params[:page]).per(10)
+    @q = Shop.ransack(params[:q])
+    @shops = @q.result.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
 
     shop_ids = @shops.pluck(:id)
     @shop_counts = Shop
@@ -73,6 +74,13 @@ class ShopsController < ApplicationController
     @shop = current_user.shops.find(params[:id])
     @shop.destroy!
     redirect_to shops_path, success: '削除に成功しました'
+  end
+
+  def autocomplete
+    @shops = Shop.where("name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

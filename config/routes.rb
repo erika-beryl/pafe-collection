@@ -14,14 +14,23 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: 'static_pages#top'
 
+  get 'parfaits/autocomplete', to: 'parfaits#autocomplete', as: :autocomplete_parfaits
+  
+
   resources :shops do
     resources :parfaits, only: %i[new create edit update destroy show], shallow: true
+    collection do
+      get :autocomplete
+    end
   end
 
   resources :parfaits, only: %i[index]
+
+
   resources :reviews do
     collection do
       get :bookmarks
+      get :autocomplete
     end
   end
   resources :bookmarks, only: %i[create destroy]
