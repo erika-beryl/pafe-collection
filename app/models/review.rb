@@ -23,7 +23,7 @@ class Review < ApplicationRecord
     review_images.variant(resize_to_limit: [400, 500]).processed
   end
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     # 検索を許可するカラムだけを書く
     %w[title body]
   end
