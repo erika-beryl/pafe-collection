@@ -38,7 +38,7 @@
 
     <div class="custom-line"></div>
     <div><%= link_to review.parfait.name, parfait_path(review.parfait) %></div>
-    <div title="評価機能は後で実装予定です！お楽しみに！">☆☆☆☆☆</div>
+    <div id="review-<%= review.id %>-rating" data-score="<%= review.rate || 0 %>"></div>
     <div class="custom-line"></div>
     <div class="review-body-preview">
       <%= simple_format(review.body) %>

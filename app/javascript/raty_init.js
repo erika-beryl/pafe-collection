@@ -16,18 +16,16 @@ document.addEventListener("turbo:load", () => {
   }
 
   // 各レビューの星評価の初期化
-  const reviews = JSON.parse(document.getElementById("reviews-data")?.textContent || "[]");
-  reviews.forEach(review => {
-    const reviewRatingElement = document.getElementById(`review-${review.id}-rating`);
-    if (reviewRatingElement && !reviewRatingElement.dataset.ratyInitialized) {
-      new Raty(reviewRatingElement, {
+  document.querySelectorAll("[id^='review-'][id$='-rating']").forEach(el => {
+    if (!el.dataset.ratyInitialized) {
+      new Raty(el, {
         starOn: "/assets/star-on.png",
         starOff: "/assets/star-off.png",
         starHalf: "/assets/star-half.png",
         readOnly: true,
-        score: review.rate
+        score: el.dataset.score || 0
       });
-      reviewRatingElement.dataset.ratyInitialized = "true";
+      el.dataset.ratyInitialized = "true";
     }
   });
 });
