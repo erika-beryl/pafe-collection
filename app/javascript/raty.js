@@ -19,11 +19,11 @@ class Raty {
       number: 5,
       readOnly: false,
       score: undefined,
-      scoreName: 'comment[rate]', // フォームで使用するフィールド名
+      scoreName: 'review[rate]', // フォームで使用するフィールド名
       starHalf: '/assets/star-half.png',
       starOff: '/assets/star-off.png',
       starOn: '/assets/star-on.png',
-      target: "#comment_rate",
+      target: "#review_rate",
       targetKeep: true,
     };
   }
