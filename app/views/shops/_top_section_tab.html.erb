@@ -37,13 +37,22 @@
           <% end %>
 
           <div class="custom-line"></div>
-          <div title="評価機能は後で実装予定です！お楽しみに！", class="star-size mb-3">☆☆☆☆☆</div>
+          <% if review_rate.present? %>
+            <div class="d-flex align-items-end mb-2 mt-2">
+              <div id="review-<%= shop.id %>-rating" data-score="<%= review_rate.to_f.round(1) %>"></div>
+              <div class="ms-2">
+                <%= review_rate.to_f.round(1) %>
+              </div>
+              <div class="ms-1 text-muted">
+                (<%= shop_parfait_reviews_count %>件)
+              </div>
+            </div>
+          <% else %>
+            レビュー未評価
+          <% end %>
           <div class="mb-1">
             登録パフェ： <%= parfaits_count %>件
           </div>
-          <div>
-            レビュー数： <%= shop_parfait_reviews_count %>件
-          </div>  
         </div>  
       </div>
     </div>  

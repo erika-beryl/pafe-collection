@@ -13,7 +13,7 @@
       
       <div class="tab-content">
         <div id="section1" class="tab-pane fade show active">
-          <%= render 'parfaits/top_section_tab', parfait: @parfait %>
+          <%= render 'parfaits/top_section_tab', parfait: @parfait, review_rate: @review_rate, parfait_reviews_count: @parfait_reviews_count %>
         </div>
         <div id="section2" class="tab-pane fade">
           <%= render 'parfaits/reviews_section_tab', reviews: @reviews, parfait: @parfait, bookmark_counts: @bookmark_counts %>

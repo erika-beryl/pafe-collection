@@ -12,6 +12,13 @@ class ShopsController < ApplicationController
                    .where(id: shop_ids)
                    .group("shops.id")
                    .index_by(&:id)
+
+    @shop_rate = Shop
+                 .select("shops.id, AVG(reviews.rate) AS reviews_average")
+                 .left_joins(parfaits: :reviews)
+                 .where(id: shop_ids)
+                 .group("shops.id")
+                 .index_by(&:id)
   end
 
   def new
@@ -68,6 +75,7 @@ class ShopsController < ApplicationController
                      .includes(:user)
                      .order(created_at: :desc)
     @bookmark_counts = Bookmark.where(review_id: @reviews.map(&:id)).group(:review_id).count
+    @review_rate = @reviews.average(:rate)
   end
 
   def destroy

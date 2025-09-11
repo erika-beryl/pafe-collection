@@ -11,12 +11,21 @@ class ParfaitsController < ApplicationController
                       .where(id: parfait_ids)
                       .group("parfaits.id")
                       .index_by(&:id)
+
+    @parfait_rate = Parfait
+                    .select("parfaits.id, AVG(reviews.rate) AS reviews_average")
+                    .left_joins(:reviews)
+                    .where(id: parfait_ids)
+                    .group("parfaits.id")
+                    .index_by(&:id)
   end
 
   def show
     load_parfait
+    @parfait_reviews_count = @parfait.reviews.count
     @reviews = @parfait.reviews.order(created_at: :desc)
     @bookmark_counts = Bookmark.where(review_id: @reviews.map(&:id)).group(:review_id).count
+    @review_rate = @reviews.average(:rate)
   end
 
   def new
