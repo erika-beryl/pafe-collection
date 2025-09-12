@@ -66,7 +66,7 @@ class ShopsController < ApplicationController
     @shop_parfait_reviews_count = @shop.parfaits.joins(:reviews).count
     @parfaits = @shop.parfaits
                      .left_joins(:reviews)
-                     .select('parfaits.*, COUNT(reviews.id) AS reviews_count')
+                     .select('parfaits.*, COUNT(reviews.id) AS reviews_count, AVG(reviews.rate) AS reviews_average')
                      .group('parfaits.id')
                      .order(created_at: :desc)
     # 店舗毎のレビューを取得するので以下のようにします

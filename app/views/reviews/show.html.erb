@@ -5,7 +5,7 @@
       <h2>レビュー詳細</h2>
       <div class="d-flex align-items-end mb-2 mt-2">
         <div id="review-<%= @review.id %>-rating" data-score="<%= @review.rate %>"></div>
-        <span class="ms-2 text-muted small"><%= @review.rate %> / 5.0</span>
+        <span class="ms-2"><%= @review.rate %></span>
       </div>
       <% if @review.review_images.present? %>
         <div class="swiper">
