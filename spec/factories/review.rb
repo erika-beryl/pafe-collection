@@ -5,6 +5,7 @@ FactoryBot.define do
 
     title { "テストレビュー" }
     body { "美味しかった" }
+    rate { "3" }
 
     trait :with_review_image do
       after(:build) do |review|

@@ -49,11 +49,21 @@
               <div>期間限定商品</div>
             <% else %>
               <div>レギュラー商品</div>
-            <% end %> 
-            <div>評価：</div>
-            <div title="評価機能は後で実装予定です！お楽しみに！", class="star-size">☆☆☆☆☆</div>
+            <% end %>
             <% counts = @parfait_counts[parfait.id] %>
-            <p>レビュー： <%= counts&.reviews_count || 0 %>件</p>
+            <% if @parfait_rate[parfait.id]&.reviews_average.present? %>
+              <div class="d-flex align-items-end mb-2 mt-2">
+                <div id="review-<%= parfait.id %>-rating" data-score="<%= @parfait_rate[parfait.id]&.reviews_average.to_f.round(1) %>"></div>
+                <div class="ms-2">
+                  <%= @parfait_rate[parfait.id].reviews_average.to_f.round(1) %>
+                </div>
+                <div class="ms-1 text-muted">
+                  (<%= counts&.reviews_count %>件)
+                </div>
+              </div>
+            <% else %>
+              未評価（0件）
+            <% end %>
           </div>
         </div>
 

@@ -14,6 +14,11 @@ Swiper.use([Navigation, Pagination, Scrollbar]);
 
 window.bootstrap = bootstrap;
 
+import "./raty";
+import "./raty_init";
+import Raty from "./raty";
+window.Raty = Raty;
+
 document.addEventListener('turbo:load', () => {
   const swiper = new Swiper('.swiper', {
     loop: true,

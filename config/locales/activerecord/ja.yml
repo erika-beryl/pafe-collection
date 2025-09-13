@@ -41,6 +41,7 @@ ja:
       review:
         title: タイトル
         body: コメント
+        rate: 星評価
   enums:
     parfait:
       price:

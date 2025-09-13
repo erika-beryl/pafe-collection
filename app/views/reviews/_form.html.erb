@@ -1,5 +1,9 @@
 <%= form_with model: review, url: review.persisted? ? review_path(review) : reviews_path, local: true, multiple: true, class: "new_parfait mt-4" do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+
+  <div id="review-rating"></div>
+  <%= f.hidden_field :rate, value: '', id: "review_rate" %>
+
   <div class="mb-3">
     <%= f.label :title, class: "must-form" %>
     <%= f.text_field :title, class: "form-control" %>
