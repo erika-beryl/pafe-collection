@@ -85,6 +85,16 @@ RSpec.describe 'Reviews', type: :system do
           expect(current_path).to eq reviews_path
         end
       end
+
+      context '星評価が未入力' do
+        it 'レビューの新規登録が失敗する' do
+          fill_in 'タイトル', with: 'test_review'
+          fill_in 'コメント', with: 'test_comment'
+          click_button '登録'
+          expect(page).to have_content '星評価を入力してください'
+          expect(current_path).to eq reviews_path
+        end
+      end
     end
 
     describe 'レビュー編集' do
