@@ -55,6 +55,7 @@ RSpec.describe 'Reviews', type: :system do
         it 'レビューの新規作成が成功する' do
           fill_in 'タイトル', with: 'test_review'
           fill_in 'コメント', with: 'test_comment'
+          find('input[name="review[rate]"]', visible: false).set(3)
           click_button '登録'
           expect(page).to have_content 'レビューが投稿されました'
           expect(current_path).to eq parfait_path(Review.last.parfait)
@@ -65,6 +66,7 @@ RSpec.describe 'Reviews', type: :system do
         it 'レビューの新規作成が失敗する' do
           fill_in 'タイトル', with: ''
           fill_in 'コメント', with: 'test_comment'
+          find('input[name="review[rate]"]', visible: false).set(3)
           click_button '登録'
           expect(page).to have_content 'レビューを作成できませんでした'
           expect(page).to have_content 'タイトルを入力してください'
@@ -76,6 +78,7 @@ RSpec.describe 'Reviews', type: :system do
         it 'レビューの新規登録が失敗する' do
           fill_in 'タイトル', with: 'test_review'
           fill_in 'コメント', with: 'a' * 501
+          find('input[name="review[rate]"]', visible: false).set(3)
           click_button '登録'
           expect(page).to have_content 'レビューを作成できませんでした'
           expect(page).to have_content 'コメントは500文字以内で入力してください'
@@ -90,6 +93,7 @@ RSpec.describe 'Reviews', type: :system do
       context 'フォームの入力値が正常' do
         it 'レビューの編集が成功する' do
           fill_in 'タイトル', with: 'updated_title'
+          find('input[name="review[rate]"]', visible: false).set(4)
           click_button '登録'
           expect(page).to have_content 'updated_title'
           expect(page).to have_content 'レビューが更新されました'
@@ -101,6 +105,7 @@ RSpec.describe 'Reviews', type: :system do
         it 'レビューの編集が失敗する' do
           fill_in 'タイトル', with: ''
           fill_in 'コメント', with: 'update_body'
+          find('input[name="review[rate]"]', visible: false).set(4)
           click_button '登録'
           expect(page).to have_content 'タイトルを入力してください'
           expect(page).to have_content 'レビューを更新できませんでした '

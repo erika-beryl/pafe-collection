@@ -5,7 +5,7 @@ class Review < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :body, presence: true, length: { maximum: 500 }
   validates :rate, presence: true,
-                   numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
+                   numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5, message: "を選択してください" }
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_users, through: :bookmarks, source: :user
