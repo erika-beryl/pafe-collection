@@ -20,15 +20,16 @@ class Raty {
       readOnly: false,
       score: undefined,
       scoreName: 'review[rate]', // フォームで使用するフィールド名
-      starHalf: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starOn: "<%= asset_path('star-half.png') %>",
+      starHalf: null,
+      starOff: null,
+      starOn: null,
       target: "#review_rate",
       targetKeep: true,
     };
   }
 
   init() {
+    this._setImagePaths();
     this._setPath();
     this._createStars();
     this._createScoreField();
@@ -40,6 +41,15 @@ class Raty {
     }
 
     this.setScore(this.opt.score);
+  }
+
+  _setImagePaths() {
+    const config = document.getElementById('raty-config');
+    if (config) {
+      this.opt.starHalf = this.opt.starHalf || config.dataset.starHalf;
+      this.opt.starOff = this.opt.starOff || config.dataset.starOff;
+      this.opt.starOn = this.opt.starOn || config.dataset.starOn;
+    }
   }
 
   setScore(score) {
