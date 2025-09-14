@@ -1,7 +1,5 @@
 import Raty from "./raty";
 
-import Raty from "./raty";
-
 document.addEventListener("turbo:load", () => {
   console.log("DOMContentLoaded イベント発火");
 
