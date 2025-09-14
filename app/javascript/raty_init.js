@@ -19,9 +19,6 @@ document.addEventListener("turbo:load", () => {
   document.querySelectorAll("[id^='review-'][id$='-rating']").forEach(el => {
     if (!el.dataset.ratyInitialized) {
       new Raty(el, {
-        starOn: "/assets/star-on.png",
-        starOff: "/assets/star-off.png",
-        starHalf: "/assets/star-half.png",
         readOnly: true,
         score: el.dataset.score || 0
       });
