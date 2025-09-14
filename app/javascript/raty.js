@@ -20,9 +20,9 @@ class Raty {
       readOnly: false,
       score: undefined,
       scoreName: 'review[rate]', // フォームで使用するフィールド名
-      starHalf: '/assets/star-half.png',
-      starOff: '/assets/star-off.png',
-      starOn: '/assets/star-on.png',
+      starHalf: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starOn: "<%= asset_path('star-half.png') %>",
       target: "#review_rate",
       targetKeep: true,
     };
