@@ -10,15 +10,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
     <%= display_meta_tags(default_meta_tags) %>
+    <meta name="asset-star-on.png" content="<%= asset_path('star-on.png') %>">
+    <meta name="asset-star-off.png" content="<%= asset_path('star-off.png') %>">
+    <meta name="asset-star-half.png" content="<%= asset_path('star-half.png') %>">
   </head>
 
   <body>
-    <div id="raty-config" 
-      data-star-half="<%= asset_path('star-half.png') %>"
-      data-star-off="<%= asset_path('star-off.png') %>"
-      data-star-on="<%= asset_path('star-on.png') %>"
-      style="display: none;">
-    </div>
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
     <%= breadcrumbs separator: " &rsaquo; ", class: "breadcrum-wrapper" %>
