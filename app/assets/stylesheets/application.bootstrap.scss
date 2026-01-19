@@ -11,9 +11,8 @@
 @use 'review';
 
 
-/* 暫定的に入れてるクラス。後で消します */
-.star-size {
-  font-size: 2rem;
+main {
+  min-height: 100svh;
 }
 
 /* フォームの背景 */
