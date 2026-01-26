@@ -170,3 +170,11 @@ table {
     overflow-y: auto;   // 縦スクロール出す
   }
 }
+
+/* アイコンの大きさのメディアクエリ */
+@media (min-width: 992px) {
+  .header .rounded-circle {
+    width: 70px !important;
+    height: 70px !important;
+  }
+}
