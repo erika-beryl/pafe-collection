@@ -3,7 +3,7 @@ import Raty from "./raty";
 document.addEventListener("turbo:load", () => {
   console.log("DOMContentLoaded イベント発火");
 
-  // アセットパスを取得する関数
+  // アセットパスを取得する関数。metaタグから取得
   const getAssetPath = (filename) => {
     const meta = document.querySelector(`meta[name="asset-${filename}"]`);
     return meta ? meta.content : `/assets/${filename}`;

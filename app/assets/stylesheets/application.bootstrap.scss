@@ -11,9 +11,8 @@
 @use 'review';
 
 
-/* 暫定的に入れてるクラス。後で消します */
-.star-size {
-  font-size: 2rem;
+main {
+  min-height: 100svh;
 }
 
 /* フォームの背景 */
@@ -169,5 +168,13 @@ table {
     z-index: 1000;      // 他の要素より前面に表示
     max-height: 200px;  // 高さ制限
     overflow-y: auto;   // 縦スクロール出す
+  }
+}
+
+/* アイコンの大きさのメディアクエリ */
+@media (min-width: 992px) {
+  .header .rounded-circle {
+    width: 70px !important;
+    height: 70px !important;
   }
 }
