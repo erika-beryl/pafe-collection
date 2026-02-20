@@ -25,7 +25,7 @@
     "postcss-cli": "^11.0.0",
     "sass": "^1.86.3",
     "stimulus-autocomplete": "^3.1.0",
-    "swiper": "^11.2.6"
+    "swiper": "^12.1.2"
   },
   "browserslist": [
     "defaults"
