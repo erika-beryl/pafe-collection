@@ -172,9 +172,20 @@ table {
 }
 
 /* アイコンの大きさのメディアクエリ */
+
+.logo {
+  height: 48px;
+}
+
+/* PCサイズ */
 @media (min-width: 992px) {
   .header .rounded-circle {
     width: 70px !important;
     height: 70px !important;
   }
+
+  .logo {
+    height: 80px;
+  }
 }
+
