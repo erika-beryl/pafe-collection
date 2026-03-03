@@ -1,18 +1,24 @@
 <%= search_form_for q, url: url do |f| %>
-  <div class="input-group mb-3">
-    <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_shops_path %>" role="combobox">
-      <%= f.search_field :name_cont,
-            class: 'form-control',
-            placeholder: "店舗名",
-            data: { autocomplete_target: 'input' } %>
-      <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
-      <ul class="list-group" data-autocomplete-target="results"></ul>
+  <div class="row g-1 mb-3">
+    <div class="col-12 col-md">
+      <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_shops_path %>" role="combobox">
+        <%= f.search_field :name_cont,
+              class: 'form-control',
+              placeholder: "店舗名",
+              data: { autocomplete_target: 'input' } %>
+        <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
+        <ul class="list-group" data-autocomplete-target="results"></ul>
+      </div>
     </div>
-    <div class="flex-fill">
-      <%= f.search_field :full_address_cont, class: 'form-control', placeholder: "住所" %>
+    <div class="col-12 col-md">  
+      <div class="flex-fill">
+        <%= f.search_field :full_address_cont, class: 'form-control', placeholder: "住所" %>
+      </div>
     </div>
-    <div class="flex-shrink-0">
-      <%= f.submit class: 'btn btn-primary' %>
+    <div class="col-md-auto">
+      <div class="flex-shrink-0">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
     </div>
   </div>
 <% end %>
